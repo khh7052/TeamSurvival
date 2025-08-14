@@ -13,7 +13,7 @@ public class GameManager : Singleton<GameManager>
     public void GameStart()
     {
 
-
+        Factory.Instance.CreateByID<BaseScriptableObject>(0);
         /* Test Area
         UIManager.Instance.ShowUI<TestConditionUI>();
 
@@ -29,27 +29,14 @@ public class GameManager : Singleton<GameManager>
         {
             ObjectPoolingManager.Instance.Get(Resources.Load<GameObject>("Test/obj3"), Vector3.zero);
         }
-        Invoke("test", 3f);
         */
+        Invoke("test", 3f);
     }
 
-    /* Test Area
     public void test()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            GameObject go = ObjectPoolingManager.Instance.Get(Resources.Load<GameObject>("Test/obj1"), Vector3.zero);
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            ObjectPoolingManager.Instance.Get(Resources.Load<GameObject>("Test/obj2"), Vector3.zero);
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            ObjectPoolingManager.Instance.Get(Resources.Load<GameObject>("Test/obj3"), Vector3.zero);
-        }
+        Factory.Instance.CreateByID<BaseScriptableObject>(0);
     }
-    */
     public void PauseGame()
     {
 
