@@ -593,6 +593,7 @@ GameObject:
   - component: {fileID: 617371568}
   - component: {fileID: 617371569}
   - component: {fileID: 617371572}
+  - component: {fileID: 617371573}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -646,16 +647,16 @@ MonoBehaviour:
   moveSpeed: 3
   lookSpeed: 5
   attackEnabled: 1
-  targetObject: {fileID: 2141918900}
-  limitMoveRange: 15
   detectDistance: 10
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 16
   updateInterval: 0.5
+  targetObject: {fileID: 2141918900}
   minFleeDistance: 5
   maxFleeDistance: 10
   homePoint: {fileID: 191107253}
+  limitMoveRange: 15
   attackDistance: 5
   attackDelay: 1
   attackDamage: 1
@@ -711,6 +712,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 1264364895}
+--- !u!114 &617371573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617371567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5b091178ce818843a5f4b8ec4206216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &621172763
 GameObject:
   m_ObjectHideFlags: 0

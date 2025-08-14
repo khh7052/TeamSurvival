@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public static class Utility
 {
@@ -68,6 +70,38 @@ public static class Utility
 
     public static bool IsTargetInDistance(this Transform self, Transform target, float distance)
         => Vector3.Distance(self.position, target.position) < distance;
+
+    // 적으로부터 도망가는 위치를 계산하는 메서드
+    public static Vector3 GetFleePositionFrom(this Transform self, Transform enemy, float minDistance, float maxDistance)
+    {
+        Vector3 fleeDirection = (self.position - enemy.position).normalized;
+        float fleeDistance = Random.Range(minDistance, maxDistance);
+        Vector3 fleePosition = self.position + fleeDirection * fleeDistance;
+
+        if (NavMesh.SamplePosition(fleePosition, out NavMeshHit hit, maxDistance, NavMesh.AllAreas))
+            return hit.position;
+        else
+        {
+            int i = 0;
+            while (i < 10) // 최대 10번 시도
+            {
+                fleeDistance = Random.Range(minDistance, maxDistance);
+                fleePosition = self.position + fleeDirection * fleeDistance;
+
+                if (NavMesh.SamplePosition(fleePosition, out hit, maxDistance, NavMesh.AllAreas))
+                    return hit.position;
+
+                i++;
+            }
+        }
+
+        return self.position;
+    }
+
+    public static Vector3 ClampDistanceFrom(this Vector3 self, Vector3 from, float limitDistance)
+        => Vector3.ClampMagnitude(self - from, limitDistance) + from;
+
+
 
     #endregion
 }
