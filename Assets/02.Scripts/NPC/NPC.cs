@@ -17,6 +17,7 @@ public class NPC : MonoBehaviour, IInteractable
     [SerializeField] private int health;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
+    [SerializeField] private float lookSpeed;
 
     [Header("AI Settings")]
     private NavMeshAgent agent;
@@ -25,11 +26,10 @@ public class NPC : MonoBehaviour, IInteractable
     private Vector3 targetPos;
 
     [SerializeField] private float detectDistance;
-
-    [SerializeField] private LayerMask playerLayerMask;
     [SerializeField] private LayerMask enemyLayerMask;
     private Transform nearestEnemyObject;
     [SerializeField] private float updateInterval = 0.2f; // 적 탐색 주기
+    private float playerDistance;
 
     [Header("Flee")]
     [SerializeField] private float minFleeDistance;
@@ -38,7 +38,6 @@ public class NPC : MonoBehaviour, IInteractable
     [Header("Return")]
     [SerializeField] private Transform homePoint; // 귀환 지점
 
-    private float playerDistance;
 
 
     private void Awake()
@@ -67,22 +66,24 @@ public class NPC : MonoBehaviour, IInteractable
 
         aiState = state;
 
-        agent.isStopped = aiState == AIState.Idle;
-
         switch (aiState)
         {
             case AIState.Idle:
+                targetPos = transform.position;
                 break;
             case AIState.Flee:
-                FleeToNewLocation();
+                targetPos = GetFleeLocation(nearestEnemyObject);
                 break;
             case AIState.Attacking:
-                //agent.SetDestination(targetPos);
+
                 break;
             case AIState.Return:
-                agent.SetDestination(homePoint.position);
+                targetPos = homePoint.position;
                 break;
         }
+
+        agent.isStopped = aiState == AIState.Idle;
+        agent.SetDestination(targetPos);
     }
 
     // 업데이트하면서 조건검사하고 상태변경
@@ -105,6 +106,8 @@ public class NPC : MonoBehaviour, IInteractable
                 ReturnUpdate();
                 break;
         }
+
+        agent.SetDestination(targetPos);
     }
 
     void IdleUpdate()
@@ -117,6 +120,10 @@ public class NPC : MonoBehaviour, IInteractable
         }
 
         // 일정 범위 내에 플레이어가 있으면 바라보기
+        if(playerDistance <= detectDistance)
+        {
+            LookTarget(targetObject);
+        }
     }
 
     void FleeUpdate()
@@ -124,7 +131,7 @@ public class NPC : MonoBehaviour, IInteractable
         // 주변에 적이 있으면 도망치기
         if (nearestEnemyObject != null)
         {
-            FleeToNewLocation();
+            targetPos = GetFleeLocation(nearestEnemyObject);
         }
         // 없을 때, 도망친 곳까지 이동하면 복귀
         else
@@ -149,11 +156,19 @@ public class NPC : MonoBehaviour, IInteractable
         }
     }
 
-
-    void FleeToNewLocation()
+    // NPC가 바라보기
+    void LookTarget(Transform target)
     {
-        SetState(AIState.Flee);
-        agent.SetDestination(GetFleeLocation(nearestEnemyObject));
+        if (target == null) return;
+
+        Vector3 direction = target.position - transform.position;
+        direction.y = 0;
+        direction.Normalize();
+
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+
+        if (Quaternion.Angle(transform.rotation, lookRotation) >= 1f)
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookSpeed);
     }
 
     // 적 탐색하기
