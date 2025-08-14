@@ -66,5 +66,8 @@ public static class Utility
             self.rotation = Quaternion.Slerp(self.rotation, lookRotation, Time.deltaTime * lookSpeed);
     }
 
+    public static bool IsTargetInDistance(this Transform self, Transform target, float distance)
+        => Vector3.Distance(self.position, target.position) < distance;
+
     #endregion
 }

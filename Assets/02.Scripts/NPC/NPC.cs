@@ -20,6 +20,7 @@ public class NPC : MonoBehaviour, IInteractable
     [SerializeField] private float lookSpeed;
 
     [Header("AI Settings")]
+    public bool attackEnabled = true; // 공격 기능 활성화 여부
     private NavMeshAgent agent;
     private AIState aiState;
     [SerializeField] private Transform targetObject;
@@ -37,6 +38,14 @@ public class NPC : MonoBehaviour, IInteractable
 
     [Header("Return")]
     [SerializeField] private Transform homePoint; // 귀환 지점
+
+    [Header("Attack")]
+    [SerializeField] private float attackDistance = 5f; // 공격 범위
+    [SerializeField] private float attackDelay = 1f; // 공격 쿨타임
+    [SerializeField] private int attackDamage = 1; // 공격력
+    private float lastAttackTime; // 마지막 공격 시간
+
+
 
 
 
@@ -75,7 +84,7 @@ public class NPC : MonoBehaviour, IInteractable
                 targetPos = GetFleeLocation(nearestEnemyObject);
                 break;
             case AIState.Attack:
-
+                targetPos = nearestEnemyObject != null ? nearestEnemyObject.position : transform.position;
                 break;
             case AIState.Return:
                 targetPos = homePoint.position;
@@ -100,7 +109,7 @@ public class NPC : MonoBehaviour, IInteractable
                 FleeUpdate();
                 break;
             case AIState.Attack:
-                // AttackingUpdate();
+                AttackUpdate();
                 break;
             case AIState.Return:
                 ReturnUpdate();
@@ -115,7 +124,10 @@ public class NPC : MonoBehaviour, IInteractable
         // 일정 범위 내에 적이 있으면 도망 or 공격상태로 변환
         if(nearestEnemyObject != null)
         {
-            SetState(AIState.Flee);
+            if(attackEnabled)
+                SetState(AIState.Attack);
+            else
+                SetState(AIState.Flee);
             return;
         }
 
@@ -141,12 +153,43 @@ public class NPC : MonoBehaviour, IInteractable
         }
     }
 
+    void AttackUpdate()
+    {
+        if(nearestEnemyObject == null)
+        {
+            SetState(AIState.Return);
+            return;
+        }
+
+        // 적을 향해 바라보면서 이동
+        LookTarget(nearestEnemyObject);
+
+        // 공격 범위 적이 있으면 공격
+        if (transform.IsTargetInDistance(nearestEnemyObject, attackDistance))
+        {
+            targetPos = transform.position;
+            // 공격 쿨타임이 끝나면 공격
+            if (lastAttackTime + attackDelay < Time.time)
+            {
+                lastAttackTime = Time.time;
+                Debug.Log($"{npcName}이(가) {nearestEnemyObject.name}을(를) 공격합니다.");
+            }
+        }
+        else
+        {
+            targetPos = nearestEnemyObject.position;
+        }
+    }
+
     void ReturnUpdate()
     {
         // 귀환 도중 적 발견하면 도망치기
         if (nearestEnemyObject != null)
         {
-            SetState(AIState.Flee);
+            if (attackEnabled)
+                SetState(AIState.Attack);
+            else
+                SetState(AIState.Flee);
         }
         // 귀환 지점에 도착하면 Idle 상태로 변경
         else
@@ -238,15 +281,18 @@ public class NPC : MonoBehaviour, IInteractable
         return interactPrompt;
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectDistance);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackDistance);
         if (nearestEnemyObject != null)
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(transform.position, nearestEnemyObject.position);
         }
+
     }
 
 
