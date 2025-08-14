@@ -10,8 +10,6 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
 
-    
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -33,10 +31,10 @@ public class PlayerController : MonoBehaviour
 
     private void CameraLook()
     {
-        
+
     }
 
-    private void Jump()
+    private void Jump() //점프로직
     {
         rb.AddForce(Vector2.up * model.jumpPower, ForceMode.Impulse);
     }
@@ -60,9 +58,30 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started)
+        if(context.phase == InputActionPhase.Started && IsGrounded())
         {
             Jump();
         }
+    }
+
+    private bool IsGrounded() //땅에 있는지 체크해서 bool값으로 반환하는 함수
+    {
+        //Ray[] rays = new Ray[4]
+        //{
+        //    new Ray(transform.position + (transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
+        //    new Ray(transform.position + (-transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
+        //    new Ray(transform.position + (transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down),
+        //    new Ray(transform.position + (-transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down)
+        //};
+
+        //for(int i = 0; i < rays.Length; i++)
+        //{
+        //    if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
+        //    {
+        //        return true;
+        //    }
+        //}
+        //return false;
+        return true;
     }
 }
