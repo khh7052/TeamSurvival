@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BaseUI : MonoBehaviour
 {
+
     public virtual void OnEnable()
     {
 
