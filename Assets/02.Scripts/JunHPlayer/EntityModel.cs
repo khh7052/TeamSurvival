@@ -43,19 +43,16 @@ public class EntityModel : MonoBehaviour, IDamageable
     public void Heal(float amount)
     {
         health.Add(amount);
-        OnChangeStatuses?.Invoke();
     }
 
     public void Eat(float amount)
     {
         hunger.Add(amount);
-        OnChangeStatuses?.Invoke();
     }
 
     public void Drink(float amount)
     {
         thirst.Add(amount);
-        OnChangeStatuses?.Invoke();
     }
 
     public void Die()

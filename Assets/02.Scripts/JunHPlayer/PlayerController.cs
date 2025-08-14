@@ -1,12 +1,22 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
 
 public class PlayerController : MonoBehaviour
 {
     EntityModel model;
-    //PlayerView view;
 
     public Vector2 curMovementInput;
+    public LayerMask groundLayerMask;
+
+    [Header("Look")]
+    public Transform cameraContainer;
+    public float minXLook;
+    public float maxXLook;
+    private float camCurXRot;
+    public float lookSensitivity;
+    private Vector2 mouseDelta;
+    public bool canLook = true;
 
     private Rigidbody rb;
 
@@ -16,10 +26,24 @@ public class PlayerController : MonoBehaviour
         model = GetComponent<EntityModel>();
     }
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     private void FixedUpdate()
     {
         Move();
     }
+
+    private void LateUpdate()
+    {
+        if(canLook)
+        {
+            CameraLook();
+        }
+    }
+
     private void Move() //이동로직
     {
         Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
@@ -31,7 +55,11 @@ public class PlayerController : MonoBehaviour
 
     private void CameraLook()
     {
+        camCurXRot += mouseDelta.y * lookSensitivity;
+        camCurXRot = Mathf.Clamp(camCurXRot, minXLook, maxXLook);
+        cameraContainer.localEulerAngles = new Vector3(-camCurXRot, 0, 0);
 
+        transform.eulerAngles += new Vector3(0, mouseDelta.x * lookSensitivity, 0);
     }
 
     private void Jump() //점프로직
@@ -53,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        
+        mouseDelta = context.ReadValue<Vector2>();
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -66,22 +94,21 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded() //땅에 있는지 체크해서 bool값으로 반환하는 함수
     {
-        //Ray[] rays = new Ray[4]
-        //{
-        //    new Ray(transform.position + (transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
-        //    new Ray(transform.position + (-transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
-        //    new Ray(transform.position + (transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down),
-        //    new Ray(transform.position + (-transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down)
-        //};
+        Ray[] rays = new Ray[4]
+        {
+            new Ray(transform.position + (transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
+            new Ray(transform.position + (-transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
+            new Ray(transform.position + (transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down),
+            new Ray(transform.position + (-transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down)
+        };
 
-        //for(int i = 0; i < rays.Length; i++)
-        //{
-        //    if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
-        //    {
-        //        return true;
-        //    }
-        //}
-        //return false;
-        return true;
+        for (int i = 0; i < rays.Length; i++)
+        {
+            if (Physics.Raycast(rays[i], 1f, groundLayerMask))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
