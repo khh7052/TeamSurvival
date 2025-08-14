@@ -6,5 +6,4 @@ using UnityEngine;
 public class DialogueData : BaseScriptableObject
 {
     public DialogueLine[] lines; // 대사 목록
-
 }
