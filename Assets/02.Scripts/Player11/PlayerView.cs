@@ -21,66 +21,71 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private Slider thirstSlider;
     [SerializeField] private TMP_Text thirstText;
 
+    [Header("Stamina")]
+    [SerializeField] private Slider staminaSlider;
+    [SerializeField] private TMP_Text staminaText;
 
+    private EntityModel model;
 
-    // EntityModel 추가시 밑 주석처리 제거
+    public void Initialize(EntityModel model)
+    {
+        if (this.model != null)
+            this.model.OnChangeStatuses -= OnChangeStatuses;
 
+        this.model = model;
 
+        if (this.model != null)
+            this.model.OnChangeStatuses += OnChangeStatuses;
 
-    //private EntityModel model;
+        OnChangeStatuses();
+    }
 
-    //public void Initialize(EntityModel model)
-    //{
-    //    if (this.model != null)
-    //        this.model.OnChangeStatuses -= OnChangeStatuses;
+    public void OnChangeStatuses()
+    {
+        if (model == null) return;
 
-    //    this.model = model;
+        //체력
+        if (hpSlider != null)
+        {
+            hpSlider.maxValue = model.health.MaxValue;
+            hpSlider.value = Mathf.Clamp(model.health.CurValue, 0f, model.health.MaxValue);
+        }
+        if (hpText != null)
+            hpText.text = $"{Mathf.RoundToInt(model.health.CurValue)}/{Mathf.RoundToInt(model.health.MaxValue)}";
 
-    //    if (this.model != null)
-    //        this.model.OnChangeStatuses += OnChangeStatuses;
+        //이동속도
+        if (moveSpeedText != null)
+            moveSpeedText.text = $"{model.moveSpeed:0.##}";
 
-    //    OnChangeStatuses();
-    //}
+        //배고픔
+        if (hungerSlider != null)
+        {
+            hungerSlider.maxValue = model.hunger.MaxValue;
+            hungerSlider.value = Mathf.Clamp(model.hunger.CurValue, 0f, model.hunger.MaxValue);
+        }
+        if (hungerText != null)
+            hungerText.text = $"{model.hunger.CurValue:0}";
 
-    //public void OnChangeStatuses()
-    //{
-    //    if (model == null) return;
+        //목마름
+        if (thirstSlider != null)
+        {
+            thirstSlider.maxValue = model.thirst.MaxValue;
+            thirstSlider.value = Mathf.Clamp(model.thirst.CurValue, 0f, model.thirst.MaxValue);
+        }
+        if (thirstText != null)
+            thirstText.text = $"{model.thirst.CurValue:0}";
 
-    //    //체력
-    //    if (hpSlider != null)
-    //    {
-    //        hpSlider.maxValue = model.maxHP;
-    //        hpSlider.value = Mathf.Clamp(model.currentHP, 0f, model.maxHP);
-    //    }
-    //    if (hpText != null)
-    //        hpText.text = $"{Mathf.RoundToInt(model.currentHP)}/{Mathf.RoundToInt(model.maxHP)}";
+        //스테미너
+        if(staminaSlider != null)
+        {
+            staminaSlider.maxValue = model.stamina.MaxValue;
+            staminaSlider.value = Mathf.Clamp(model.stamina.CurValue, 0f, model.stamina.MaxValue);
+        }
+    }
 
-    //    //이동속도
-    //    if (moveSpeedText != null)
-    //        moveSpeedText.text = $"{model.moveSpeed:0.##}";
-
-    //    //배고픔
-    //    if (hungerSlider != null)
-    //    {
-    //        hungerSlider.maxValue = model.maxHunger;
-    //        hungerSlider.value = Mathf.Clamp(model.hunger, 0f, model.maxHunger);
-    //    }
-    //    if (hungerText != null)
-    //        hungerText.text = $"{model.hunger:0}";
-
-    //    //목마름
-    //    if (thirstSlider != null)
-    //    {
-    //        thirstSlider.maxValue = model.maxThirst;
-    //        thirstSlider.value = Mathf.Clamp(model.thirst, 0f, model.maxThirst);
-    //    }
-    //    if (thirstText != null)
-    //        thirstText.text = $"{model.thirst:0}";
-    //}
-
-    //private void OnDestroy()
-    //{
-    //    if (model != null)
-    //        model.OnChangeStatuses -= OnChangeStatuses;
-    //}
+    private void OnDestroy()
+    {
+        if (model != null)
+            model.OnChangeStatuses -= OnChangeStatuses;
+    }
 }
