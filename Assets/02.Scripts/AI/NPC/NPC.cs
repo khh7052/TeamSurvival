@@ -150,6 +150,4 @@ public class NPC : MonoBehaviour, IInteractable
             Gizmos.DrawWireSphere(homePoint.position, limitMoveRange);
         }
     }
-
-
 }
