@@ -648,6 +648,7 @@ MonoBehaviour:
   lookSpeed: 5
   attackEnabled: 1
   targetObject: {fileID: 2141918900}
+  limitMoveRange: 15
   detectDistance: 10
   enemyLayerMask:
     serializedVersion: 2

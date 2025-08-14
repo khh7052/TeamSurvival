@@ -26,7 +26,8 @@ public class NPC : MonoBehaviour, IInteractable
     [SerializeField] private Transform targetObject;
     private Vector3 targetPos;
 
-    [SerializeField] private float detectDistance;
+    [SerializeField] private float limitMoveRange = 10f; // NPC가 이동할 수 있는 최대 거리
+    [SerializeField] private float detectDistance; // NPC가 플레이어를 인식하는 거리
     [SerializeField] private LayerMask enemyLayerMask;
     private Transform nearestEnemyObject;
     [SerializeField] private float updateInterval = 0.2f; // 적 탐색 주기
@@ -116,6 +117,7 @@ public class NPC : MonoBehaviour, IInteractable
                 break;
         }
 
+        targetPos = Vector3.ClampMagnitude(targetPos - homePoint.position, limitMoveRange);
         agent.SetDestination(targetPos);
     }
 
@@ -283,15 +285,25 @@ public class NPC : MonoBehaviour, IInteractable
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.blue;
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectDistance);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackDistance);
-        if (nearestEnemyObject != null)
+
+        if (nearestEnemyObject)
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(transform.position, nearestEnemyObject.position);
         }
+
+        if (homePoint)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(homePoint.position, limitMoveRange);
+            Gizmos.DrawLine(homePoint.position, transform.position);
+        }
+        
 
     }
 
