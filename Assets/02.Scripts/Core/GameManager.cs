@@ -34,28 +34,41 @@ public class GameManager : Singleton<GameManager>
     {
 
         Factory.Instance.CreateByID<BaseScriptableObject>(0);
-        /* Test Area
+        // Test Area
         UIManager.Instance.ShowUI<TestConditionUI>();
 
         for(int i = 0; i < 10; i++)
         {
-            GameObject go = ObjectPoolingManager.Instance.Get(Resources.Load<GameObject>("Test/obj1"), Vector3.zero);
+
+            Factory.Instance.CreateByID<BaseScriptableObject>(0);
         }
         for (int i = 0; i < 10; i++)
         {
-            ObjectPoolingManager.Instance.Get(Resources.Load<GameObject>("Test/obj2"), Vector3.zero);
+            Factory.Instance.CreateByID<BaseScriptableObject>(1);
         }
         for (int i = 0; i < 10; i++)
         {
-            ObjectPoolingManager.Instance.Get(Resources.Load<GameObject>("Test/obj3"), Vector3.zero);
+            Factory.Instance.CreateByID<BaseScriptableObject>(2);
         }
-        */
+        
         Invoke("test", 3f);
     }
 
     public void test()
     {
-        Factory.Instance.CreateByID<BaseScriptableObject>(0);
+        for (int i = 0; i < 5; i++)
+        {
+
+            Factory.Instance.CreateByID<BaseScriptableObject>(0);
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            Factory.Instance.CreateByID<BaseScriptableObject>(1);
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            Factory.Instance.CreateByID<BaseScriptableObject>(2);
+        }
     }
     public void PauseGame()
     {
