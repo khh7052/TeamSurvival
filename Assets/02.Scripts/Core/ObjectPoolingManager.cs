@@ -6,6 +6,16 @@ public class ObjectPoolingManager : Singleton<ObjectPoolingManager>
 {
     private Dictionary<GameObject, Queue<GameObject>> poolDictionary = new();
     private Dictionary<GameObject, GameObject> instanceToPrefab = new();
+    public bool _quitting;
+    public bool IsInitialized { get; private set; }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        poolDictionary.Clear();
+        instanceToPrefab.Clear();
+        
+    }
 
     protected override void Initialize()
     {
@@ -42,6 +52,11 @@ public class ObjectPoolingManager : Singleton<ObjectPoolingManager>
     }
 
     public GameObject Get(GameObject prefab, Vector3 position) => Get(prefab, position, Quaternion.identity);
+    
+    private void OnApplicationQuit()
+    {
+        _quitting = true;
+    }
 
     public void Return(GameObject instance)
     {
@@ -52,7 +67,7 @@ public class ObjectPoolingManager : Singleton<ObjectPoolingManager>
             if (!poolDictionary.ContainsKey(prefab))
                 poolDictionary[prefab] = new();
 
-            // Áßº¹ ¹æÁö
+            // ì¤‘ë³µ ë°©ì§€
             if (!poolDictionary[prefab].Contains(instance))
             {
                 instance.SetActive(false);

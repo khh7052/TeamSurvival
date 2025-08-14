@@ -4,11 +4,15 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
     [SerializeField] private bool dontDestroyOnLoad = true;
-
+    private static bool applicationIsQuitting = false;
     public static T Instance
     {
         get
         {
+            if (applicationIsQuitting)
+            {
+                return null;
+            }
             if (instance == null)
             {
                 instance = FindObjectOfType<T>();
@@ -44,5 +48,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         if (instance == this)
             instance = null;
+        applicationIsQuitting = true;
     }
 }

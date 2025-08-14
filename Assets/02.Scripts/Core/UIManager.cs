@@ -21,8 +21,6 @@ public class UIManager : Singleton<UIManager>
             parent = mainCanvas;
         }
 
-        Debug.Log(className);
-        Debug.Log(path);
         try 
         {
             if (uiInstances.ContainsKey(className))

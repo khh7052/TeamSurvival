@@ -6,6 +6,9 @@ public class AutoReturnObject : MonoBehaviour
 {
     protected virtual void OnDisable()
     {
-        ObjectPoolingManager.Instance.Return(gameObject);
+        var pool = ObjectPoolingManager.Instance;
+        if (pool == null || pool._quitting) return;
+
+        pool.Return(gameObject);
     }
 }
