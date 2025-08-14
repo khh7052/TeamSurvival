@@ -5,13 +5,16 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     EntityModel model;
-    //PlayerView view;
+    PlayerView view;
     PlayerController controller;
-    //EquipSystem equip;
+    EquipSystem equip;
 
     private void Awake()
     {
         model = GetComponent<EntityModel>();
+        view = GetComponent<PlayerView>();
         controller = GetComponent<PlayerController>();
+        equip = GetComponent<EquipSystem>();
+        view.Initialize(model);
     }
 }

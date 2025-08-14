@@ -43,11 +43,11 @@ public class PlayerView : MonoBehaviour
         //체력
         if (hpSlider != null)
         {
-            hpSlider.maxValue = model.maxHP;
-            hpSlider.value = Mathf.Clamp(model.currentHP, 0f, model.maxHP);
+            hpSlider.maxValue = model.health.MaxValue;
+            hpSlider.value = Mathf.Clamp(model.health.CurValue, 0f, model.health.MaxValue);
         }
         if (hpText != null)
-            hpText.text = $"{Mathf.RoundToInt(model.currentHP)}/{Mathf.RoundToInt(model.maxHP)}";
+            hpText.text = $"{Mathf.RoundToInt(model.health.CurValue)}/{Mathf.RoundToInt(model.health.MaxValue)}";
 
         //이동속도
         if (moveSpeedText != null)
@@ -56,20 +56,23 @@ public class PlayerView : MonoBehaviour
         //배고픔
         if (hungerSlider != null)
         {
-            hungerSlider.maxValue = model.maxHunger;
-            hungerSlider.value = Mathf.Clamp(model.hunger, 0f, model.maxHunger);
+            hungerSlider.maxValue = model.hunger.MaxValue;
+            hungerSlider.value = Mathf.Clamp(model.hunger.CurValue, 0f, model.hunger.MaxValue);
         }
         if (hungerText != null)
-            hungerText.text = $"{model.hunger:0}";
+            hungerText.text = $"{model.hunger.CurValue:0}";
 
         //목마름
         if (thirstSlider != null)
         {
-            thirstSlider.maxValue = model.maxThirst;
-            thirstSlider.value = Mathf.Clamp(model.thirst, 0f, model.maxThirst);
+            thirstSlider.maxValue = model.thirst.MaxValue;
+            thirstSlider.value = Mathf.Clamp(model.thirst.CurValue, 0f, model.thirst.MaxValue);
         }
         if (thirstText != null)
-            thirstText.text = $"{model.thirst:0}";
+            thirstText.text = $"{model.thirst.CurValue:0}";
+
+        Debug.Log($"Hunger: {model.hunger.CurValue}/{model.hunger.MaxValue}");
+
     }
 
     private void OnDestroy()
