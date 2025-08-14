@@ -17,6 +17,9 @@ public enum ConsumableType
     Stamina, //내구력
 }
 
+public enum WeaponType { None, Sword, Bow}
+public enum ToolType { None, Axe, Pickaxe}
+
 [System.Serializable]
 public class ItemDataConsumable
 {
@@ -43,6 +46,10 @@ public class ItemData : BaseScriptableObject
     [Header("Equip Usage")]
     public bool isWeapon;   //무기 용도
     public bool isTool;     //도구 용도
+
+    [Header("Kinds")]
+    public WeaponType weaponType = WeaponType.None;
+    public ToolType toolType = ToolType.None;
 
     [Header("Weapon")]
     public int weaponDamage = 10;           //무기 공격력
