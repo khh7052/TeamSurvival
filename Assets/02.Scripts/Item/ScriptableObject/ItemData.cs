@@ -25,10 +25,9 @@ using UnityEngine;
     }
 
     [CreateAssetMenu(fileName = "Item", menuName = "New Item")]
-    public class ItemData : ScriptableObject
+    public class ItemData : BaseScriptableObject
     {
         [Header("Info")]
-        public string displayName; //표시될 이름
         public string description; //설명
         public ItemType type;
         public Sprite icon;

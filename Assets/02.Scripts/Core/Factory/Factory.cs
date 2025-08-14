@@ -1,16 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class Factory : Singleton<Factory> 
+public class Factory : Singleton<Factory>, IInitializableAsync
 {
     private ScriptableObjectDataBase<BaseScriptableObject> database;
+
+    public bool IsInitialized { get; private set; }
 
     protected override void Initialize()
     {
         base.Initialize();
-        database = new ScriptableObjectDataBase<BaseScriptableObject>("Data");
+        InitializeAsync();
     }
 
     public GameObject CreateByID<T>(int id) where T : BaseScriptableObject
@@ -25,5 +28,13 @@ public class Factory : Singleton<Factory>
         GameObject go = ObjectPoolingManager.Instance.Get(data.Prefab, Vector3.zero);
         go.name = data.DisplayName;
         return go;
+    }
+
+    public async void InitializeAsync()
+    {
+        database = new ScriptableObjectDataBase<BaseScriptableObject>();
+        await database.Initialize("ItemData");
+        IsInitialized = true;
+        
     }
 }

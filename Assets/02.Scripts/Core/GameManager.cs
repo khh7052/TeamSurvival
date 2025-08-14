@@ -1,13 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
 
-    private void Start()
+    private async void Start()
     {
+        await WaitForManagersToInitialize(
+            Factory.Instance,
+            ObjectPoolingManager.Instance
+
+        );
+
+        Debug.Log("[GameManager] 모든 매니저 초기화 완료");
         GameStart();
+
+    }
+
+    private async Task WaitForManagersToInitialize(params IInitializableAsync[] managers)
+    {
+        // 모든 매니저가 IsInitialized == true가 될 때까지 대기
+        while (managers.Any(m => !m.IsInitialized))
+        {
+            await Task.Yield(); // 다음 프레임 대기
+        }
     }
 
     public void GameStart()

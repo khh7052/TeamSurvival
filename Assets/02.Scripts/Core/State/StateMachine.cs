@@ -8,8 +8,16 @@ public class StateMachine : MonoBehaviour
 
     public void SetState(IState state)
     {
+        // 현재 상태가 null이거나 새로 설정할 상태가 null인 경우
+        if(currentState == null || state == null) 
+        {
+            currentState = state;
+            currentState?.EnterState();
+            return;
+        }
+
         // 새로운 상태가 기존 상태와 동일하면 재진입 후 리턴
-        if(currentState.GetType().Name == state.GetType().Name)
+        if (currentState.GetType().Name == state.GetType().Name)
         {
             currentState.ReEnterState();
             return;
@@ -23,5 +31,9 @@ public class StateMachine : MonoBehaviour
         currentState.EnterState();
     }
 
+    public void UpdateState()
+    {
+        currentState?.UpdateState();
+    }
 
 }

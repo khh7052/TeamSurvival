@@ -13,6 +13,7 @@ public class DialogueManager : Singleton<DialogueManager>
     [SerializeField] private TMP_Text dialogueText;
     private DialogueData currentDialogue;
     private int index;
+    private Coroutine typingCoroutine;
 
     public bool IsDialogueActive => currentDialogue != null;
 
@@ -48,10 +49,20 @@ public class DialogueManager : Singleton<DialogueManager>
 
     private void ShowLine()
     {
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine); // 이전 타이핑 코루틴 중지
+            typingCoroutine = null;
+        }
+
         DialogueLine line = currentDialogue.lines[index];
         // UI에 출력
         spekaerText.text = line.speaker;
-        dialogueText.text = line.text;
+
+        if(line.useTypingEffect)
+            typingCoroutine = StartCoroutine(TypingText(line.text, line.typingSpeed));
+        else
+            dialogueText.text = line.text; // 타이핑 효과 없이 바로 출력
     }
 
     private void EndDialogue()
@@ -61,5 +72,18 @@ public class DialogueManager : Singleton<DialogueManager>
         Debug.Log("대화 종료");
 
         EndDialogueAction?.Invoke();
+    }
+
+    IEnumerator TypingText(string text, float typingSpeed)
+    {
+        dialogueText.text = ""; // 텍스트 초기화
+        foreach (char c in text)
+        {
+            dialogueText.text += c; // 한 글자씩 추가
+
+            // 공백이나 줄바꿈 문자가 아닌 경우에만 대기
+            if (c != ' ' && c != '\n')
+                yield return new WaitForSeconds(typingSpeed); // 타이핑 속도만큼 대기
+        }
     }
 }

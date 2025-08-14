@@ -12,8 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16ad0bfb54ba32c4d9265376a92ca875, type: 3}
   m_Name: TestDialogue
   m_EditorClassIdentifier: 
+  ID: 0
+  DisplayName: 
+  Icon: {fileID: 0}
+  Prefab: {fileID: 0}
   lines:
   - speaker: "\uC0C1\uC778"
     text: "\uC548\uB155\uD558\uC138\uC694"
+    useTypingEffect: 1
+    typingSpeed: 0.1
   - speaker: "\uC0C1\uC778"
     text: "\uBB34\uC5C7\uC744 \uCC3E\uACE0\uC788\uB098\uC694?"
+    useTypingEffect: 1
+    typingSpeed: 0.1

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class ObjectPoolingManager : Singleton<ObjectPoolingManager>
+public class ObjectPoolingManager : Singleton<ObjectPoolingManager>, IInitializableAsync
 {
     private Dictionary<GameObject, Queue<GameObject>> poolDictionary = new();
     private Dictionary<GameObject, GameObject> instanceToPrefab = new();
+
     public bool _quitting;
     public bool IsInitialized { get; private set; }
 
@@ -20,9 +22,15 @@ public class ObjectPoolingManager : Singleton<ObjectPoolingManager>
     protected override void Initialize()
     {
         base.Initialize();
+        InitializeAsync();
+    }
+    public void InitializeAsync()
+    {
         poolDictionary = new();
         instanceToPrefab = new();
+        IsInitialized = true;
     }
+
     public GameObject Get(GameObject prefab, Vector3 position, Quaternion rotation)
     {
         if (prefab == null) return null;
@@ -52,14 +60,17 @@ public class ObjectPoolingManager : Singleton<ObjectPoolingManager>
     }
 
     public GameObject Get(GameObject prefab, Vector3 position) => Get(prefab, position, Quaternion.identity);
-    
+
     private void OnApplicationQuit()
     {
         _quitting = true;
     }
-
     public void Return(GameObject instance)
     {
+        if (_quitting)
+        {
+            return;
+        }
         if (instance == null) return;
 
         if (instanceToPrefab.TryGetValue(instance, out GameObject prefab))
