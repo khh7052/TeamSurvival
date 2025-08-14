@@ -8,9 +8,10 @@ using Constants;
 public class NPC : MonoBehaviour, IInteractable
 {
     [Header("Interact")]
+    [SerializeField] private string npcName;
     [SerializeField] private string interactPrompt = "대화하기 E";
     [SerializeField] private DialogueData dialogueData; // 대화 데이터
-
+    private NPCView npcView; // NPC 뷰 컴포넌트
 
     [Header("Stats")]
     [SerializeField] private int health;
@@ -43,10 +44,12 @@ public class NPC : MonoBehaviour, IInteractable
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        npcView = GetComponent<NPCView>();
     }
 
     private void Start()
     {
+        npcView.SetName(npcName);
         StartCoroutine(UpdateNearestEnemyObject());
         SetState(AIState.Idle);
     }
