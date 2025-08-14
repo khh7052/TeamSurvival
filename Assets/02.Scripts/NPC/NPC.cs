@@ -74,7 +74,7 @@ public class NPC : MonoBehaviour, IInteractable
             case AIState.Flee:
                 targetPos = GetFleeLocation(nearestEnemyObject);
                 break;
-            case AIState.Attacking:
+            case AIState.Attack:
 
                 break;
             case AIState.Return:
@@ -99,7 +99,7 @@ public class NPC : MonoBehaviour, IInteractable
             case AIState.Flee:
                 FleeUpdate();
                 break;
-            case AIState.Attacking:
+            case AIState.Attack:
                 // AttackingUpdate();
                 break;
             case AIState.Return:
