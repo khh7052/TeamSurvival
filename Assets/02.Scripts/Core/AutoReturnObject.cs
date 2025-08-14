@@ -6,6 +6,11 @@ public class AutoReturnObject : MonoBehaviour
 {
     protected virtual void OnDisable()
     {
-        ObjectPoolingManager.Instance.Return(gameObject);
+        if(ObjectPoolingManager.Instance != null)
+            ObjectPoolingManager.Instance.Return(gameObject);
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
