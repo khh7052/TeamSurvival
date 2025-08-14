@@ -9,6 +9,7 @@ public class NPC : MonoBehaviour, IInteractable
 {
     [Header("Interact")]
     [SerializeField] private string interactPrompt = "대화하기 E";
+    [SerializeField] private DialogueData dialogueData; // 대화 데이터
 
 
     [Header("Stats")]
@@ -208,9 +209,10 @@ public class NPC : MonoBehaviour, IInteractable
     }
 
 
+    [ContextMenu("Interact")]
     public void OnInteract()
     {
-        
+        DialogueManager.Instance.StartDialogue(dialogueData, () => Debug.Log("콜백 테스트"));
     }
 
     public string GetPrompt()
