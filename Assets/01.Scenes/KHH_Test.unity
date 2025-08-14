@@ -643,8 +643,7 @@ MonoBehaviour:
   interactPrompt: "\uB300\uD654\uD558\uAE30 E"
   dialogueData: {fileID: 11400000, guid: e4a77c5f068b1d448a950df9cee118cb, type: 2}
   health: 0
-  walkSpeed: 3
-  runSpeed: 5
+  moveSpeed: 3
   lookSpeed: 5
   attackEnabled: 1
   targetObject: {fileID: 2141918900}

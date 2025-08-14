@@ -15,8 +15,7 @@ public class NPC : MonoBehaviour, IInteractable
 
     [Header("Stats")]
     [SerializeField] private int health;
-    [SerializeField] private float walkSpeed;
-    [SerializeField] private float runSpeed;
+    [SerializeField] private float moveSpeed;
     [SerializeField] private float lookSpeed;
 
     [Header("AI Settings")]
@@ -61,12 +60,15 @@ public class NPC : MonoBehaviour, IInteractable
         npcView.SetName(npcName);
         StartCoroutine(UpdateNearestEnemyObject());
         SetState(AIState.Idle);
+        SetSpeed(moveSpeed);
     }
 
     private void Update()
     {
         Action();
     }
+
+    public void SetSpeed(float speed) => agent.speed = speed;
 
     public void SetTargetPos(Vector3 newPos) => targetPos = newPos;
 
