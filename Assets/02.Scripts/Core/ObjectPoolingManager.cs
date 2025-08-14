@@ -16,7 +16,7 @@ public class ObjectPoolingManager : Singleton<ObjectPoolingManager>
     public GameObject Get(GameObject prefab, Vector3 position, Quaternion rotation)
     {
         if (prefab == null) return null;
-
+        
         if (!poolDictionary.ContainsKey(prefab))
             poolDictionary[prefab] = new();
 
@@ -29,7 +29,10 @@ public class ObjectPoolingManager : Singleton<ObjectPoolingManager>
         }
 
         if (instanceObject == null)
+        {
             instanceObject = Instantiate(prefab);
+            instanceObject.AddComponent<AutoReturnObject>();
+        }
 
         instanceObject.transform.SetPositionAndRotation(position, rotation);
         instanceObject.SetActive(true);
