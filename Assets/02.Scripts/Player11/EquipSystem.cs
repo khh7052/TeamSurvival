@@ -15,11 +15,11 @@ public class EquipSystem : MonoBehaviour
 
     private float nextUseTime = 0f;
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-            Use();
-    }
+    //void Update()
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //        Use();
+    //}
 
     public void Equip(ItemData data)
     {
@@ -38,25 +38,25 @@ public class EquipSystem : MonoBehaviour
         EquippedToolType = ToolType.None;
     }
 
-    public void Use()
-    {
-        if (currentItem == null) return;
-        if (Time.time < nextUseTime) return;
+    //public void Use()
+    //{
+    //    if (currentItem == null) return;
+    //    if (Time.time < nextUseTime) return;
 
-        if (EquippedWeaponType != WeaponType.None)
-        {
-            UseWeapon();
-            nextUseTime = Time.time + Mathf.Max(0.1f, currentItem.weaponAttackDelay);
-            return;
-        }
+    //    if (EquippedWeaponType != WeaponType.None)
+    //    {
+    //        UseWeapon();
+    //        nextUseTime = Time.time + Mathf.Max(0.1f, currentItem.weaponAttackDelay);
+    //        return;
+    //    }
 
-        if (EquippedToolType != ToolType.None)
-        {
-            UseTool();
-            nextUseTime = Time.time + 0.2f;
-            return;
-        }
-    }
+    //    if (EquippedToolType != ToolType.None)
+    //    {
+    //        UseTool();
+    //        nextUseTime = Time.time + 0.2f;
+    //        return;
+    //    }
+    //}
 
     //private void UseWeapon()
     //{
