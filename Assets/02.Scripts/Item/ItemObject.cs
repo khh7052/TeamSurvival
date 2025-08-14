@@ -8,15 +8,19 @@ using UnityEngine;
 //    public void OnInteract();
 //}
 
-public class ItemObject : MonoBehaviour
+public class ItemObject : MonoBehaviour, IInteractable
 {
     public ItemData data;
 
-    public string GetInteractPrompt()
+    public string GetPrompt()
     {
-        string str = $"{data.displayName}\n{data.description}";
+        string str = $"{data.DisplayName}\n{data.description}";
         return str;
     }
 
-  
+
+    public void OnInteract()
+    {
+
+    }
 }
