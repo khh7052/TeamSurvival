@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AutoReturnObject : MonoBehaviour
 {
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         ObjectPoolingManager.Instance.Return(gameObject);
     }
