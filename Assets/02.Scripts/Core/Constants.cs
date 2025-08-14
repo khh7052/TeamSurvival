@@ -14,7 +14,7 @@ namespace Constants
     {
         Idle, // 가만히 있기
         Flee, // 도망치기
-        Attacking, // 공격하기
+        Attack, // 공격하기
         Return // 귀환하기
     }
 
