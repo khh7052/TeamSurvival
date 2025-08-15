@@ -30,12 +30,20 @@ public class PlayerView : MonoBehaviour
     public void Initialize(EntityModel model)
     {
         if (this.model != null)
-            this.model.OnChangeStatuses -= OnChangeStatuses;
+            foreach(var condition in model.AllConditions)
+            {
+                condition.OnChanged -= OnChangeStatuses;
+            }
+        //this.model.OnChangeStatuses -= OnChangeStatuses;
 
         this.model = model;
 
         if (this.model != null)
-            this.model.OnChangeStatuses += OnChangeStatuses;
+            foreach (var condition in model.AllConditions)
+            {
+                condition.OnChanged += OnChangeStatuses;
+            }
+            //this.model.OnChangeStatuses += OnChangeStatuses;
 
         OnChangeStatuses();
     }
@@ -86,6 +94,9 @@ public class PlayerView : MonoBehaviour
     private void OnDestroy()
     {
         if (model != null)
-            model.OnChangeStatuses -= OnChangeStatuses;
+            foreach(var condition in model.AllConditions)
+            {
+               condition.OnChanged -= OnChangeStatuses;
+            }        
     }
 }

@@ -19,22 +19,32 @@ public class EntityModel : MonoBehaviour, IDamageable
     public float moveSpeed; //이동속도
     public float jumpPower; //점프력
 
-    public event Action OnChangeStatuses;
+    //public event Action OnChangeStatuses;
 
     private void Awake()
     {
-        health.Init();
-        hunger.Init();
-        thirst.Init();
-        stamina.Init();
-
-        health.OnChanged += () => OnChangeStatuses?.Invoke();
-        hunger.OnChanged += () => OnChangeStatuses?.Invoke();
-        thirst.OnChanged += () => OnChangeStatuses?.Invoke();
-        stamina.OnChanged += () => OnChangeStatuses?.Invoke();
+        foreach(var condition in AllConditions)
+        {
+            condition.Init();
+        }
     }
 
     private void Update()
+    {
+        ApplyPassiveValueCondition();
+    }
+
+    public IEnumerable<Condition> AllConditions //EntityModel의 Condition순회 프로퍼티
+    {
+        get
+        {
+            yield return health;
+            yield return hunger;
+            yield return thirst;
+            yield return stamina;
+        }
+    }
+    private void ApplyPassiveValueCondition() // 시간이 흐름에 따라 변화하는 스탯 이후에 온도 시스템 생기면 이곳에 추가 가능
     {
         hunger.Subtract(hunger.PassiveValue * Time.deltaTime);
         stamina.Add(stamina.PassiveValue * Time.deltaTime);
