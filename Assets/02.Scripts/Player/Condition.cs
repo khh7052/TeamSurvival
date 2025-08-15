@@ -24,7 +24,7 @@ public class Condition
         OnChanged?.Invoke(); //상태변경 알림
     }
 
-    public float GetPercentage()
+    public float GetPercentage() //현재 사용X 추후 삭제 가능
     {
         return curValue / maxValue;
     }
