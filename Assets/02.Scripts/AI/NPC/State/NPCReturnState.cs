@@ -9,13 +9,13 @@ public class NPCReturnState : NPCState
         if (npc.NearestEnemy != null)
         {
             if (npc.CanAttack)
-                stateMachine.SetState(stateMachine.AttackState);
+                stateMachine.ChangeState<NPCAttackState>();
             else
-                stateMachine.SetState(stateMachine.FleeState);
+                stateMachine.ChangeState<NPCFleeState>();
         }
         else if (npc.Agent.remainingDistance < 0.1f)
         {
-            stateMachine.SetState(stateMachine.IdleState);
+            stateMachine.ChangeState<NPCIdleState>();
         }
     }
 }

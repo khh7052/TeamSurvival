@@ -11,9 +11,9 @@ public class NPCIdleState : NPCState
         if (npc.NearestEnemy != null)
         {
             if (npc.CanAttack)
-                stateMachine.SetState(stateMachine.AttackState);
+                stateMachine.ChangeState<NPCAttackState>();
             else
-                stateMachine.SetState(stateMachine.FleeState);
+                stateMachine.ChangeState<NPCFleeState>();
             return;
         }
 

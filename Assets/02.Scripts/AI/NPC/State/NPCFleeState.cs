@@ -14,7 +14,7 @@ public class NPCFleeState : NPCState
         }
         else if (npc.Agent.remainingDistance < 0.1f)
         {
-            stateMachine.SetState(stateMachine.ReturnState);
+            stateMachine.ChangeState<NPCReturnState>();
         }
     }
 }

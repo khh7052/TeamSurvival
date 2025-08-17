@@ -9,7 +9,7 @@ public class NPCAttackState : NPCState
     {
         if (npc.NearestEnemy == null)
         {
-            stateMachine.SetState(stateMachine.ReturnState);
+            stateMachine.ChangeState<NPCReturnState>();
             return;
         }
 

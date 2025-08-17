@@ -68,7 +68,7 @@ public class NPC : MonoBehaviour, IInteractable
         npcView.SetName(npcName);
         StartCoroutine(UpdateNearestEnemyObject());
         SetSpeed(moveSpeed);
-        stateMachine.SetState(stateMachine.IdleState);
+        stateMachine.ChangeState<NPCIdleState>();
     }
 
     private void Update()
