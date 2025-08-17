@@ -18,6 +18,6 @@ public class NPCIdleState : NPCState
         }
 
         if (npc.PlayerDistance <= npc.DetectDistance)
-            npc.transform.LookTarget(npc.Target, npc.LookSpeed);
+            npc.transform.LookTarget(npc.Player, npc.LookSpeed);
     }
 }

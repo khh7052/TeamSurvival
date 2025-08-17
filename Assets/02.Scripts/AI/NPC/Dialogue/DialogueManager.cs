@@ -23,7 +23,7 @@ public class DialogueManager : Singleton<DialogueManager>
         dialoguePanel.SetActive(false);
     }
 
-    public void StartDialogue(DialogueData dialogue, Action callback)
+    public void StartDialogue(DialogueData dialogue, Action callback = null)
     {
         if (IsDialogueActive)
         {

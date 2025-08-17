@@ -8,6 +8,7 @@ using Constants;
 public class NPC : MonoBehaviour, IInteractable
 {
     [Header("Interact")]
+    [SerializeField] private bool interactEnabled = true;
     [SerializeField] private string npcName;
     [SerializeField] private string interactPrompt = "대화하기 E";
     [SerializeField] private DialogueData dialogueData;
@@ -21,9 +22,9 @@ public class NPC : MonoBehaviour, IInteractable
     [Header("AI Settings")]
     [SerializeField] private bool attackEnabled = true;
     [SerializeField] private float detectDistance;
-    [SerializeField] private LayerMask enemyLayerMask;
+    [SerializeField] private LayerMask targetLayerMask;
     [SerializeField] private float updateInterval = 0.2f;
-    [SerializeField] private Transform targetObject;
+    [SerializeField] private Transform playerObject;
 
     [Header("Flee")]
     [SerializeField] private float minFleeDistance;
@@ -48,9 +49,9 @@ public class NPC : MonoBehaviour, IInteractable
     public float DetectDistance => detectDistance;
     public float AttackDistance => attackDistance;
     public Transform NearestEnemy => nearestEnemyObject;
-    public Transform Target => targetObject;
+    public Transform Player => playerObject;
     public Transform HomePoint => homePoint;
-    public float PlayerDistance => targetObject ? Vector3.Distance(targetObject.position, transform.position) : float.MaxValue;
+    public float PlayerDistance => playerObject ? Vector3.Distance(playerObject.position, transform.position) : float.MaxValue;
     public NavMeshAgent Agent => agent;
     public float LookSpeed => lookSpeed;
     public float LimitMoveRange => limitMoveRange;
@@ -65,7 +66,7 @@ public class NPC : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        npcView.SetName(npcName);
+        npcView?.SetName(npcName);
         StartCoroutine(UpdateNearestEnemyObject());
         SetSpeed(moveSpeed);
         stateMachine.ChangeState<NPCIdleState>();
@@ -88,10 +89,19 @@ public class NPC : MonoBehaviour, IInteractable
 
     public void TryAttack()
     {
+        if (nearestEnemyObject == null) return;
+
         if (Time.time >= lastAttackTime + attackDelay)
         {
             lastAttackTime = Time.time;
-            Debug.Log($"{npcName}이(가) {nearestEnemyObject?.name}을(를) 공격합니다.");
+            // 공격 로직 구현
+            IDamageable damageable = nearestEnemyObject.GetComponentInParent<IDamageable>();
+
+            if (damageable != null)
+            {
+                Debug.Log($"{npcName}이(가) {nearestEnemyObject?.name}을(를) 공격합니다.");
+                damageable.TakePhysicalDamage(attackDamage);
+            }
         }
     }
 
@@ -106,7 +116,7 @@ public class NPC : MonoBehaviour, IInteractable
             float nearestDist = Mathf.Infinity;
 
             Collider[] cols = new Collider[5];
-            if (Physics.OverlapSphereNonAlloc(transform.position, detectDistance, cols, enemyLayerMask) > 0)
+            if (Physics.OverlapSphereNonAlloc(transform.position, detectDistance, cols, targetLayerMask) > 0)
             {
                 foreach (var col in cols)
                 {
@@ -126,7 +136,8 @@ public class NPC : MonoBehaviour, IInteractable
     [ContextMenu("Interact")]
     public void OnInteract()
     {
-        DialogueManager.Instance.StartDialogue(dialogueData, () => Debug.Log("콜백 테스트"));
+        if (!interactEnabled) return;
+        DialogueManager.Instance.StartDialogue(dialogueData);
     }
 
     public string GetPrompt() => interactPrompt;

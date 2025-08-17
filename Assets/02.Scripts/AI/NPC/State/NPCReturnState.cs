@@ -2,7 +2,12 @@ public class NPCReturnState : NPCState
 {
     public NPCReturnState(NPC npc, NPCStateMachine stateMachine) : base(npc, stateMachine) { }
 
-    public override void EnterState() => npc.MoveTo(npc.HomePoint.position);
+    public override void EnterState()
+    {
+        // 귀환 지점이 없으면 Idle롷 변경, 있으면 귀환 지점으로 이동
+        if(npc.HomePoint == null) stateMachine.ChangeState<NPCIdleState>();
+        else npc.MoveTo(npc.HomePoint.position);
+    }
 
     public override void UpdateState()
     {

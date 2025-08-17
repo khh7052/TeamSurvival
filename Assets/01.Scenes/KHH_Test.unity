@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 490303856}
   - component: {fileID: 490303855}
   - component: {fileID: 490303854}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -594,7 +594,8 @@ GameObject:
   - component: {fileID: 617371569}
   - component: {fileID: 617371572}
   - component: {fileID: 617371573}
-  m_Layer: 0
+  - component: {fileID: 617371574}
+  m_Layer: 7
   m_Name: NPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -640,6 +641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e26dd9795fb7db648b949802ce73ce06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactEnabled: 1
   npcName: "\uC0C1\uC778"
   interactPrompt: "\uB300\uD654\uD558\uAE30 E"
   dialogueData: {fileID: 11400000, guid: e4a77c5f068b1d448a950df9cee118cb, type: 2}
@@ -648,11 +650,11 @@ MonoBehaviour:
   lookSpeed: 5
   attackEnabled: 1
   detectDistance: 10
-  enemyLayerMask:
+  targetLayerMask:
     serializedVersion: 2
-    m_Bits: 16
+    m_Bits: 256
   updateInterval: 0.5
-  targetObject: {fileID: 2141918900}
+  playerObject: {fileID: 0}
   minFleeDistance: 5
   maxFleeDistance: 10
   homePoint: {fileID: 191107253}
@@ -724,6 +726,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5b091178ce818843a5f4b8ec4206216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &617371574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617371567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af159adb59fc6fc49808eae13bac23b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health:
+    curValue: 10
+    startValue: 10
+    maxValue: 10
+    passiveValue: 0
+  hunger:
+    curValue: 0
+    startValue: 0
+    maxValue: 0
+    passiveValue: 0
+  thirst:
+    curValue: 0
+    startValue: 0
+    maxValue: 0
+    passiveValue: 0
+  stamina:
+    curValue: 0
+    startValue: 0
+    maxValue: 0
+    passiveValue: 0
+  moveSpeed: 0
+  jumpPower: 0
 --- !u!1 &621172763
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,7 +808,7 @@ GameObject:
   - component: {fileID: 676841510}
   - component: {fileID: 676841509}
   - component: {fileID: 676841508}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -877,7 +913,7 @@ GameObject:
   - component: {fileID: 688188281}
   - component: {fileID: 688188280}
   - component: {fileID: 688188279}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WorldCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1070,7 +1106,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 784134970}
-  m_Layer: 4
+  - component: {fileID: 784134973}
+  - component: {fileID: 784134972}
+  - component: {fileID: 784134971}
+  - component: {fileID: 784134974}
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1093,6 +1133,107 @@ Transform:
   - {fileID: 1619122698}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &784134971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784134969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e26dd9795fb7db648b949802ce73ce06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactEnabled: 0
+  npcName: "\uC801"
+  interactPrompt: "\uB300\uD654\uD558\uAE30 E"
+  dialogueData: {fileID: 11400000, guid: e4a77c5f068b1d448a950df9cee118cb, type: 2}
+  health: 0
+  moveSpeed: 3
+  lookSpeed: 5
+  attackEnabled: 1
+  detectDistance: 10
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  updateInterval: 0.5
+  playerObject: {fileID: 0}
+  minFleeDistance: 5
+  maxFleeDistance: 10
+  homePoint: {fileID: 191107253}
+  limitMoveRange: 15
+  attackDistance: 5
+  attackDelay: 1
+  attackDamage: 1
+--- !u!114 &784134972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784134969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5b091178ce818843a5f4b8ec4206216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!195 &784134973
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784134969}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &784134974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784134969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af159adb59fc6fc49808eae13bac23b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health:
+    curValue: 10
+    startValue: 10
+    maxValue: 10
+    passiveValue: 0
+  hunger:
+    curValue: 0
+    startValue: 0
+    maxValue: 0
+    passiveValue: 0
+  thirst:
+    curValue: 0
+    startValue: 0
+    maxValue: 0
+    passiveValue: 0
+  stamina:
+    curValue: 0
+    startValue: 0
+    maxValue: 0
+    passiveValue: 0
+  moveSpeed: 0
+  jumpPower: 0
 --- !u!1 &806328502
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,7 +1605,7 @@ GameObject:
   - component: {fileID: 1264364894}
   - component: {fileID: 1264364896}
   - component: {fileID: 1264364895}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Name_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1701,7 +1842,7 @@ GameObject:
   - component: {fileID: 1619122701}
   - component: {fileID: 1619122700}
   - component: {fileID: 1619122699}
-  m_Layer: 4
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1918,7 +2059,7 @@ GameObject:
   - component: {fileID: 2050903392}
   - component: {fileID: 2050903391}
   - component: {fileID: 2050903390}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2020,7 +2161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2141918900}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
