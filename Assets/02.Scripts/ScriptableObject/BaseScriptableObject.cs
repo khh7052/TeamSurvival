@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 [CreateAssetMenu(fileName = "test", menuName = "Test/ScriptableObj")]
 public class BaseScriptableObject : ScriptableObject
@@ -10,4 +11,5 @@ public class BaseScriptableObject : ScriptableObject
     public string DisplayName;
     public Sprite Icon;
     public GameObject Prefab;
+    public AssetReference AssetReference;
 }
