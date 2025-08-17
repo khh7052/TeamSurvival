@@ -16,3 +16,8 @@ MonoBehaviour:
   DisplayName: TestName
   Icon: {fileID: 0}
   Prefab: {fileID: 2057893157616160673, guid: 1250e5ac132423c4293a671146f867dd, type: 3}
+  AssetReference:
+    m_AssetGUID: 1250e5ac132423c4293a671146f867dd
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

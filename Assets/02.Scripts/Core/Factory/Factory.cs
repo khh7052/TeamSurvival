@@ -30,6 +30,20 @@ public class Factory : Singleton<Factory>, IInitializableAsync
         return go;
     }
 
+    public async Task<GameObject> CreateByIDAsync<T>(int id) where T : BaseScriptableObject
+    {
+        T data = database.GetById(id) as T;
+        if(data == null || data.AssetReference == null)
+        {
+            Debug.LogError($"Factory : ID : {id} 해당 데이터가 없거나 Prefab이 없습니다");
+            return null;
+        }
+
+        GameObject go = await ObjectPoolingManager.Instance.GetAsync(data.AssetReference, Vector3.zero, Quaternion.identity);
+        go.name = data.DisplayName;
+        return go;
+    }
+
     public async void InitializeAsync()
     {
         database = new ScriptableObjectDataBase<BaseScriptableObject>();
