@@ -13,6 +13,7 @@ public class NPCStateMachine : StateMachine
         AddState(new NPCFleeState(npc, this));
         AddState(new NPCAttackState(npc, this));
         AddState(new NPCReturnState(npc, this));
+        AddState(new NPCPatrolState(npc, this));
 
         ChangeState<NPCIdleState>();
     }
