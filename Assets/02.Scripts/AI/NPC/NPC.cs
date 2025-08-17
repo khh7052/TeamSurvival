@@ -21,7 +21,6 @@ public class NPC : MonoBehaviour, IInteractable
     [SerializeField] private float lookSpeed;
 
     [Header("AI Settings")]
-    [SerializeField] private bool attackEnabled = true;
     [SerializeField] private float detectDistance;
     [SerializeField] private LayerMask targetLayerMask;
     [SerializeField] private float updateInterval = 0.2f;
@@ -35,11 +34,24 @@ public class NPC : MonoBehaviour, IInteractable
     [SerializeField] private Transform homePoint;
     [SerializeField] private float limitMoveRange = 10f;
 
+    [Header("Patrol")]
+    [SerializeField] private bool patrolEnabled = true;
+    [SerializeField] private float patrolMinDistance = 3f;
+    [SerializeField] private float patrolMaxDistance = 5f;
+    [SerializeField] private float patrolMinDelay = 5f;
+    [SerializeField] private float patrolMaxDelay = 10f;
+
     [Header("Attack")]
+    [SerializeField] private bool attackEnabled = true;
     [SerializeField] private float attackDistance = 5f;
     [SerializeField] private float attackDelay = 1f;
     [SerializeField] private int attackDamage = 1;
 
+    [Header("Debug")]
+    [SerializeField] private bool useGizmo = true;
+
+    private float patrolDelay;
+    private float lastPatrolTime;
     private float lastAttackTime;
     private NavMeshAgent agent;
     private Transform nearestEnemyObject;
@@ -48,9 +60,11 @@ public class NPC : MonoBehaviour, IInteractable
     private EntityModel entityModel;
 
     // 읽기 전용 프로퍼티
+    public bool CanPatrol => patrolEnabled;
     public bool CanAttack => attackEnabled;
     public float DetectDistance => detectDistance;
     public float AttackDistance => attackDistance;
+    public float RemainingDistance => agent.remainingDistance;
     public Transform NearestEnemy => nearestEnemyObject;
     public Transform Player => playerObject;
     public Transform HomePoint => homePoint;
@@ -102,7 +116,7 @@ public class NPC : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if(IsDead) return;
+        if (IsDead) return;
 
         stateMachine.UpdateState();
     }
@@ -125,20 +139,28 @@ public class NPC : MonoBehaviour, IInteractable
     public void TryAttack()
     {
         if (nearestEnemyObject == null) return;
+        if (Time.time < lastAttackTime + attackDelay) return;
 
-        if (Time.time >= lastAttackTime + attackDelay)
+        lastAttackTime = Time.time;
+        IDamageable damageable = nearestEnemyObject.GetComponentInParent<IDamageable>();
+
+        if (damageable != null)
         {
-            lastAttackTime = Time.time;
-            // 공격 로직 구현
-            IDamageable damageable = nearestEnemyObject.GetComponentInParent<IDamageable>();
-
-            if (damageable != null)
-            {
-                Debug.Log($"{npcName}이(가) {nearestEnemyObject?.name}을(를) 공격합니다.");
-                AnimationHandler?.PlayAttack();
-                damageable.TakePhysicalDamage(attackDamage);
-            }
+            Debug.Log($"{npcName}이(가) {nearestEnemyObject?.name}을(를) 공격합니다.");
+            AnimationHandler?.PlayAttack();
+            damageable.TakePhysicalDamage(attackDamage);
         }
+    }
+
+
+    public void TryPatrol()
+    {
+        if (Time.time < lastPatrolTime + patrolDelay) return;
+        lastPatrolTime = Time.time;
+        patrolDelay = Random.Range(patrolMinDelay, patrolMaxDelay);
+        Vector3 randomPos = transform.GetRandomPosition(patrolMinDistance, patrolMaxDistance);
+        Vector3 desination = randomPos.ClampDistanceFrom(HomePoint.position, LimitMoveRange);
+        MoveTo(desination);
     }
 
     public Vector3 GetFleeLocation()
@@ -180,17 +202,20 @@ public class NPC : MonoBehaviour, IInteractable
 
     private void OnDrawGizmos()
     {
+        if(!useGizmo) return;
+
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectDistance);
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackDistance);
 
-        if (nearestEnemyObject != null)
+        if (agent != null && !agent.isStopped)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawLine(transform.position, nearestEnemyObject.position);
+            Gizmos.DrawLine(transform.position, agent.destination);
         }
+
         if (homePoint != null)
         {
             Gizmos.color = Color.blue;

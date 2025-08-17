@@ -16,6 +16,11 @@ public class NPCIdleState : NPCState
                 stateMachine.ChangeState<NPCFleeState>();
             return;
         }
+        else
+        {
+            if(npc.CanPatrol)
+                stateMachine.ChangeState<NPCPatrolState>();
+        }
 
         if (npc.PlayerDistance <= npc.DetectDistance)
             npc.transform.LookTarget(npc.Player, npc.LookSpeed);

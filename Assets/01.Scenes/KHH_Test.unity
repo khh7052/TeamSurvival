@@ -648,7 +648,6 @@ MonoBehaviour:
   health: 0
   moveSpeed: 3
   lookSpeed: 5
-  attackEnabled: 1
   detectDistance: 10
   targetLayerMask:
     serializedVersion: 2
@@ -659,9 +658,16 @@ MonoBehaviour:
   maxFleeDistance: 10
   homePoint: {fileID: 191107253}
   limitMoveRange: 15
+  patrolEnabled: 1
+  patrolMinDistance: 3
+  patrolMaxDistance: 5
+  patrolMinDelay: 5
+  patrolMaxDelay: 10
+  attackEnabled: 1
   attackDistance: 5
   attackDelay: 1
   attackDamage: 1
+  useGizmo: 1
 --- !u!195 &617371570
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1152,7 +1158,6 @@ MonoBehaviour:
   health: 0
   moveSpeed: 3
   lookSpeed: 5
-  attackEnabled: 1
   detectDistance: 10
   targetLayerMask:
     serializedVersion: 2
@@ -1163,9 +1168,16 @@ MonoBehaviour:
   maxFleeDistance: 10
   homePoint: {fileID: 191107253}
   limitMoveRange: 15
+  patrolEnabled: 1
+  patrolMinDistance: 5
+  patrolMaxDistance: 10
+  patrolMinDelay: 5
+  patrolMaxDelay: 10
+  attackEnabled: 1
   attackDistance: 5
   attackDelay: 1
   attackDamage: 1
+  useGizmo: 1
 --- !u!114 &784134972
 MonoBehaviour:
   m_ObjectHideFlags: 0

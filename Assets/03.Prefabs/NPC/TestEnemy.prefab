@@ -446,7 +446,6 @@ MonoBehaviour:
   health: 0
   moveSpeed: 3
   lookSpeed: 5
-  attackEnabled: 1
   detectDistance: 10
   targetLayerMask:
     serializedVersion: 2
@@ -457,9 +456,16 @@ MonoBehaviour:
   maxFleeDistance: 10
   homePoint: {fileID: 0}
   limitMoveRange: 15
+  patrolEnabled: 1
+  patrolMinDistance: 5
+  patrolMaxDistance: 10
+  patrolMinDelay: 2
+  patrolMaxDelay: 4
+  attackEnabled: 1
   attackDistance: 5
   attackDelay: 2
   attackDamage: 1
+  useGizmo: 1
 --- !u!136 &5421959905402987121
 CapsuleCollider:
   m_ObjectHideFlags: 0
