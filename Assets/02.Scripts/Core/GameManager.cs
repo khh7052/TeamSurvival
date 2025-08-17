@@ -33,8 +33,8 @@ public class GameManager : Singleton<GameManager>
     public async void GameStart()
     {
 
+        /* Test Area
         Factory.Instance.CreateByID<BaseScriptableObject>(0);
-        // Test Area
         UIManager.Instance.ShowUI<TestConditionUI>();
 
         for(int i = 0; i < 10; i++)
@@ -54,24 +54,7 @@ public class GameManager : Singleton<GameManager>
         await Task.Delay(5000);
 
         Debug.Log("End Delay");
-        await test();
-    }
-
-    public async Task test()
-    {
-        Debug.Log("In Test");
-        for (int i = 0; i < 5; i++)
-        {
-            await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(0);
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(1);
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(2);
-        }
+        await test();*/
     }
 
 
