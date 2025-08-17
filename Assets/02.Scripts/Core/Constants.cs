@@ -53,10 +53,11 @@ namespace Constants
 
     public static class AnimatorHash
     {
-        // Player
+        // NPC
         public static readonly int MoveSpeedHash = Animator.StringToHash("MoveSpeed");
-
-
+        public static readonly int AttackHash = Animator.StringToHash("Attack");
+        public static readonly int HitHash = Animator.StringToHash("Hit");
+        public static readonly int DieHash = Animator.StringToHash("Die");
     }
 
     public enum ePlayerState

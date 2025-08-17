@@ -5,6 +5,7 @@ using Constants;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(NPCStateMachine))]
+[RequireComponent(typeof(EntityModel))]
 public class NPC : MonoBehaviour, IInteractable
 {
     [Header("Interact")]
@@ -43,6 +44,8 @@ public class NPC : MonoBehaviour, IInteractable
     private NavMeshAgent agent;
     private Transform nearestEnemyObject;
     private NPCStateMachine stateMachine;
+    private AnimationHandler animationHandler;
+    private EntityModel entityModel;
 
     // 읽기 전용 프로퍼티
     public bool CanAttack => attackEnabled;
@@ -56,12 +59,37 @@ public class NPC : MonoBehaviour, IInteractable
     public float LookSpeed => lookSpeed;
     public float LimitMoveRange => limitMoveRange;
 
+    public bool IsDead => entityModel.health.CurValue <= 0;
+
+    public AnimationHandler AnimationHandler => animationHandler;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         npcView = GetComponent<NPCView>();
         stateMachine = GetComponent<NPCStateMachine>();
+        animationHandler = GetComponentInChildren<AnimationHandler>();
+        entityModel = GetComponent<EntityModel>();
+
         stateMachine.Initialize(this);
+        entityModel.health.OnChanged += Health_OnChanged;
+    }
+
+    private void Health_OnChanged()
+    {
+        if (IsDead)
+        {
+            // NPC가 죽었을 때의 로직
+            Debug.Log($"{npcName}이(가) 죽었습니다.");
+            StopMoving();
+            AnimationHandler?.PlayDie();
+        }
+        else
+        {
+            // NPC가 데미지를 받았을 때의 로직
+            // (현재 데미지 받았을 때의 이벤트가 따로 없으므로 일단 OnChanged에서 처리함, 나중에 수정필요)
+            AnimationHandler?.PlayHit();
+        }
     }
 
     private void Start()
@@ -74,6 +102,8 @@ public class NPC : MonoBehaviour, IInteractable
 
     private void Update()
     {
+        if(IsDead) return;
+
         stateMachine.UpdateState();
     }
 
@@ -81,11 +111,16 @@ public class NPC : MonoBehaviour, IInteractable
 
     public void MoveTo(Vector3 position)
     {
+        AnimationHandler?.PlayRun();
         agent.isStopped = false;
         agent.SetDestination(position);
     }
 
-    public void StopMoving() => agent.isStopped = true;
+    public void StopMoving()
+    {
+        AnimationHandler?.PlayIdle();
+        agent.isStopped = true;
+    }
 
     public void TryAttack()
     {
@@ -100,6 +135,7 @@ public class NPC : MonoBehaviour, IInteractable
             if (damageable != null)
             {
                 Debug.Log($"{npcName}이(가) {nearestEnemyObject?.name}을(를) 공격합니다.");
+                AnimationHandler?.PlayAttack();
                 damageable.TakePhysicalDamage(attackDamage);
             }
         }
