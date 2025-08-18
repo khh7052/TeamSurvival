@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: ObjectPrefabs
+  m_EditorClassIdentifier: 
+  m_GroupName: ObjectPrefabs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: de82257686171e04998d844a5710625a
+  m_SerializeEntries:
+  - m_GUID: d6691a2b62d15df4dbf260c10aac65d7
+    m_Address: Assets/03.Prefabs/BuildingObject/Floor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c75231259a55fb942a6df3ec509de958
+    m_Address: Assets/03.Prefabs/BuildingObject/Wall.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0acd93775e628d4cb42f862d32ba2fd
+    m_Address: Assets/03.Prefabs/BuildingObject/PreviewWall.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 73b9f586633f54647a2ae4292b5d0b57
+    m_Address: Assets/03.Prefabs/BuildingObject/PreviewFloor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55d1c9c774a76e2419f97521789e3d1e
+    m_Address: Assets/03.Prefabs/Item/Item_Consumable.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f3eaae0b768fe0447b57df38ce0c4ed3
+    m_Address: Assets/03.Prefabs/Item/Item_Equipable.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 42e9b7af145cf8341aae6a51854ffdcf
+    m_Address: Assets/03.Prefabs/Item/Item_Weapon.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44b9a7d061d7b064884b7d4bf26eb723
+    m_Address: Assets/03.Prefabs/Item/Item_Resource.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6e8108d6b6dedb840a9afd5fc4cd7eb3
+    m_Address: Assets/03.Prefabs/Item/Item_Tool_Axe.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 07318b79f372b2d45a5de361e560ae02
+    m_Address: Assets/03.Prefabs/GatheringNode/Tree.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 012b12c1b39de1a4189059eb12b7bef4, type: 2}
+    - {fileID: 11400000, guid: 11164ae85726ceb49a6af696f8de6097, type: 2}

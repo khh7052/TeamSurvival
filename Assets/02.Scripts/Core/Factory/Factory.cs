@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Factory : Singleton<Factory>, IInitializableAsync
 {
-    private ScriptableObjectDataBase<BaseScriptableObject> database;
+    private ScriptableObjectDataBase<BaseScriptableObject> _ItemDataBase;
 
     public bool IsInitialized { get; private set; }
 
@@ -18,7 +18,7 @@ public class Factory : Singleton<Factory>, IInitializableAsync
 
     public GameObject CreateByID<T>(int id, Action<GameObject> callBack = null) where T : BaseScriptableObject
     {
-        T data = database.GetById(id) as T;
+        T data = _ItemDataBase.GetById(id) as T;
         if(data == null || data.Prefab == null)
         {
             Debug.LogError($"Factory : ID : {id} 해당 데이터가 없거나 Prefab이 없습니다");
@@ -33,7 +33,7 @@ public class Factory : Singleton<Factory>, IInitializableAsync
 
     public async Task<GameObject> CreateByIDAsync<T>(int id, Action<GameObject> callBack = null) where T : BaseScriptableObject
     {
-        T data = database.GetById(id) as T;
+        T data = _ItemDataBase.GetById(id) as T;
         if(data == null || data.AssetReference == null)
         {
             Debug.LogError($"Factory : ID : {id} 해당 데이터가 없거나 Prefab이 없습니다");
@@ -42,14 +42,30 @@ public class Factory : Singleton<Factory>, IInitializableAsync
 
         GameObject go = await ObjectPoolingManager.Instance.GetAsync(data.AssetReference, Vector3.zero, Quaternion.identity);
         go.name = data.DisplayName;
-        callBack?.Invoke(go);
+        if(go != null)
+            callBack?.Invoke(go);
+        return go;
+    }
+
+    public async Task<GameObject> CreateByAssetReferenceAsync<T>(T data, Action<GameObject> callBack = null) where T : BaseScriptableObject
+    {
+        if (data == null || data.AssetReference == null)
+        {
+            Debug.LogError($"Factory : 해당 데이터가 없거나 Prefab이 없습니다");
+            return null;
+        }
+
+        GameObject go = await ObjectPoolingManager.Instance.GetAsync(data.AssetReference, Vector3.zero, Quaternion.identity);
+        go.name = data.DisplayName;
+        if (go != null)
+            callBack?.Invoke(go);
         return go;
     }
 
     public async void InitializeAsync()
     {
-        database = new ScriptableObjectDataBase<BaseScriptableObject>();
-        await database.Initialize("ItemData");
+        _ItemDataBase = new ScriptableObjectDataBase<BaseScriptableObject>();
+        await _ItemDataBase.Initialize("ItemData");
         IsInitialized = true;
         
     }

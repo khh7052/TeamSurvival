@@ -65,6 +65,14 @@ namespace Constants
         None = 10000, Floor = 10001, Wall = 10002, Stair = 10003
     }
 
+    public static class BuildObjectConst 
+    {
+        public const int PrevFloor = 10011;
+        public const int PrevWall = 10012;
+        public static readonly int[] PrevObjectIds = { PrevFloor, PrevWall };
+    }
+
+
     public enum Direction
     {
         North, South, East, West

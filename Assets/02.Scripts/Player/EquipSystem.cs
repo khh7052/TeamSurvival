@@ -15,6 +15,11 @@ public class EquipSystem : MonoBehaviour
 
     private float nextUseTime = 0f;
 
+    public Transform handSlot;
+    private GameObject viewInst;
+
+    public bool debugLog = true; //테스트용 디버그 온오프 가능
+
     public void Equip(ItemData data)
     {
         currentItem = data;
@@ -28,6 +33,10 @@ public class EquipSystem : MonoBehaviour
             EquippedToolType = currentItem.toolType;
         else
             EquippedToolType = ToolType.None;
+
+        if (viewInst != null) Destroy(viewInst);
+        if (currentItem != null && currentItem.Prefab != null && handSlot != null)
+            viewInst = Instantiate(currentItem.Prefab, handSlot, false);
     }
 
     public void UnEquip()
@@ -35,26 +44,36 @@ public class EquipSystem : MonoBehaviour
         currentItem = null;
         EquippedWeaponType = WeaponType.None;
         EquippedToolType = ToolType.None;
+
+        if (viewInst != null) Destroy(viewInst);
     }
 
-    //public void Attack()
-    //{
-    //    if (currentItem == null) return;
-    //    if (Time.time < nextUseTime) return;
+    public void Attack()
+    {
+        if (currentItem == null)
+        {
+            if (debugLog) Debug.Log("[Equip] Attack blocked: no item", this);
+            return;
 
-    //    if (currentItem.isWeapon)
-    //    {
-    //        UseWeapon();
-    //        float delay = currentItem.weaponAttackDelay;
-    //        if (delay < 0.1f) delay = 0.1f;
-    //        nextUseTime = Time.time + delay;
-    //    }
-    //    else if (currentItem.isTool)
-    //    {
-    //        UseTool();
-    //        nextUseTime = Time.time + 0.2f;
-    //    }
-    //}
+        }
+
+        if (Time.time < nextUseTime) return;
+
+        if (debugLog) Debug.Log("[Equip] Attack with " + currentItem.name, this);
+
+        if (currentItem.isWeapon)
+        {
+            UseWeapon();
+            float delay = currentItem.weaponAttackDelay;
+            if (delay < 0.1f) delay = 0.1f;
+            nextUseTime = Time.time + delay;
+        }
+        else if (currentItem.isTool)
+        {
+            UseTool();
+            nextUseTime = Time.time + 0.2f;
+        }
+    }
 
     private void UseWeapon()
     {
@@ -70,27 +89,30 @@ public class EquipSystem : MonoBehaviour
         }
     }
 
-    //private void UseTool()
-    //{
-    //    float dist = currentItem.toolDistance;
-    //    RaycastHit hit;
+    private void UseTool()
+    {
+        float dist = currentItem.toolDistance;
+        RaycastHit hit;
 
-    //    if (Ray(out hit, dist))
-    //    {
-    //        ResourceNode node = hit.collider.GetComponentInParent<ResourceNode>();
-    //        if (node != null)
-    //        {
-    //            if (currentItem.toolType != ToolType.None)
-    //                node.GatherWithTool(currentItem.toolType, currentItem.toolGatherPower);
-    //            else
-    //                node.Gather(currentItem.toolGatherPower);
-    //        }
-    //    }
-    //}
+        if (Ray(out hit, dist))
+        {
+            ResourceNode node = hit.collider.GetComponentInParent<ResourceNode>();
+            if (node != null)
+            {
+                if (debugLog) Debug.Log("[Equip] Hit resource: " + node.resourceName, this);
+
+                if (currentItem.toolType != ToolType.None)
+                    node.GatherWithTool(currentItem.toolType, currentItem.toolGatherPower);
+                else
+                    node.Gather(currentItem.toolGatherPower);
+            }
+        }
+    }
 
     private bool Ray(out RaycastHit hit, float distance)
     {
         Vector3 origin, dir;
+
         if (Camera.main != null)
         {
             origin = Camera.main.transform.position;

@@ -1,6 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
+using UnityEngine.AddressableAssets;
 
 public class ResourceNode : MonoBehaviour, IHarvestable
 {
@@ -15,15 +16,69 @@ public class ResourceNode : MonoBehaviour, IHarvestable
     public float wrongToolMultiplier = 0.4f;    // 틀린 도구
     public float bareHandsMultiplier = 0.25f;   // 맨손 허용 시
 
+    [Header("재생성")]
+    public bool respawn = true;
+    public float respawnSeconds = 30f;
+
     [Header("드랍")]
-    public ItemData yieldItem;       // ItemType.Resource 권장, dropPrefab 연결 권장
+    public ItemData yieldItem;
     public int dropOnDeplete = 3;
 
+    [Header("Debug")]
+    public bool debugLog = true; //테스트용 디버그 온오프 가능
+
     private float durability;
+    private Collider[] cols;
+    private Renderer[] rends;
+
+    private void Log(string msg)
+    {
+        if (debugLog) Debug.Log("[Resource][" + resourceName + "] " + msg, this);
+    }
+
+    private void Awake()
+    {
+        cols = GetComponentsInChildren<Collider>(true);
+        rends = GetComponentsInChildren<Renderer>(true);
+    }
 
     private void OnEnable()
     {
         durability = maxDurability;
+        SetNodeEnabled(true);
+        Log("HP reset = " + durability);
+    }
+
+    private void OnDepleted()
+    {
+        SpawnDrops();
+
+        if (respawn)
+        {
+            gameObject.SetActive(false);
+            //StartCoroutine(RespawnRoutine());
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private IEnumerator RespawnRoutine()
+    {
+        SetNodeEnabled(false);
+
+        yield return new WaitForSeconds(respawnSeconds);
+
+        durability = maxDurability;
+        SetNodeEnabled(true);
+    }
+
+    private void SetNodeEnabled(bool on)
+    {
+        int i;
+        for (i = 0; i < rends.Length; i++) rends[i].enabled = on;
+        for (i = 0; i < cols.Length; i++) cols[i].enabled = on;
     }
 
     public void Gather(float power)
@@ -61,13 +116,7 @@ public class ResourceNode : MonoBehaviour, IHarvestable
         }
     }
 
-    private void OnDepleted()
-    {
-        SpawnDrops();
-        Destroy(gameObject); // 리스폰 원하면 SetActive(false)+타이머로 바꿔도 됨
-    }
-
-    private void SpawnDrops()
+    private async void SpawnDrops()
     {
         if (yieldItem == null) return;
         GameObject prefab = yieldItem.dropPrefab;
@@ -77,7 +126,12 @@ public class ResourceNode : MonoBehaviour, IHarvestable
         {
             Vector3 pos = transform.position + Random.insideUnitSphere * 0.3f;
             if (pos.y < transform.position.y) pos.y = transform.position.y + 0.2f;
-            Instantiate(prefab, pos, Quaternion.identity);
+//            Instantiate(prefab, pos, Quaternion.identity);
+
+            await Factory.Instance.CreateByIDAsync<ItemData>(yieldItem.ID, (go) =>
+            {
+                go.transform.SetLocalPositionAndRotation(pos, transform.rotation);
+            });
         }
     }
 }

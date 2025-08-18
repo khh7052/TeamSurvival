@@ -12,7 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90534c289604d904995d92823d142e91, type: 3}
   m_Name: Item_Resource
   m_EditorClassIdentifier: 
-  displayName: "\uC790\uC6D0 \uC544\uC774\uD15C"
+  ID: 21001
+  DisplayName: Resource
+  Icon: {fileID: 0}
+  Prefab: {fileID: 0}
+  AssetReference:
+    m_AssetGUID: 44b9a7d061d7b064884b7d4bf26eb723
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   description: "\uC7AC\uB8CC"
   type: 0
   icon: {fileID: 0}
@@ -20,3 +28,12 @@ MonoBehaviour:
   canStack: 1
   maxStackAmount: 5
   consumables: []
+  isWeapon: 0
+  isTool: 0
+  weaponType: 0
+  toolType: 0
+  weaponDamage: 10
+  weaponAttackDelay: 1
+  weaponAttackDistance: 1
+  toolGatherPower: 5
+  toolDistance: 1
