@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BuildObj : MonoBehaviour
@@ -12,19 +13,24 @@ public class BuildObj : MonoBehaviour
 
     public bool IsDead => model.health.CurValue <= 0;
 
-    private void Awake()
+
+    public void Initialize()
     {
         model = GetComponent<EntityModel>();
         animationHandler = GetComponent<AnimationHandler>();
+        model.health.OnChanged -= Health_OnChanged;
+
+        model.health.Init();
 
         model.health.OnChanged += Health_OnChanged;
+
     }
 
     private void Health_OnChanged()
     {
         if (IsDead)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
         else
         {

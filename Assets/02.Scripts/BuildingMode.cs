@@ -56,6 +56,7 @@ public class BuildingMode : MonoBehaviour
         {
             var obj = go.AddComponent<BuildObj>();
             obj.key = key;
+            obj.Initialize();
             obj.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
         });
 
