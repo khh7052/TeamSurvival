@@ -18,7 +18,8 @@ public class GameManager : Singleton<GameManager>, IInitializableAsync
     {
         await WaitForManagersToInitialize(
             Factory.Instance,
-            BuildingManager.Instance
+            BuildingManager.Instance,
+            GatheringManager.Instance
         );
         IsInitialized = true;
         Debug.Log("[GameManager] 모든 매니저 초기화 완료");

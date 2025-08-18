@@ -653,6 +653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4654c3775546104c84a6e3d4ba9b2ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkRate: 0.05
   isBuild: 0
   rayDistance: 1.5
   buildMask:
@@ -696,7 +697,7 @@ MonoBehaviour:
   currentItem: {fileID: 0}
   hitMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 5376
   handSlot: {fileID: 6306992753322779040}
   debugLog: 1
 --- !u!1 &7364016361463157510

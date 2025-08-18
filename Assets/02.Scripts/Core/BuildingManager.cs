@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class BuildingManager : Singleton<BuildingManager>, IInitializableAsync
 {
-    private ScriptableObjectDataBase<BaseScriptableObject> database; 
+    private ScriptableObjectDataBase<BaseScriptableObject> _dataBase; 
     public bool IsInitialized { get; private set; }
 
     private object lockObj = new();
@@ -20,8 +20,8 @@ public class BuildingManager : Singleton<BuildingManager>, IInitializableAsync
 
     public async void InitializeAsync()
     {
-        database = new ScriptableObjectDataBase<BaseScriptableObject>();
-        await database.Initialize("BuildingItem");
+        _dataBase = new ScriptableObjectDataBase<BaseScriptableObject>();
+        await _dataBase.Initialize("BuildingItem");
         IsInitialized = true;
     }
 
@@ -99,7 +99,7 @@ public class BuildingManager : Singleton<BuildingManager>, IInitializableAsync
 
     public T GetBuildingObjectData<T>(int id) where T : BaseScriptableObject
     {
-        T data = database.GetById(id) as T;
+        T data = _dataBase.GetById(id) as T;
 
         return data;
     }

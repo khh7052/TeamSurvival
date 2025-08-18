@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gathering_Tree_Node
   m_EditorClassIdentifier: 
   ID: 40001
-  DisplayName: 
+  DisplayName: Tree
   Icon: {fileID: 0}
   Prefab: {fileID: 0}
   AssetReference:

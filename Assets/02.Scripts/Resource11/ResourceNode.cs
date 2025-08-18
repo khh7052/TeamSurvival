@@ -22,7 +22,6 @@ public class ResourceNode : MonoBehaviour, IHarvestable
 
     [Header("µå¶ø")]
     public ItemData yieldItem;
-    public AssetReference dropAssetRef;
     public int dropOnDeplete = 3;
 
     [Header("Debug")]
@@ -56,7 +55,8 @@ public class ResourceNode : MonoBehaviour, IHarvestable
 
         if (respawn)
         {
-            StartCoroutine(RespawnRoutine());
+            gameObject.SetActive(false);
+            //StartCoroutine(RespawnRoutine());
         }
         else
         {
