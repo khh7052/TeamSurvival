@@ -73,4 +73,22 @@ public class AudioManager : Singleton<AudioManager>
         sfxSource.PlayOneShot(clip, volume);
     }
 
+    public void SetVolume(VolumeType volumeType, float volume)
+    {
+        if (audioMixer == null) return;
+
+        volume = Mathf.Clamp(volume, AudioConstants.MinVolume, AudioConstants.MaxVolume); // 볼륨 범위 제한
+        string parameterName = AudioConstants.GetExposedVolumeName(volumeType);
+        audioMixer.SetFloat(parameterName, Mathf.Log10(volume) * 20); // dB로 변환
+    }
+
+    public void ResetVolume()
+    {
+        if (audioMixer == null) return;
+
+        SetVolume(VolumeType.Master, AudioConstants.MasterVolume);
+        SetVolume(VolumeType.BGM, AudioConstants.BGMVolume);
+        SetVolume(VolumeType.SFX, AudioConstants.SFXVolume);
+    }
+
 }

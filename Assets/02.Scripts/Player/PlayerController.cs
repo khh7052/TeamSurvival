@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 curMovementInput;
     public LayerMask groundLayerMask;
+    private EquipSystem equip;
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         model = GetComponent<EntityModel>();
+        equip = GetComponent<EquipSystem>();
     }
 
     private void Start()
@@ -47,7 +49,7 @@ public class PlayerController : MonoBehaviour
     private void Move() //이동로직
     {
         Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
-        dir *= model.moveSpeed;
+        dir *= model.moveSpeed.totalValue;
         dir.y = rb.velocity.y;
 
         rb.velocity = dir;
@@ -64,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump() //점프로직
     {
-        rb.AddForce(Vector2.up * model.jumpPower, ForceMode.Impulse);
+        rb.AddForce(Vector2.up * model.jumpPower.totalValue, ForceMode.Impulse);
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -91,6 +93,14 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
     }
+
+    //public void OnAttack(InputAction.CallbackContext context)
+    //{
+    //    if (context.phase == InputActionPhase.Started && equip != null)
+    //    {
+    //        equip.Attack();
+    //    }
+    //}
 
     private bool IsGrounded() //땅에 있는지 체크해서 bool값으로 반환하는 함수
     {

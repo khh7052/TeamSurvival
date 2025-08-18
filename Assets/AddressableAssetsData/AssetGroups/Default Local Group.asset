@@ -16,7 +16,68 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: c22d7257746ad4a45b7dc6ca2352925f
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 1250e5ac132423c4293a671146f867dd
+    m_Address: Test/obj3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7961baf06fe927548ae3c1ba8fa68dba
+    m_Address: Test/obj1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2044a034e6a89124fbc9444894287ba5
+    m_Address: Test/obj2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2aeba42fdadae784fa41162163fa60c7
+    m_Address: Assets/Resources_moved/Data/test 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eb353c86b348d354ab2ef1771866c5e5
+    m_Address: Assets/Resources_moved/Data/test 2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d6691a2b62d15df4dbf260c10aac65d7
+    m_Address: Assets/Resources_moved/BuildingMode/Floor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c75231259a55fb942a6df3ec509de958
+    m_Address: Assets/Resources_moved/BuildingMode/Wall.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0acd93775e628d4cb42f862d32ba2fd
+    m_Address: Assets/Resources_moved/BuildingMode/PreviewWall.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 73b9f586633f54647a2ae4292b5d0b57
+    m_Address: Assets/Resources_moved/BuildingMode/PreviewFloor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 139e8f8a634b37748b82fabf33e15e21
+    m_Address: Assets/Resources_moved/Data/Build_PreviewFloor.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BuildingItem
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a3ce133a1900974f857153dc83e4bf7
+    m_Address: Assets/Resources_moved/Data/Build_PreviewWall.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BuildingItem
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}
   m_SchemaSet:

@@ -1,0 +1,167 @@
+using Constants;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+
+public class BuildingMode : MonoBehaviour
+{
+    public bool isBuild = false;
+    public float rayDistance;
+    public LayerMask buildMask;
+    public LayerMask buildableLayer;
+    public BuildMode buildMode;
+
+    private BuildKey buildKey;
+    private GameObject preViewObj;
+
+    private GameObject[] preViewObjs = new GameObject[2];
+
+    // 안보이는 가상 건축 레이어 오브젝트 전방, 상단
+    public GameObject[] invisibleLayer = new GameObject[2];
+
+    private async void Start()
+    {
+        while (!Factory.Instance.IsInitialized)
+        {
+            await Task.Yield();
+        }
+        Debug.Log("준비 완료");
+
+        preViewObjs[0] = await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(10011, (go) =>
+        {
+            go.SetActive(false);
+            go.GetComponentInChildren<MeshRenderer>().material.color = new Color(0, 0, 1, 0.6f);
+        });
+        preViewObjs[1] = await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(10012, (go) =>
+        {
+            go.SetActive(false);
+            go.GetComponentInChildren<MeshRenderer>().material.color = new Color(0, 0, 1, 0.6f);
+        });
+
+        invisibleLayer[0].transform.localPosition = new Vector3(0, 0.5f, rayDistance - 0.1f);
+        invisibleLayer[0].transform.localScale = new Vector3(rayDistance * 2f, rayDistance * 2f, 0.01f);
+        invisibleLayer[1].transform.localPosition = new Vector3(0, rayDistance - 0.1f, 0);
+        invisibleLayer[1].transform.localScale = new Vector3(rayDistance * 2f, rayDistance * 2f, 0.01f);
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            DestroyPrevObj();
+            isBuild = !isBuild;
+        }
+        if (isBuild)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                DestroyPrevObj();
+                buildMode = BuildMode.Floor;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                DestroyPrevObj();
+                buildMode = BuildMode.Wall;
+            }
+
+            Ray(out RaycastHit hit, rayDistance);
+            if (hit.collider != null)
+            {
+                var (pos, dir, rot) = BuildingManager.Instance.GetBuildPos(hit.point);
+                BuildKey newKey = new(buildMode, pos, dir);
+
+                // 해당 위치에 이미 건설된 상태일 경우
+                if (BuildingManager.Instance.IsOccupied(newKey))
+                {
+                    DestroyPrevObj();
+                    Debug.Log($"이미 {buildMode} 가 설치된 자리입니다!");
+                    return;
+                }
+
+                if(preViewObj == null || !buildKey.Equals(newKey))
+                {
+                    DestroyPrevObj();
+                    buildKey = newKey;
+                    CreatePreviewObj(hit, buildMode);
+                }
+
+
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    if (CanBuildAt(buildKey.Position, buildKey.rot, buildMode))
+                    {
+                        CreateBuildObj(hit, buildMode);
+                    }
+                    else
+                    {
+                        Debug.Log("건설 불가 위치!");
+                    }
+                }
+            }
+        }
+    }
+
+    private bool Ray(out RaycastHit hit, float distance)
+    {
+        Vector3 origin, dir;
+        if (Camera.main != null)
+        {
+            origin = Camera.main.transform.position;
+            dir = Camera.main.transform.forward;
+        }
+        else
+        {
+            origin = transform.position + Vector3.up * 0.8f;
+            dir = transform.forward;
+        }
+        return Physics.Raycast(origin, dir, out hit, distance, buildMask);
+    }
+
+    private void DestroyPrevObj()
+    {
+        if (preViewObj != null)
+        {
+            preViewObj.SetActive(false);
+            preViewObj = null;
+        }
+    }
+
+    public void CreatePreviewObj(RaycastHit hit, BuildMode mode)
+    {
+        GameObject go = preViewObjs[((int)mode - 10001)];
+
+        go.transform.SetPositionAndRotation(buildKey.Position, buildKey.rot);
+        bool canBuild = CanBuildAt(buildKey.Position, buildKey.rot, buildMode);
+        var renderer = go.GetComponentInChildren<MeshRenderer>();
+        if (renderer != null)
+        {
+            renderer.material.color = canBuild ? new Color(0, 1, 0, 0.6f) : new Color(1, 0, 0, 0.6f);
+        }
+        go.SetActive(true);
+        preViewObj = go;
+    }
+
+    public async void CreateBuildObj(RaycastHit hit, BuildMode mode)
+    {
+        GameObject go = await Factory.Instance.CreateByIDAsync<BaseScriptableObject>((int)mode, (go) =>
+        {
+            var obj = go.AddComponent<BuildObj>();
+            obj.key = buildKey;
+            obj.Initialize();
+            obj.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
+        });
+
+        go.transform.SetPositionAndRotation(buildKey.Position, buildKey.rot);
+
+        BuildingManager.Instance.RegisterBuild(buildKey);
+    }
+    private bool CanBuildAt(Vector3 pos, Quaternion rot, BuildMode mode)
+    {
+        Vector3 halfExtents = Vector3.one * 0.5f; // 건물 크기에 맞게 조정 필요
+        Collider[] hits = Physics.OverlapBox(pos, halfExtents, rot, buildableLayer);
+
+        return hits.Length > 0;
+    }
+}

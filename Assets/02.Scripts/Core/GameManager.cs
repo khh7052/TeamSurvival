@@ -12,8 +12,7 @@ public class GameManager : Singleton<GameManager>
     {
         await WaitForManagersToInitialize(
             Factory.Instance,
-            ObjectPoolingManager.Instance
-
+            BuildingManager.Instance
         );
 
         Debug.Log("[GameManager] 모든 매니저 초기화 완료");
@@ -33,43 +32,32 @@ public class GameManager : Singleton<GameManager>
     public void GameStart()
     {
 
+        /* Test Area
         Factory.Instance.CreateByID<BaseScriptableObject>(0);
-        // Test Area
         UIManager.Instance.ShowUI<TestConditionUI>();
 
         for(int i = 0; i < 10; i++)
         {
-
-            Factory.Instance.CreateByID<BaseScriptableObject>(0);
+            await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(0);
         }
         for (int i = 0; i < 10; i++)
         {
-            Factory.Instance.CreateByID<BaseScriptableObject>(1);
+            await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(1);
         }
         for (int i = 0; i < 10; i++)
         {
-            Factory.Instance.CreateByID<BaseScriptableObject>(2);
+            await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(2);
         }
-        
-        Invoke("test", 3f);
+
+        Debug.Log("Start Delay");
+        await Task.Delay(5000);
+
+        Debug.Log("End Delay");
+//        await test();
+        */
     }
 
-    public void test()
-    {
-        for (int i = 0; i < 5; i++)
-        {
 
-            Factory.Instance.CreateByID<BaseScriptableObject>(0);
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            Factory.Instance.CreateByID<BaseScriptableObject>(1);
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            Factory.Instance.CreateByID<BaseScriptableObject>(2);
-        }
-    }
     public void PauseGame()
     {
 

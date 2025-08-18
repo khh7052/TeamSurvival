@@ -89,6 +89,7 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - ItemData
+    - BuildingItem
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 9a63d738cfe1f494e9cf1538edbcb6ef, type: 2}

@@ -16,9 +16,12 @@ public class EntityModel : MonoBehaviour, IDamageable
     public Condition stamina; //스테미너
 
     [Header("이동관련")]
+    /*
     public float moveSpeed; //이동속도
     public float jumpPower; //점프력
-
+    */
+    public Status moveSpeed; // 이동 속도
+    public Status jumpPower; // 점프력
     //public event Action OnChangeStatuses;
 
     private void Awake()
