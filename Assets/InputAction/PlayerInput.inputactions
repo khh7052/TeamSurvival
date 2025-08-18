@@ -33,9 +33,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack",
+                    "name": "Interact",
                     "type": "Button",
-                    "id": "c9072a88-6f4f-4e77-925a-cea99ad65af1",
+                    "id": "3c8b6df4-d15e-49fb-8e60-b4f036091233",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -122,12 +122,12 @@
                 },
                 {
                     "name": "",
-                    "id": "30288f61-7739-4c64-aefb-ff49c8f59e44",
-                    "path": "<Mouse>/leftButton",
+                    "id": "d6694a1d-6e54-4691-905b-e29b1350c577",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
