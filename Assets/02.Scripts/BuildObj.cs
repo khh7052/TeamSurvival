@@ -40,7 +40,7 @@ public class BuildObj : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         BuildingManager.Instance?.UnregisterBuild(key);
     }

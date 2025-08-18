@@ -114,13 +114,31 @@ public struct BuildKey : IEquatable<BuildKey>
     public BuildMode Mode;
     public Vector3 Position;  // Grid 좌표
     public Direction? Dir;       // Wall만 사용
+    public Quaternion rot;  // 회전 각도
 
     public BuildKey(BuildMode mode, Vector3 pos, Direction? dir = null)
     {
         Mode = mode;
         Position = pos;
         Dir = dir;
+        rot = Quaternion.identity;
         Normalize(ref this);
+        
+        switch (Dir)
+        {
+            case Direction.North:
+                rot = Quaternion.LookRotation(Vector3.forward);
+                break;
+            case Direction.South:
+                rot = Quaternion.LookRotation(Vector3.back);
+                break;
+            case Direction.East:
+                rot = Quaternion.LookRotation(Vector3.right);
+                break;
+            case Direction.West:
+                rot = Quaternion.LookRotation(Vector3.left);
+                break;
+        }
     }
 
     /// <summary>
@@ -147,14 +165,23 @@ public struct BuildKey : IEquatable<BuildKey>
 
     public bool Equals(BuildKey other)
     {
-        return Mode == other.Mode &&
-               Position == other.Position &&
-               (Mode != BuildMode.Wall || Dir == other.Dir);
+        BuildKey a = this;
+        BuildKey b = other;
+
+        Normalize(ref a);
+        Normalize(ref b);
+
+        return a.Mode == b.Mode &&
+               a.Position == b.Position &&
+               (a.Mode != BuildMode.Wall || a.Dir == b.Dir);
     }
 
     public override int GetHashCode()
     {
-        int hash = Mode.GetHashCode() ^ Position.GetHashCode();
+        BuildKey key = this;
+        Normalize(ref key);
+
+        int hash = Mode.GetHashCode() ^ key.Position.GetHashCode();
         if (Mode == BuildMode.Wall && Dir != null)
             hash ^= Dir.GetHashCode();
         return hash;
