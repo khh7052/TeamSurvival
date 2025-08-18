@@ -46,7 +46,7 @@ public class EquipSystem : MonoBehaviour
     //    {
     //        UseWeapon();
     //        float delay = currentItem.weaponAttackDelay;
-    //        if(delay < 0.1f) delay = 0.1f;
+    //        if (delay < 0.1f) delay = 0.1f;
     //        nextUseTime = Time.time + delay;
     //    }
     //    else if (currentItem.isTool)

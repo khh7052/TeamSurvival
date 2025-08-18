@@ -94,13 +94,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnAttack(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Started && equip != null)
-        {
-            equip.Attack();
-        }
-    }
+    //public void OnAttack(InputAction.CallbackContext context)
+    //{
+    //    if (context.phase == InputActionPhase.Started && equip != null)
+    //    {
+    //        equip.Attack();
+    //    }
+    //}
 
     private bool IsGrounded() //땅에 있는지 체크해서 bool값으로 반환하는 함수
     {
