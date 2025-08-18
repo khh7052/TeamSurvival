@@ -10,12 +10,16 @@ public class BuildingMode : MonoBehaviour
     public bool isBuild = false;
     public float rayDistance;
     public LayerMask buildMask;
+    public LayerMask buildableLayer;
     public BuildMode buildMode;
 
     private BuildKey buildKey;
     private GameObject preViewObj;
 
     private GameObject[] preViewObjs = new GameObject[2];
+
+    // 안보이는 가상 건축 레이어 오브젝트 전방, 상단
+    public GameObject[] invisibleLayer = new GameObject[2];
 
     private async void Start()
     {
@@ -35,12 +39,18 @@ public class BuildingMode : MonoBehaviour
             go.SetActive(false);
             go.GetComponentInChildren<MeshRenderer>().material.color = new Color(0, 0, 1, 0.6f);
         });
+
+        invisibleLayer[0].transform.localPosition = new Vector3(0, 0.5f, rayDistance - 0.1f);
+        invisibleLayer[0].transform.localScale = new Vector3(rayDistance * 2f, rayDistance * 2f, 0.01f);
+        invisibleLayer[1].transform.localPosition = new Vector3(0, rayDistance - 0.1f, 0);
+        invisibleLayer[1].transform.localScale = new Vector3(rayDistance * 2f, rayDistance * 2f, 0.01f);
     }
 
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Y))
         {
+            DestroyPrevObj();
             isBuild = !isBuild;
         }
         if (isBuild)
@@ -74,13 +84,20 @@ public class BuildingMode : MonoBehaviour
                 {
                     DestroyPrevObj();
                     buildKey = newKey;
-                    CreatePreviewObj(hit, rot, buildMode);
+                    CreatePreviewObj(hit, buildMode);
                 }
 
 
                 if (Input.GetKeyDown(KeyCode.F))
                 {
-                    CreateBuildObj(hit, rot, buildMode);
+                    if (CanBuildAt(buildKey.Position, buildKey.rot, buildMode))
+                    {
+                        CreateBuildObj(hit, buildMode);
+                    }
+                    else
+                    {
+                        Debug.Log("건설 불가 위치!");
+                    }
                 }
             }
         }
@@ -111,30 +128,40 @@ public class BuildingMode : MonoBehaviour
         }
     }
 
-    public void CreatePreviewObj(RaycastHit hit, Quaternion rot, BuildMode mode)
+    public void CreatePreviewObj(RaycastHit hit, BuildMode mode)
     {
         GameObject go = preViewObjs[((int)mode - 10001)];
 
         go.transform.SetPositionAndRotation(buildKey.Position, buildKey.rot);
+        bool canBuild = CanBuildAt(buildKey.Position, buildKey.rot, buildMode);
+        var renderer = go.GetComponentInChildren<MeshRenderer>();
+        if (renderer != null)
+        {
+            renderer.material.color = canBuild ? new Color(0, 1, 0, 0.6f) : new Color(1, 0, 0, 0.6f);
+        }
         go.SetActive(true);
         preViewObj = go;
     }
 
-    public async void CreateBuildObj(RaycastHit hit, Quaternion rot, BuildMode mode)
+    public async void CreateBuildObj(RaycastHit hit, BuildMode mode)
     {
-
-
         GameObject go = await Factory.Instance.CreateByIDAsync<BaseScriptableObject>((int)mode, (go) =>
         {
             var obj = go.AddComponent<BuildObj>();
             obj.key = buildKey;
             obj.Initialize();
-            obj.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+            obj.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
         });
 
         go.transform.SetPositionAndRotation(buildKey.Position, buildKey.rot);
 
         BuildingManager.Instance.RegisterBuild(buildKey);
     }
+    private bool CanBuildAt(Vector3 pos, Quaternion rot, BuildMode mode)
+    {
+        Vector3 halfExtents = Vector3.one * 0.5f; // 건물 크기에 맞게 조정 필요
+        Collider[] hits = Physics.OverlapBox(pos, halfExtents, rot, buildableLayer);
 
+        return hits.Length > 0;
+    }
 }
