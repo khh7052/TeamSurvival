@@ -1,17 +1,10 @@
+using Constants;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BuildMode 
-{
-    None, Floor, Wall, Stair
-}
 
-public enum Direction
-{
-    North, South, East, West
-}
 
 public class BuildingManager : Singleton<BuildingManager>, IInitializableAsync
 {
@@ -130,8 +123,11 @@ public struct BuildKey : IEquatable<BuildKey>
         Normalize(ref this);
     }
 
-    // === 핵심: 벽 전용 Normalize ===
-    private static void Normalize(ref BuildKey key)
+    /// <summary>
+    /// West, South 방향 벽을 항상 East, North로 하여 인접한 그리드의 다른 방향 오브젝트를 동일화
+    /// </summary>
+    /// <param name="key"></param>
+    private void Normalize(ref BuildKey key)
     {
         if (key.Mode != BuildMode.Wall || key.Dir == null) return;
 

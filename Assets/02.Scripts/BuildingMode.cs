@@ -1,3 +1,4 @@
+using Constants;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,22 +44,23 @@ public class BuildingMode : MonoBehaviour
     public async void CreateBuildObj(RaycastHit hit, BuildMode mode)
     {
         var (pos, dir, rot) = BuildingManager.Instance.GetBuildPos(hit.point);
-
-        if (BuildingManager.Instance.IsOccupied(new BuildKey(mode, pos, dir)))
+        BuildKey key = new(mode, pos, dir);
+        if (BuildingManager.Instance.IsOccupied(key))
         {
             Debug.Log($"이미 {mode} 가 설치된 자리입니다!");
             return;
         }
-
-        GameObject go = await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(10002, (go) =>
+        Debug.Log((int)mode);
+        GameObject go = await Factory.Instance.CreateByIDAsync<BaseScriptableObject>((int)mode, (go) =>
         {
             var obj = go.AddComponent<BuildObj>();
-            obj.key = new BuildKey(mode, pos, dir);
+            obj.key = key;
+            obj.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
         });
 
         go.transform.SetPositionAndRotation(pos, rot);
 
-        BuildingManager.Instance.RegisterBuild(new BuildKey(mode, pos, dir));
+        BuildingManager.Instance.RegisterBuild(key);
     }
 
 }
