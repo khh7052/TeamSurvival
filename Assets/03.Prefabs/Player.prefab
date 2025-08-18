@@ -110,7 +110,8 @@ GameObject:
   - component: {fileID: 6885103462339148826}
   - component: {fileID: 777261130677496077}
   - component: {fileID: 3850867666251352558}
-  - component: {fileID: 6763701343297504487}
+  - component: {fileID: 9183120507124538938}
+  - component: {fileID: 8566881413159209253}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -274,19 +275,7 @@ MonoBehaviour:
     m_ActionId: 5d97bccf-92d9-47a7-b00e-f12cb56c1e8a
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 777261130677496077}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnLook
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 6f922e8e-5e25-4406-a2aa-9a8c8a9c85cc
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
@@ -305,6 +294,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7cfa847d-83f1-4b07-a4a5-e8b52149f2e2
     m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9183120507124538938}
+        m_TargetAssemblyTypeName: Interaction, Assembly-CSharp
+        m_MethodName: OnInteractInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3c8b6df4-d15e-49fb-8e60-b4f036091233
+    m_ActionName: Player/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -336,34 +341,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health:
     curValue: 0
-    startValue: 100
-    maxValue: 100
+    startValue: 0
+    maxValue: 0
     passiveValue: 0
   hunger:
     curValue: 0
-    startValue: 100
-    maxValue: 100
-    passiveValue: 3
+    startValue: 0
+    maxValue: 0
+    passiveValue: 0
   thirst:
     curValue: 0
-    startValue: 100
-    maxValue: 100
+    startValue: 0
+    maxValue: 0
     passiveValue: 0
   stamina:
     curValue: 0
-    startValue: 100
-    maxValue: 100
+    startValue: 0
+    maxValue: 0
     passiveValue: 0
-  moveSpeed:
-    baseValue: 0
-    additionalValue: 0
-    multipleValue: 1
-    constValue: 0
-  jumpPower:
-    baseValue: 0
-    additionalValue: 0
-    multipleValue: 1
-    constValue: 0
+  moveSpeed: 8
+  jumpPower: 50
 --- !u!114 &777261130677496077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,7 +403,7 @@ MonoBehaviour:
   thirstText: {fileID: 0}
   staminaSlider: {fileID: 0}
   staminaText: {fileID: 0}
---- !u!114 &6763701343297504487
+--- !u!114 &9183120507124538938
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -415,15 +412,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 6771510593846623006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4654c3775546104c84a6e3d4ba9b2ab, type: 3}
+  m_Script: {fileID: 11500000, guid: 21bb85ccda6c9f2438814284ca0f573e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isBuild: 1
-  rayDistance: 4
-  buildMask:
+  checkRate: 0.05
+  maxCheckDistance: 3
+  layerMask:
     serializedVersion: 2
-    m_Bits: 576
-  buildMode: 10002
+    m_Bits: 512
+  curInteractGameObject: {fileID: 0}
+  promptText: {fileID: 0}
+--- !u!114 &8566881413159209253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6771510593846623006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 583c254fe514b66468d19d3adaf693e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
 --- !u!1 &7364016361463157510
 GameObject:
   m_ObjectHideFlags: 0
