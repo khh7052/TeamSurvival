@@ -22,7 +22,7 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   description: 
-  type: 1
+  type: 0
   icon: {fileID: 0}
   dropPrefab: {fileID: 0}
   canStack: 0

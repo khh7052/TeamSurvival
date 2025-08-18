@@ -32,6 +32,6 @@ public class ItemObject : MonoBehaviour, IInteractable
         }
 
         //Á¦°Å
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

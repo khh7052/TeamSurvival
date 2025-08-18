@@ -42,7 +42,8 @@ public class Factory : Singleton<Factory>, IInitializableAsync
 
         GameObject go = await ObjectPoolingManager.Instance.GetAsync(data.AssetReference, Vector3.zero, Quaternion.identity);
         go.name = data.DisplayName;
-        callBack?.Invoke(go);
+        if(go != null)
+            callBack?.Invoke(go);
         return go;
     }
 

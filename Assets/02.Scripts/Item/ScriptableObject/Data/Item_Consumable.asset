@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90534c289604d904995d92823d142e91, type: 3}
   m_Name: Item_Consumable
   m_EditorClassIdentifier: 
-  ID: 0
+  ID: 22000
   DisplayName: "\uC18C\uBAA8 \uC544\uC774\uD15C"
   Icon: {fileID: 0}
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 9072252662268677480, guid: 55d1c9c774a76e2419f97521789e3d1e, type: 3}
   AssetReference:
-    m_AssetGUID: 
+    m_AssetGUID: 55d1c9c774a76e2419f97521789e3d1e
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   description: "\uC18C\uBAA8 \uAC00\uB2A5"
-  type: 2
+  type: 0
   icon: {fileID: 0}
   dropPrefab: {fileID: 9072252662268677480, guid: 55d1c9c774a76e2419f97521789e3d1e, type: 3}
   canStack: 1
