@@ -97,11 +97,15 @@ public class BuildingManager : Singleton<BuildingManager>, IInitializableAsync
         return enums[best];
     }
 
-    public bool IsOccupied(BuildKey key)
+    public T GetBuildingObjectData<T>(int id) where T : BaseScriptableObject
     {
-        bool ret = occupied.Contains(key);
-        return ret;
+        T data = database.GetById(id) as T;
+
+        return data;
     }
+
+    public bool IsOccupied(BuildKey key) => occupied.Contains(key);
+    
 
     public void RegisterBuild(BuildKey key) => occupied.Add(key);
 

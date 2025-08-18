@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Gathering Node Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Gathering Node Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: a39f7e263b74d2640b44b09ab887db70
+  m_SerializeEntries:
+  - m_GUID: 2f548aa10ed8ab04da53e9f4c18026d8
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/GatheringNode Data/Gathering_Tree_Node.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gathering
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a41c9a74ed4b6a34c9e2a2e496d6ed3a, type: 2}
+    - {fileID: 11400000, guid: c70e6f50d239dca48a9cbc0e7dcf9d61, type: 2}

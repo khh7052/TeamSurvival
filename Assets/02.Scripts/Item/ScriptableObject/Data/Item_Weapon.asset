@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90534c289604d904995d92823d142e91, type: 3}
   m_Name: Item_Weapon
   m_EditorClassIdentifier: 
-  ID: 0
-  DisplayName: 
+  ID: 23003
+  DisplayName: Weapon
   Icon: {fileID: 0}
   Prefab: {fileID: 0}
   AssetReference:

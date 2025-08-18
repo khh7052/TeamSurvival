@@ -27,13 +27,13 @@ MonoBehaviour:
     m_Address: Assets/02.Scripts/Item/ScriptableObject/BuildObject Data/Build_PreviewWall.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - ItemData
+    - BuildingItem
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 139e8f8a634b37748b82fabf33e15e21
     m_Address: Assets/02.Scripts/Item/ScriptableObject/BuildObject Data/Build_PreviewFloor.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - ItemData
+    - BuildingItem
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: df8105134adbc9147b8ddbaae16d8a1d
     m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Equipable.asset
@@ -69,13 +69,13 @@ MonoBehaviour:
     m_Address: Assets/02.Scripts/Item/ScriptableObject/BuildObject Data/Build_Floor.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - ItemData
+    - BuildingItem
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1a023203243cf7b439ef4bfaf09974a4
     m_Address: Assets/02.Scripts/Item/ScriptableObject/BuildObject Data/Build_Wall.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - ItemData
+    - BuildingItem
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}

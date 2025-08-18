@@ -12,7 +12,8 @@ public class ScriptableObjectDataBase<T> where T : BaseScriptableObject
 
     public async Task Initialize(string label)
     {
-        _data = new();
+        if(_data == null)
+            _data = new();
         AsyncOperationHandle<IList<T>> handle = Addressables.LoadAssetsAsync<T>(label, asset =>
         {
             if (!_data.ContainsKey(asset.ID))

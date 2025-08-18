@@ -4,9 +4,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.InputSystem.HID;
+
+
 
 public class BuildingMode : MonoBehaviour
 {
+    [Header("Build Setting")]
+    public float checkRate = 0.05f;
     public bool isBuild = false;
     public float rayDistance;
     public LayerMask buildMask;
@@ -15,31 +20,35 @@ public class BuildingMode : MonoBehaviour
 
     private BuildKey buildKey;
     private GameObject preViewObj;
+    private float lastCheckTime;
+    private RaycastHit hit;
 
-    private GameObject[] preViewObjs = new GameObject[2];
+    private GameObject[] preViewObjs = new GameObject[BuildObjectConst.PrevObjectIds.Length];
 
     // 안보이는 가상 건축 레이어 오브젝트 전방, 상단
     public GameObject[] invisibleLayer = new GameObject[2];
 
     private async void Start()
     {
-        while (!Factory.Instance.IsInitialized)
+        while (!GameManager.Instance.IsInitialized)
         {
             await Task.Yield();
         }
         Debug.Log("준비 완료");
 
-        preViewObjs[0] = await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(10011, (go) =>
+        // Preview 오브젝트 초기화
+        for(int i = 0; i < preViewObjs.Length; i++)
         {
-            go.SetActive(false);
-            go.GetComponentInChildren<MeshRenderer>().material.color = new Color(0, 0, 1, 0.6f);
-        });
-        preViewObjs[1] = await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(10012, (go) =>
-        {
-            go.SetActive(false);
-            go.GetComponentInChildren<MeshRenderer>().material.color = new Color(0, 0, 1, 0.6f);
-        });
+            var data = BuildingManager.Instance.GetBuildingObjectData<BaseScriptableObject>(BuildObjectConst.PrevObjectIds[i]);
 
+            preViewObjs[i] = await Factory.Instance.CreateByAssetReferenceAsync(data, (go) =>
+            {
+                go.SetActive(false);
+                go.GetComponentInChildren<MeshRenderer>().material.color = new Color(0, 0, 1, 0.6f);
+            });
+        }
+
+        // 플레이어 건설 레이어 초기화
         invisibleLayer[0].transform.localPosition = new Vector3(0, 0.5f, rayDistance - 0.1f);
         invisibleLayer[0].transform.localScale = new Vector3(rayDistance * 2f, rayDistance * 2f, 0.01f);
         invisibleLayer[1].transform.localPosition = new Vector3(0, rayDistance - 0.1f, 0);
@@ -48,13 +57,16 @@ public class BuildingMode : MonoBehaviour
 
     public void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Y))
         {
             DestroyPrevObj();
             isBuild = !isBuild;
         }
+
         if (isBuild)
         {
+            // 키 입력으로 건축 모듈 선택
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 DestroyPrevObj();
@@ -65,39 +77,42 @@ public class BuildingMode : MonoBehaviour
                 DestroyPrevObj();
                 buildMode = BuildMode.Wall;
             }
-
-            Ray(out RaycastHit hit, rayDistance);
-            if (hit.collider != null)
+            if (Time.time - lastCheckTime > checkRate)
             {
-                var (pos, dir, rot) = BuildingManager.Instance.GetBuildPos(hit.point);
-                BuildKey newKey = new(buildMode, pos, dir);
+                lastCheckTime = Time.time;
 
-                // 해당 위치에 이미 건설된 상태일 경우
-                if (BuildingManager.Instance.IsOccupied(newKey))
+                Ray(out hit, rayDistance);
+                if (hit.collider != null)
                 {
-                    DestroyPrevObj();
-                    Debug.Log($"이미 {buildMode} 가 설치된 자리입니다!");
-                    return;
-                }
+                    var (pos, dir, rot) = BuildingManager.Instance.GetBuildPos(hit.point);
+                    BuildKey newKey = new(buildMode, pos, dir);
 
-                if(preViewObj == null || !buildKey.Equals(newKey))
-                {
-                    DestroyPrevObj();
-                    buildKey = newKey;
-                    CreatePreviewObj(hit, buildMode);
-                }
-
-
-                if (Input.GetKeyDown(KeyCode.F))
-                {
-                    if (CanBuildAt(buildKey.Position, buildKey.rot, buildMode))
+                    // 해당 위치에 이미 건설된 상태일 경우
+                    if (BuildingManager.Instance.IsOccupied(newKey))
                     {
-                        CreateBuildObj(hit, buildMode);
+                        DestroyPrevObj();
+                        Debug.Log($"이미 {buildMode} 가 설치된 자리입니다!");
+                        return;
                     }
-                    else
+
+                    if (preViewObj == null || !buildKey.Equals(newKey))
                     {
-                        Debug.Log("건설 불가 위치!");
+                        DestroyPrevObj();
+                        buildKey = newKey;
+                        CreatePreviewObj(hit, buildMode);
                     }
+
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (CanBuildAt(buildKey.Position, buildKey.rot, buildMode))
+                {
+                    CreateBuildObj(hit, buildMode);
+                }
+                else
+                {
+                    Debug.Log("건설 불가 위치!");
                 }
             }
         }
@@ -145,7 +160,9 @@ public class BuildingMode : MonoBehaviour
 
     public async void CreateBuildObj(RaycastHit hit, BuildMode mode)
     {
-        GameObject go = await Factory.Instance.CreateByIDAsync<BaseScriptableObject>((int)mode, (go) =>
+        var buildObjData = BuildingManager.Instance.GetBuildingObjectData<BaseScriptableObject>((int)mode);
+
+        GameObject go = await Factory.Instance.CreateByAssetReferenceAsync<BaseScriptableObject>(buildObjData, (go) =>
         {
             var obj = go.AddComponent<BuildObj>();
             obj.key = buildKey;

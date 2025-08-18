@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item_Resource
   m_EditorClassIdentifier: 
   ID: 21001
-  DisplayName: 
+  DisplayName: Resource
   Icon: {fileID: 0}
   Prefab: {fileID: 0}
   AssetReference:
