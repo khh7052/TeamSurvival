@@ -116,7 +116,7 @@ public class BuildingMode : MonoBehaviour
             origin = transform.position + Vector3.up * 0.8f;
             dir = transform.forward;
         }
-        return Physics.Raycast(origin, dir, out hit, distance, buildMask);
+        return Physics.Raycast(origin, dir, out hit, distance, buildMask, QueryTriggerInteraction.Collide);
     }
 
     private void DestroyPrevObj()
