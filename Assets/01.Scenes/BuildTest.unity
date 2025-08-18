@@ -629,18 +629,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6763701343297504487, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
-      propertyPath: isBuild
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6763701343297504487, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
-      propertyPath: buildMode
-      value: 10002
-      objectReference: {fileID: 0}
-    - target: {fileID: 6763701343297504487, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
-      propertyPath: buildMask.m_Bits
-      value: 576
-      objectReference: {fileID: 0}
     - target: {fileID: 6771510593846623006, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
       propertyPath: m_Name
       value: Player

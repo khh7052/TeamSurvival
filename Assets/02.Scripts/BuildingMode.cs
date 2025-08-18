@@ -45,12 +45,13 @@ public class BuildingMode : MonoBehaviour
     {
         var (pos, dir, rot) = BuildingManager.Instance.GetBuildPos(hit.point);
         BuildKey key = new(mode, pos, dir);
+        // 해당 위치에 이미 건설된 상태일 경우
         if (BuildingManager.Instance.IsOccupied(key))
         {
             Debug.Log($"이미 {mode} 가 설치된 자리입니다!");
             return;
         }
-        Debug.Log((int)mode);
+
         GameObject go = await Factory.Instance.CreateByIDAsync<BaseScriptableObject>((int)mode, (go) =>
         {
             var obj = go.AddComponent<BuildObj>();

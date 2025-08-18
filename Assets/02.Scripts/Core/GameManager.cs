@@ -29,7 +29,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public async void GameStart()
+    public void GameStart()
     {
 
         /* Test Area

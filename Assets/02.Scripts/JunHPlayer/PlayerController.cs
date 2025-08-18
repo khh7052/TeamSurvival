@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     private void Move() //이동로직
     {
         Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
-        dir *= model.moveSpeed;
+        dir *= model.moveSpeed.totalValue;
         dir.y = rb.velocity.y;
 
         rb.velocity = dir;
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump() //점프로직
     {
-        rb.AddForce(Vector2.up * model.jumpPower, ForceMode.Impulse);
+        rb.AddForce(Vector2.up * model.jumpPower.totalValue, ForceMode.Impulse);
     }
 
     public void OnMove(InputAction.CallbackContext context)
