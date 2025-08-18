@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c279dab2cc2f86b4a9c393cf7ff8daf0, type: 3}
-  m_Name: test 2
+  m_Name: Build_Floor
   m_EditorClassIdentifier: 
-  ID: 2
-  DisplayName: TestName
+  ID: 10001
+  DisplayName: Floor
   Icon: {fileID: 0}
   Prefab: {fileID: 2057893157616160673, guid: 1250e5ac132423c4293a671146f867dd, type: 3}
   AssetReference:
-    m_AssetGUID: 1250e5ac132423c4293a671146f867dd
+    m_AssetGUID: d6691a2b62d15df4dbf260c10aac65d7
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

@@ -16,8 +16,7 @@ public class NPC : MonoBehaviour, IInteractable
     private NPCView npcView;
 
     [Header("Stats")]
-    [SerializeField] private int health;
-    [SerializeField] private float moveSpeed;
+//    [SerializeField] private float moveSpeed;
     [SerializeField] private float lookSpeed;
 
     [Header("AI Settings")]
@@ -54,7 +53,7 @@ public class NPC : MonoBehaviour, IInteractable
     private float lastPatrolTime;
     private float lastAttackTime;
     private NavMeshAgent agent;
-    private Transform nearestEnemyObject;
+    [SerializeField] private Transform nearestEnemyObject;
     private NPCStateMachine stateMachine;
     private AnimationHandler animationHandler;
     private EntityModel entityModel;
@@ -87,6 +86,8 @@ public class NPC : MonoBehaviour, IInteractable
 
         stateMachine.Initialize(this);
         entityModel.health.OnChanged += Health_OnChanged;
+
+        entityModel.moveSpeed.OnChangeValue += MoveSpeed_OnChanged;
     }
 
     private void Health_OnChanged()
@@ -106,11 +107,16 @@ public class NPC : MonoBehaviour, IInteractable
         }
     }
 
+    private void MoveSpeed_OnChanged()
+    {
+        SetSpeed(entityModel.moveSpeed.totalValue);
+    }
+
     private void Start()
     {
         npcView?.SetName(npcName);
         StartCoroutine(UpdateNearestEnemyObject());
-        SetSpeed(moveSpeed);
+        SetSpeed(entityModel.moveSpeed.totalValue);
         stateMachine.ChangeState<NPCIdleState>();
     }
 

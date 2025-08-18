@@ -1,11 +1,14 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR.Haptics;
 
 public class StateMachine : MonoBehaviour
 {
     private IState currentState;
     private readonly Dictionary<Type, IState> states = new();
+    [SerializeField] private string CurrentState;
 
     public void AddState(IState state) 
         => states[state.GetType()] = state;
@@ -33,6 +36,7 @@ public class StateMachine : MonoBehaviour
         // 새로운 상태의 진입
         currentState = states[typeof(T)];
         currentState.EnterState();
+        CurrentState = currentState.GetType().Name;
     }
 
     public void UpdateState()

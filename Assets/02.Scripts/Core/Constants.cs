@@ -60,6 +60,17 @@ namespace Constants
         public static readonly int DieHash = Animator.StringToHash("Die");
     }
 
+    public enum BuildMode
+    {
+        None = 10000, Floor = 10001, Wall = 10002, Stair = 10003
+    }
+
+    public enum Direction
+    {
+        North, South, East, West
+    }
+
+
     public enum ePlayerState
     {
         Idle, Move, Run, // Add need more
