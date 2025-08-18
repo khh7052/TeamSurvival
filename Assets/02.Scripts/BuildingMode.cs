@@ -14,6 +14,15 @@ public class BuildingMode : MonoBehaviour
     {
         if (isBuild)
         {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                buildMode = BuildMode.Floor;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                buildMode = BuildMode.Wall;
+            }
+
             Ray(out RaycastHit hit, rayDistance);
             if (hit.collider != null)
             {
