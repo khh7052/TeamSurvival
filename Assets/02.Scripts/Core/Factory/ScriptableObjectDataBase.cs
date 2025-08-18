@@ -27,7 +27,7 @@ public class ScriptableObjectDataBase<T> where T : BaseScriptableObject
         });
 
         await handle.Task; // 모든 로드 완료 대기
-        Debug.Log($"[ScriptableObjectDatabase] {_data.Count}개의 {typeof(T).Name} 데이터 로드 완료");
+        Debug.Log($"[ScriptableObjectDatabase] {label} 라벨의 {_data.Count}개의 {typeof(T).Name} 데이터 로드 완료");
     }
 
     public T GetById(int id)

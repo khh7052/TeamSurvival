@@ -12,8 +12,7 @@ public class GameManager : Singleton<GameManager>
     {
         await WaitForManagersToInitialize(
             Factory.Instance,
-            ObjectPoolingManager.Instance
-
+            BuildingManager.Instance
         );
 
         Debug.Log("[GameManager] 모든 매니저 초기화 완료");
@@ -54,7 +53,8 @@ public class GameManager : Singleton<GameManager>
         await Task.Delay(5000);
 
         Debug.Log("End Delay");
-        await test();*/
+//        await test();
+        */
     }
 
 

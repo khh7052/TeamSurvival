@@ -7,6 +7,7 @@ public class BuildingMode : MonoBehaviour
     public bool isBuild = false;
     public float rayDistance;
     public LayerMask buildMask;
+    public BuildMode buildMode;
 
     public void Update()
     {
@@ -17,7 +18,7 @@ public class BuildingMode : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.F))
                 {
-                    CreateBuildObj(hit);
+                    CreateBuildObj(hit, buildMode);
                 }
             }
         }
@@ -39,10 +40,25 @@ public class BuildingMode : MonoBehaviour
         return Physics.Raycast(origin, dir, out hit, distance, buildMask);
     }
 
-    public async void CreateBuildObj(RaycastHit hit)
+    public async void CreateBuildObj(RaycastHit hit, BuildMode mode)
     {
-        GameObject go = await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(10002);
-        go.transform.SetPositionAndRotation(hit.point, Quaternion.identity);
+        var (pos, dir, rot) = BuildingManager.Instance.GetBuildPos(hit.point);
+
+        if (BuildingManager.Instance.IsOccupied(new BuildKey(mode, pos, dir)))
+        {
+            Debug.Log($"이미 {mode} 가 설치된 자리입니다!");
+            return;
+        }
+
+        GameObject go = await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(10002, (go) =>
+        {
+            var obj = go.AddComponent<BuildObj>();
+            obj.key = new BuildKey(mode, pos, dir);
+        });
+
+        go.transform.SetPositionAndRotation(pos, rot);
+
+        BuildingManager.Instance.RegisterBuild(new BuildKey(mode, pos, dir));
     }
 
 }

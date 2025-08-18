@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-public class ObjectPoolingManager : Singleton<ObjectPoolingManager>, IInitializableAsync
+public class ObjectPoolingManager : Singleton<ObjectPoolingManager>
 {
     private Dictionary<GameObject, Queue<GameObject>> poolDictionary = new();
     private Dictionary<GameObject, GameObject> instanceToPrefab = new();
@@ -28,10 +28,6 @@ public class ObjectPoolingManager : Singleton<ObjectPoolingManager>, IInitializa
     protected override void Initialize()
     {
         base.Initialize();
-        InitializeAsync();
-    }
-    public void InitializeAsync()
-    {
         poolDictionary = new();
         instanceToPrefab = new();
         IsInitialized = true;
