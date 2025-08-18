@@ -15,20 +15,19 @@ public class EquipSystem : MonoBehaviour
 
     private float nextUseTime = 0f;
 
-    //void Update()
-    //{
-    //    if (Input.GetMouseButtonDown(0))
-    //        Use();
-    //}
-
     public void Equip(ItemData data)
     {
         currentItem = data;
 
-        EquippedWeaponType = (currentItem != null && currentItem.isWeapon) ? currentItem.weaponType : WeaponType.None;
-        EquippedToolType = (currentItem != null && currentItem.isTool) ? currentItem.toolType : ToolType.None;
+        if (currentItem != null && currentItem.isWeapon)
+            EquippedWeaponType = currentItem.weaponType;
+        else
+            EquippedWeaponType = WeaponType.None;
 
-        Debug.Log($"[Equip] Weapon = {EquippedWeaponType}, Tool = {EquippedToolType}");
+        if (currentItem != null && currentItem.isTool)
+            EquippedToolType = currentItem.toolType;
+        else
+            EquippedToolType = ToolType.None;
     }
 
     public void UnEquip()
@@ -38,77 +37,53 @@ public class EquipSystem : MonoBehaviour
         EquippedToolType = ToolType.None;
     }
 
-    //public void Use()
+    //public void Attack()
     //{
     //    if (currentItem == null) return;
     //    if (Time.time < nextUseTime) return;
 
-    //    if (EquippedWeaponType != WeaponType.None)
+    //    if (currentItem.isWeapon)
     //    {
     //        UseWeapon();
-    //        nextUseTime = Time.time + Mathf.Max(0.1f, currentItem.weaponAttackDelay);
-    //        return;
+    //        float delay = currentItem.weaponAttackDelay;
+    //        if(delay < 0.1f) delay = 0.1f;
+    //        nextUseTime = Time.time + delay;
     //    }
-
-    //    if (EquippedToolType != ToolType.None)
+    //    else if (currentItem.isTool)
     //    {
     //        UseTool();
     //        nextUseTime = Time.time + 0.2f;
-    //        return;
     //    }
     //}
 
-    //private void UseWeapon()
-    //{
-    //    float dist = currentItem.weaponAttackDistance;
-
-    //    if (Ray(out RaycastHit hit, dist))
-    //    {
-    //        var monster = hit.collider.GetComponentInParent<Monster>();
-    //        if (monster != null)
-    //        {
-    //            switch (EquippedWeaponType)
-    //            {
-    //                case WeaponType.Sword:
-    //                    monster.TakeDamage(currentItem.weaponDamage);
-    //                    break;
-
-    //                case WeaponType.Bow:
-    //                    monster.TakeDamage(currentItem.weaponDamage);
-    //                    break;
-    //                default:
-    //                    monster.TakeDamage(currentItem.weaponDamage);
-    //                    break;
-    //            }
-    //            return;
-    //        }
-    //    }
-    //}
+    private void UseWeapon()
+    {
+        float dist = currentItem.weaponAttackDistance;
+        RaycastHit hit; 
+        if (Ray(out hit, dist))
+        {
+            IDamageable dmg = hit.collider.GetComponentInParent<IDamageable>();
+            if (dmg != null)
+            {
+                dmg.TakePhysicalDamage(currentItem.weaponDamage);
+            }
+        }
+    }
 
     //private void UseTool()
     //{
     //    float dist = currentItem.toolDistance;
+    //    RaycastHit hit;
 
-    //    if (Ray(out RaycastHit hit, dist))
+    //    if (Ray(out hit, dist))
     //    {
-    //        var node = hit.collider.GetComponentInParent<ResourceNode>();
+    //        ResourceNode node = hit.collider.GetComponentInParent<ResourceNode>();
     //        if (node != null)
     //        {
-    //            switch (EquippedToolType)
-    //            {
-    //                case ToolType.Axe:
-    //                    node.GatherWithTool(ToolType.Axe, currentItem.toolGatherPower);
-    //                    break;
-
-    //                case ToolType.Pickaxe:
-    //                    node.GatherWithTool(ToolType.Pickaxe, currentItem.toolGatherPower);
-    //                    break;
-
-    //                default:
-    //                    node.Gather(currentItem.toolGatherPower);
-    //                    break;
-    //            }
-    //            return;
+    //            if (currentItem.toolType != ToolType.None)
+    //                node.GatherWithTool(currentItem.toolType, currentItem.toolGatherPower);
+    //            else
+    //                node.Gather(currentItem.toolGatherPower);
     //        }
     //    }
     //}
