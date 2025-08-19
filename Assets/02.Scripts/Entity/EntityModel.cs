@@ -51,6 +51,8 @@ public class EntityModel : MonoBehaviour, IDamageable
     {
         hunger.Subtract(hunger.PassiveValue * Time.deltaTime);
         stamina.Add(stamina.PassiveValue * Time.deltaTime);
+        thirst.Subtract(thirst.PassiveValue * Time.deltaTime);
+        health.Add(health.PassiveValue * Time.deltaTime);
     }
 
     public void Heal(float amount)
