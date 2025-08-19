@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
 
+    [Header("Jump Stamina")]
+    [SerializeField] private float jumpStaminaCost = 10f;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -90,6 +93,9 @@ public class PlayerController : MonoBehaviour
     {
         if(context.phase == InputActionPhase.Started && IsGrounded())
         {
+            if (model != null && model.stamina != null)
+                model.stamina.Subtract(jumpStaminaCost);
+
             Jump();
         }
     }
