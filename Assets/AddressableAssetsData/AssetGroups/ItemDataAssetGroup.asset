@@ -17,19 +17,65 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 13f59949d8ae742479d8ff0a82d169a1
   m_SerializeEntries:
-  - m_GUID: 1a023203243cf7b439ef4bfaf09974a4
-    m_Address: Assets/Resources_moved/Data/test 4.asset
+  - m_GUID: efcf1906dd386bc459a1ff30ffa59c49
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Consumable.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a3ce133a1900974f857153dc83e4bf7
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/BuildObject Data/Build_PreviewWall.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - BuildingItem
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 139e8f8a634b37748b82fabf33e15e21
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/BuildObject Data/Build_PreviewFloor.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BuildingItem
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: df8105134adbc9147b8ddbaae16d8a1d
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Equipable.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb9a5bf0c6b46f74681aa51b42e9ef0c
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Resource.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a983af493f19bd24db3cf6784b7eb7fb
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Tool_Pickaxe.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf6514092f692ec40b06c8205482e44c
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Weapon.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 65137dbf272471643bde826164ce5ac2
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Tool_Axe.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
     - ItemData
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2eb601f9bebff5341af161305fed5b3c
-    m_Address: Assets/Resources_moved/Data/test 3.asset
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/BuildObject Data/Build_Floor.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - BuildingItem
-    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a023203243cf7b439ef4bfaf09974a4
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/BuildObject Data/Build_Wall.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BuildingItem
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}

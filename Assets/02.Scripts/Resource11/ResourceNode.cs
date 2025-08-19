@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.AddressableAssets;
 
 public class ResourceNode : MonoBehaviour, IHarvestable
 {
@@ -54,7 +55,8 @@ public class ResourceNode : MonoBehaviour, IHarvestable
 
         if (respawn)
         {
-            StartCoroutine(RespawnRoutine());
+            gameObject.SetActive(false);
+            //StartCoroutine(RespawnRoutine());
         }
         else
         {
@@ -114,7 +116,7 @@ public class ResourceNode : MonoBehaviour, IHarvestable
         }
     }
 
-    private void SpawnDrops()
+    private async void SpawnDrops()
     {
         if (yieldItem == null) return;
         GameObject prefab = yieldItem.dropPrefab;
@@ -124,7 +126,12 @@ public class ResourceNode : MonoBehaviour, IHarvestable
         {
             Vector3 pos = transform.position + Random.insideUnitSphere * 0.3f;
             if (pos.y < transform.position.y) pos.y = transform.position.y + 0.2f;
-            Instantiate(prefab, pos, Quaternion.identity);
+//            Instantiate(prefab, pos, Quaternion.identity);
+
+            await Factory.Instance.CreateByIDAsync<ItemData>(yieldItem.ID, (go) =>
+            {
+                go.transform.SetLocalPositionAndRotation(pos, transform.rotation);
+            });
         }
     }
 }

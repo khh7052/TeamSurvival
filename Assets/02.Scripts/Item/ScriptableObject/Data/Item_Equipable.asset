@@ -12,11 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90534c289604d904995d92823d142e91, type: 3}
   m_Name: Item_Equipable
   m_EditorClassIdentifier: 
-  displayName: "\uC7A5\uCC29 \uC544\uC774\uD15C"
+  ID: 23000
+  DisplayName: Equipable
+  Icon: {fileID: 0}
+  Prefab: {fileID: 0}
+  AssetReference:
+    m_AssetGUID: f3eaae0b768fe0447b57df38ce0c4ed3
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   description: "\uC7A5\uCC29 \uAC00\uB2A5"
-  type: 1
+  type: 0
   icon: {fileID: 0}
   dropPrefab: {fileID: 8450293212868446490, guid: f3eaae0b768fe0447b57df38ce0c4ed3, type: 3}
   canStack: 0
   maxStackAmount: 0
   consumables: []
+  isWeapon: 0
+  isTool: 0
+  weaponType: 0
+  toolType: 0
+  weaponDamage: 10
+  weaponAttackDelay: 1
+  weaponAttackDistance: 1
+  toolGatherPower: 5
+  toolDistance: 1

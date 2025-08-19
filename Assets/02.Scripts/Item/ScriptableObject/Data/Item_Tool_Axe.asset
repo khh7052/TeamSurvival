@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90534c289604d904995d92823d142e91, type: 3}
   m_Name: Item_Tool_Axe
   m_EditorClassIdentifier: 
-  ID: 0
-  DisplayName: 
+  ID: 23001
+  DisplayName: Axe
   Icon: {fileID: 0}
   Prefab: {fileID: 0}
   AssetReference:
-    m_AssetGUID: 
+    m_AssetGUID: 6e8108d6b6dedb840a9afd5fc4cd7eb3
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   description: 
-  type: 1
+  type: 0
   icon: {fileID: 0}
-  dropPrefab: {fileID: 0}
+  dropPrefab: {fileID: 1201119067026082314, guid: 6e8108d6b6dedb840a9afd5fc4cd7eb3, type: 3}
   canStack: 0
   maxStackAmount: 0
   consumables: []

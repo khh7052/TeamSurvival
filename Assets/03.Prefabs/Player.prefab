@@ -100,7 +100,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -627,7 +627,7 @@ MonoBehaviour:
   maxCheckDistance: 3
   layerMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 2048
   curInteractGameObject: {fileID: 0}
   promptText: {fileID: 0}
 --- !u!114 &8566881413159209253
@@ -655,6 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4654c3775546104c84a6e3d4ba9b2ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkRate: 0.05
   isBuild: 0
   rayDistance: 1.5
   buildMask:
@@ -698,7 +699,7 @@ MonoBehaviour:
   currentItem: {fileID: 0}
   hitMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 5376
   handSlot: {fileID: 6306992753322779040}
   model: {fileID: 6885103462339148826}
   staminaCostWeapon: 10
@@ -851,7 +852,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

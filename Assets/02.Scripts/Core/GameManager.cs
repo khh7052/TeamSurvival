@@ -5,19 +5,25 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : Singleton<GameManager>, IInitializableAsync
 {
+    public bool IsInitialized {  get; private set; }
 
-    private async void Start()
+    private void Start()
+    {
+        InitializeAsync();
+
+    }
+    public async void InitializeAsync()
     {
         await WaitForManagersToInitialize(
             Factory.Instance,
-            BuildingManager.Instance
+            BuildingManager.Instance,
+            GatheringManager.Instance
         );
-
+        IsInitialized = true;
         Debug.Log("[GameManager] 모든 매니저 초기화 완료");
         GameStart();
-
     }
 
     private async Task WaitForManagersToInitialize(params IInitializableAsync[] managers)
@@ -27,6 +33,7 @@ public class GameManager : Singleton<GameManager>
         {
             await Task.Yield(); // 다음 프레임 대기
         }
+
     }
 
     public void GameStart()
@@ -77,4 +84,5 @@ public class GameManager : Singleton<GameManager>
     {
 
     }
+
 }

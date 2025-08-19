@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6182299306861996383}
   - component: {fileID: 8146012649871800671}
   - component: {fileID: 8192186291396566207}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Item_Tool_Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 2369560606405140438}
   - component: {fileID: 1392356238754640445}
   - component: {fileID: 8206183327543291527}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

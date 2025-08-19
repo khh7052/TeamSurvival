@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class BuildingManager : Singleton<BuildingManager>, IInitializableAsync
 {
-    private ScriptableObjectDataBase<BaseScriptableObject> database; 
+    private ScriptableObjectDataBase<BaseScriptableObject> _dataBase; 
     public bool IsInitialized { get; private set; }
 
     private object lockObj = new();
@@ -20,8 +20,8 @@ public class BuildingManager : Singleton<BuildingManager>, IInitializableAsync
 
     public async void InitializeAsync()
     {
-        database = new ScriptableObjectDataBase<BaseScriptableObject>();
-        await database.Initialize("BuildingItem");
+        _dataBase = new ScriptableObjectDataBase<BaseScriptableObject>();
+        await _dataBase.Initialize("BuildingItem");
         IsInitialized = true;
     }
 
@@ -97,11 +97,15 @@ public class BuildingManager : Singleton<BuildingManager>, IInitializableAsync
         return enums[best];
     }
 
-    public bool IsOccupied(BuildKey key)
+    public T GetBuildingObjectData<T>(int id) where T : BaseScriptableObject
     {
-        bool ret = occupied.Contains(key);
-        return ret;
+        T data = _dataBase.GetById(id) as T;
+
+        return data;
     }
+
+    public bool IsOccupied(BuildKey key) => occupied.Contains(key);
+    
 
     public void RegisterBuild(BuildKey key) => occupied.Add(key);
 

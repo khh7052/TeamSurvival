@@ -16,8 +16,8 @@ TagManager:
   - Enemy
   - BuildObj
   - BuildableLayer
-  - 
-  - 
+  - Interactable
+  - GatheringLayer
   - 
   - 
   - 
