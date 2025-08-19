@@ -96,7 +96,8 @@ namespace Constants
         {
             { "Canvas", "UI/Canvas" },
             { "TestConditionUI" , "UI/ConditionUI" },
-            { "UIInventory", "UI/UIInventory1" }
+            { "UIInventory", "UI/UIInventory1" },
+            { "CompositionUI", "UI/CompositionUI" }
         };
         public static string GetPrefabPath(string prefabName)
         {
