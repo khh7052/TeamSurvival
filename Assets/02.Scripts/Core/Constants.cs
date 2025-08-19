@@ -37,6 +37,14 @@ namespace Constants
         {
             return volumeNameDictionary[volumeType];
         }
+        public enum SceneType
+        {
+            MainMenu,
+            Stage1,
+            Stage2,
+            BossBattle
+        }
+
     }
 
 
