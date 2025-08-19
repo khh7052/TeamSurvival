@@ -8,7 +8,7 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>, IInitializableAsync
 {
     public bool IsInitialized {  get; private set; }
-
+    public static Player player;
     private void Start()
     {
         InitializeAsync();

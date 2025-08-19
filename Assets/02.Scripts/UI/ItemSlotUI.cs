@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemSlot : MonoBehaviour
+public class ItemSlotUI : MonoBehaviour
 {
     public ItemData item;
 
@@ -28,7 +28,6 @@ public class ItemSlot : MonoBehaviour
             button.onClick.AddListener(OnClickButton);
         }
 
-        Clear();
     }
 
     private void OnEnable()
@@ -36,12 +35,16 @@ public class ItemSlot : MonoBehaviour
         if (outline != null) outline.enabled = equipped; // 장비 하이라이트만 반영
     }
 
-    public void Set()
+    public void Set(ItemSlot targetSlot)
     {
+        item = targetSlot.item;
+        quantity = targetSlot.Quantity;
         if (icon != null)
         {
-            icon.sprite = item != null ? item.icon : null;
-            icon.gameObject.SetActive(item != null);
+            Debug.Log("아이템은 있어");
+            Debug.Log($"{item.Icon}");
+            icon.sprite = item != null ? item.Icon : null;
+            icon.enabled = (item != null && item.Icon != null);
         }
 
         if (quatityText != null)
@@ -53,6 +56,7 @@ public class ItemSlot : MonoBehaviour
 
     public void Clear()
     {
+        if (item != null) Debug.Log("아이템이 있는데 Clear 호출");
         item = null;
         quantity = 0;
 

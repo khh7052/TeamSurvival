@@ -95,7 +95,8 @@ namespace Constants
         public static Dictionary<string, string> paths = new()
         {
             { "Canvas", "UI/Canvas" },
-            { "TestConditionUI" , "UI/ConditionUI" }
+            { "TestConditionUI" , "UI/ConditionUI" },
+            { "UIInventory", "UI/UIInventory1" }
         };
         public static string GetPrefabPath(string prefabName)
         {

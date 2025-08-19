@@ -29,11 +29,15 @@ public class UIManager : Singleton<UIManager>
                 return uiInstances[className] as T;
             }
             // Create new UI Instance
-            GameObject go = Instantiate(Resources.Load<GameObject>("UI/ConditionUI"), parent);
-            T t = go.GetComponent<T>();
-            AddUI<T>(t);
+            if (UIPrefabPath.paths.ContainsKey(className))
+            {
+                Debug.Log(UIPrefabPath.paths[className]);
+                GameObject go = Instantiate(Resources.Load<GameObject>(UIPrefabPath.paths[className]), parent);
+                T t = go.GetComponent<T>();
+                AddUI<T>(t);
 
-            return t;
+                return t;
+            }
         }
         catch(Exception e)
         {

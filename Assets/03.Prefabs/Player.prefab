@@ -277,7 +277,6 @@ GameObject:
   - component: {fileID: 9183120507124538938}
   - component: {fileID: 8566881413159209253}
   - component: {fileID: 1683975416896729174}
-  - component: {fileID: 6488007886754215992}
   - component: {fileID: 5900856902477478118}
   - component: {fileID: 1915174890719795521}
   m_Layer: 7
@@ -479,7 +478,7 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9183120507124538938}
+      - m_Target: {fileID: 8566881413159209253}
         m_TargetAssemblyTypeName: Interaction, Assembly-CSharp
         m_MethodName: OnInteractInput
         m_Mode: 0
@@ -509,6 +508,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e90b03d2-ba6b-4bd7-bba0-f85fcc8b31b3
     m_ActionName: Player/Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 777261130677496077}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnInventoryButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 080e4cfa-04cc-482c-9646-6b9d3d85411a
+    m_ActionName: Player/Inventory[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -523,9 +538,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6771510593846623006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c3a837b580e6a04eb4e4ed209e28891, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d525c442decada49a0e50831280b8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+  condition: {fileID: 0}
+  itemData: {fileID: 0}
+  dropPosition: {fileID: 6306992753322779040}
 --- !u!114 &6885103462339148826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,17 +596,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6771510593846623006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52b490ea31eed1643bb877ed7e17c72e, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f5cfe6bb57062d46aad1c97bc3b085c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   curMovementInput: {x: 0, y: 0}
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 576
   cameraContainer: {fileID: 7808320851386004077}
   minXLook: -85
   maxXLook: 85
-  lookSensitivity: 0.1
+  lookSensitivity: 0.5
   canLook: 1
   jumpStaminaCost: 10
 --- !u!114 &3850867666251352558
@@ -620,16 +639,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6771510593846623006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21bb85ccda6c9f2438814284ca0f573e, type: 3}
+  m_Script: {fileID: 11500000, guid: 39ba76e97d0c0774a9a7c54ff981a714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkRate: 0.05
-  maxCheckDistance: 3
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 2048
-  curInteractGameObject: {fileID: 0}
-  promptText: {fileID: 0}
+  items: []
 --- !u!114 &8566881413159209253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,10 +652,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6771510593846623006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 583c254fe514b66468d19d3adaf693e4, type: 3}
+  m_Script: {fileID: 11500000, guid: be5276b85287c954db5f03a1944c8233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: []
+  checkRate: 0.05
+  maxCheckDistance: 3
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  curInteractGameObject: {fileID: 0}
+  promptText: {fileID: 0}
 --- !u!114 &1683975416896729174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,22 +687,6 @@ MonoBehaviour:
   invisibleLayer:
   - {fileID: 3557723576270362355}
   - {fileID: 8038968992211998914}
---- !u!114 &6488007886754215992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6771510593846623006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5e0b07c5083b1149bfa989f6c0bfb00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  equip: {fileID: 5900856902477478118}
-  startItem: {fileID: 11400000, guid: 65137dbf272471643bde826164ce5ac2, type: 2}
-  delaySeconds: 0
-  log: 1
 --- !u!114 &5900856902477478118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -699,12 +702,18 @@ MonoBehaviour:
   currentItem: {fileID: 0}
   hitMask:
     serializedVersion: 2
-    m_Bits: 5376
+    m_Bits: 4864
   handSlot: {fileID: 6306992753322779040}
   model: {fileID: 6885103462339148826}
   staminaCostWeapon: 10
   staminaCostTool: 10
   blockWhenNoStamina: 1
+  allowUnarmedAttack: 1
+  unarmedDistance: 2
+  unarmedDelay: 0.5
+  unarmedStaminaCost: 4
+  unarmedDamage: 1
+  unarmedGatherPower: 1
   debugLog: 1
 --- !u!114 &1915174890719795521
 MonoBehaviour:

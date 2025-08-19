@@ -1,18 +1,19 @@
+using JetBrains.Annotations;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class UIInventory : MonoBehaviour
+public class UIInventory : BaseUI
 {
-    public ItemSlot[] slots;
+    public ItemSlotUI[] slots;
 
     public GameObject inventoryWindow;
     public Transform slotPanel;
-    public Transform dropPosition;
 
     [Header("Selected Item")]
-    private ItemSlot selectedItem;
+    private ItemSlotUI selectedItem;
     private int selectedItemIndex;
     public TextMeshProUGUI selectedItemName;
     public TextMeshProUGUI selectedItemDescription;
@@ -23,12 +24,10 @@ public class UIInventory : MonoBehaviour
     public GameObject unEquipButton;
     public GameObject dropButton;
 
+    private PlayerInventory inventory;
+
     private int curEquipIndex;
 
-    //추가: CharacterManager 대신 직접 참조
-    [SerializeField] private Player player;
-    private PlayerController controller;
-    private PlayerCondition condition;
 
     private bool slotsReady = false;
 
@@ -38,12 +37,12 @@ public class UIInventory : MonoBehaviour
         if (slotPanel == null) { Debug.LogError("[UIInventory] slotPanel 지정 필요"); return; }
 
         int count = slotPanel.childCount;
-        slots = new ItemSlot[count];
+        slots = new ItemSlotUI[count];
 
         for (int i = 0; i < count; i++)
         {
             var child = slotPanel.GetChild(i);
-            var s = child.GetComponent<ItemSlot>();
+            var s = child.GetComponent<ItemSlotUI>();
             if (s == null)
             {
                 Debug.LogError($"[UIInventory] {child.name}에 ItemSlot이 없습니다.");
@@ -51,39 +50,45 @@ public class UIInventory : MonoBehaviour
             }
             s.index = i;
             s.inventory = this;
-            // s.Clear();  // 필요하면 풀기
             slots[i] = s;
         }
 
         slotsReady = true;
+        inventory = GameManager.player.inventory;
     }
-    private ItemSlot[] Slots => slotPanel ? slotPanel.GetComponentsInChildren<ItemSlot>(true) : System.Array.Empty<ItemSlot>();
 
-    private void Awake()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+        inventory.OnChangeData += UpdateUI;
+        UpdateUI();
+    }
+
+    protected override async void Awake()
+    {
+        await WaitManagerInitial();
         // 자동 배선 (없으면 찾아서 넣기)
-        if (player == null) player = FindFirstObjectByType<Player>();
         if (inventoryWindow == null) inventoryWindow = transform.Find("InventoryWindow")?.gameObject;
         if (slotPanel == null) slotPanel = transform.Find("SlotPanel");
-        if (dropPosition == null && player != null) dropPosition = player.dropPosition;
-        if (condition == null && player != null) condition = player.GetComponent<PlayerCondition>(); // 없으면 null 유지 가능
+        InitSlotsOnce();
+    }
+
+    async Task WaitManagerInitial()
+    {
+        while (!GameManager.Instance.IsInitialized)
+        {
+            await Task.Yield();
+        }
     }
 
     private void Start()
     {
         // ★ 여기서 널가드 확실히
-        if (player == null) { Debug.LogError("[UIInventory] Player 없음"); enabled = false; return; }
         if (inventoryWindow == null) { Debug.LogError("[UIInventory] inventoryWindow 미지정"); enabled = false; return; }
         if (slotPanel == null) { Debug.LogError("[UIInventory] slotPanel 미지정"); enabled = false; return; }
 
-        controller = player.controller;
-        if (controller != null) controller.inventory += Toggle;
-        player.addItem += AddItem;
-
-        inventoryWindow.SetActive(false);
-
         // 슬롯들 인덱스/역참조 세팅 + 초기화
-        var arr = Slots;
+        var arr = slots;
         if (arr.Length == 0) Debug.LogWarning("[UIInventory] slotPanel 아래에 ItemSlot이 없습니다.");
         for (int i = 0; i < arr.Length; i++)
         {
@@ -91,17 +96,11 @@ public class UIInventory : MonoBehaviour
             if (s == null) continue;
             s.index = i;
             s.inventory = this;
-            s.Clear();
         }
 
         ClearSelectedItemWindow();
     }
 
-    private void OnDestroy()
-    {
-        if (controller != null) controller.inventory -= Toggle;
-        if (player != null) player.addItem -= AddItem;
-    }
 
     void ClearSelectedItemWindow()
     {
@@ -118,58 +117,20 @@ public class UIInventory : MonoBehaviour
         dropButton.SetActive(false);
     }
 
-    public void Toggle()
-    {
-        inventoryWindow.SetActive(!IsOpen());
-    }
-
-    public bool IsOpen() => inventoryWindow.activeInHierarchy;
-
-    // 변경: CharacterManager 대신 player 참조 사용
-    public void AddItem()
-    {
-        InitSlotsOnce();
-
-        ItemData data = player.itemData;
-        if (data == null) return;
-
-        if (data.canStack)
-        {
-            ItemSlot slot = GetItemStack(data);
-            if (slot != null)
-            {
-                slot.quantity++;
-                UpdateUI();
-                player.itemData = null;
-                return;
-            }
-        }
-
-        ItemSlot emptySlot = GetEmptySlot();
-
-        if (emptySlot != null)
-        {
-            emptySlot.item = data;
-            emptySlot.quantity = 1;
-            UpdateUI();
-            player.itemData = null;
-            return;
-        }
-
-        // 공간 없으면 다시 버리기
-        ThrowItem(data);
-        player.itemData = null;
-    }
-
     public void UpdateUI()
     {
-        var arr = Slots;
+        Debug.Log("UI 업데이트!");
+        var arr = slots;
         for (int i = 0; i < arr.Length; i++)
         {
             var s = arr[i];
             if (s == null) continue;
 
-            if (s.item != null) s.Set();
+            if (inventory.slots[i].item != null)
+            {
+                Debug.Log(inventory.slots[i].item.DisplayName);
+                s.Set(inventory.slots[i]);
+            }
             else s.Clear();
 
             // 선택/장비 하이라이트(Outline)
@@ -178,31 +139,6 @@ public class UIInventory : MonoBehaviour
         }
     }
 
-    ItemSlot GetItemStack(ItemData data)
-    {
-        foreach (var s in Slots)
-            if (s != null && s.item == data && s.quantity < data.maxStackAmount)
-                return s;
-        return null;
-    }
-
-    ItemSlot GetEmptySlot()
-    {
-        foreach (var s in Slots)
-            if (s != null && s.item == null)
-                return s;
-        return null;
-    }
-
-    public void ThrowItem(ItemData data)
-    {
-        if (data?.dropPrefab == null || dropPosition == null) return;
-        Instantiate(
-            data.dropPrefab,
-            dropPosition.position,
-            Quaternion.Euler(Vector3.one * Random.value * 360f)
-        );
-    }
 
     public void SelectItem(int index)
     {
@@ -239,56 +175,20 @@ public class UIInventory : MonoBehaviour
 
     public void OnUseButton()
     {
-        if (selectedItem?.item == null) return;
-        if (selectedItem.item.type != ItemType.Consumable) return;
-
-        var consumables = selectedItem.item.consumables;
-        if (consumables != null)
-        {
-            for (int i = 0; i < consumables.Length; i++)
-                ApplyConsumable(consumables[i]);
-        }
-
-        RemoveSelctedItem();
+        inventory.UseItem(selectedItemIndex);
     }
 
-    private void ApplyConsumable(ItemDataConsumable c)
-    {
-        if (condition == null) return;
-
-        switch (c.type)
-        {
-            case ConsumableType.Health: condition.Heal(c.value); break;
-            case ConsumableType.Hunger: condition.Eat(c.value); break;
-            case ConsumableType.Thirst: condition.Drink(c.value); break;
-            case ConsumableType.Stamina: condition.RecoverStamina(c.value); break;
-        }
-    }
 
     public void OnDropButton()
     {
         if (selectedItem?.item == null) return;
-        ThrowItem(selectedItem.item);
-        RemoveSelctedItem();
-    }
-
-    void RemoveSelctedItem()
-    {
-        if (selectedItem == null) return;
-
-        selectedItem.quantity--;
-
-        if (selectedItem.quantity <= 0)
+        inventory.ThrowItemInInventory(selectedItemIndex);
+        if (slots[selectedItemIndex].quantity <= 0)
         {
-            if (slots[selectedItemIndex].equipped)
-                UnEquip(selectedItemIndex);
-
-            selectedItem.item = null;
             ClearSelectedItemWindow();
         }
-
-        UpdateUI();
     }
+
 
     // 최소 스텁(장비 시스템은 나중에 확장)
     public void UnEquip(int index)

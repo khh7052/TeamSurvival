@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     EquipSystem equip;
     public ItemData itemData;
     public Action addItem;
+    public PlayerInventory inventory;
 
     public Transform dropPosition;
 
@@ -23,5 +24,8 @@ public class Player : MonoBehaviour
         equip = GetComponent<EquipSystem>();
         view.Initialize(model);
         condition = GetComponent<PlayerCondition>();
+        inventory = GetComponent<PlayerInventory>();
+
+        GameManager.player = this;
     }
 }
