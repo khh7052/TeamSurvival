@@ -25,6 +25,9 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private Slider staminaSlider;
     [SerializeField] private TMP_Text staminaText;
 
+    [Header("Temperture")] //test
+    [SerializeField] private Slider tempertureSlider;
+
     private EntityModel model;
 
     public void Initialize(EntityModel model)
@@ -86,6 +89,12 @@ public class PlayerView : MonoBehaviour
         {
             staminaSlider.maxValue = model.stamina.MaxValue;
             staminaSlider.value = Mathf.Clamp(model.stamina.CurValue, 0f, model.stamina.MaxValue);
+        }
+
+        if (tempertureSlider != null) //Å×½ºÆ®
+        {
+            tempertureSlider.maxValue = model.temperture.MaxValue;
+            tempertureSlider.value = Mathf.Clamp(model.temperture.CurValue, 0f, model.temperture.MaxValue);
         }
     }
 

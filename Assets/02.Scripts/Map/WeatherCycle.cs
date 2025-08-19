@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,17 +12,44 @@ public enum WeatherType
 
 public class WeatherCycle : MonoBehaviour
 {
+    public static WeatherCycle Instance; //Å×½ºÆ®¿ë ½Ì±ÛÅæ
+
     [Header("Weather Particle")]
     public ParticleSystem rain;
     public ParticleSystem snow;
 
     [Header("Weather Chance")]
-    [Range(0f, 1f)] public float rainChance = 0.3f;
-    [Range(0f, 1f)] public float snowChance = 0.3f;
+    [Range(0f, 1f)] public float rainChance = 0.3f; //ºñ°¡ ³»¸± È®·ü
+    [Range(0f, 1f)] public float snowChance = 0.3f; //´«ÀÌ ³»¸± È®·ü
     public float changeInterval = 10f;
 
     private WeatherType currentWeather = WeatherType.Clear;
     private float timer = 0f;
+
+    private List<IWeatherObserver> observers = new();
+
+    private void Awake() => Instance = this; //Å×½ºÆ®
+
+    public void RegisterObserver(IWeatherObserver observer)
+    {
+        if(!observers.Contains(observer))
+        {
+            observers.Add(observer);
+        }
+    }
+
+    public void RemoveObserver(IWeatherObserver observer)
+    {
+        observers.Remove(observer);
+    }
+
+    private void NotifyObservers()
+    {
+        foreach(var observer in observers)
+        {
+            observer.OnWeatherChanged(currentWeather);
+        }
+    }
 
     private void Update()
     {
@@ -29,8 +57,8 @@ public class WeatherCycle : MonoBehaviour
        
         if(timer >= changeInterval)
         {
-            ChangeWeather();
-            timer = 0f;
+            ChangeWeather(); //·£´ý ³¯¾¾ ¼±ÅÃ
+            timer = 0f; //Å¸ÀÌ¸Ó ÃÊ±âÈ­
         }
     }
 
@@ -42,7 +70,7 @@ public class WeatherCycle : MonoBehaviour
         {
             SetWeather(WeatherType.Rain);
         }
-        else if (ran < rainChance + snowChance)
+        else if (ran < rainChance + snowChance) 
         {
             SetWeather(WeatherType.Snow);
         }
@@ -77,5 +105,6 @@ public class WeatherCycle : MonoBehaviour
         }
 
         currentWeather = type;
+        NotifyObservers();
     }
 }
