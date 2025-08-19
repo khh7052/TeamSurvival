@@ -69,4 +69,10 @@ public class Factory : Singleton<Factory>, IInitializableAsync
         IsInitialized = true;
         
     }
+
+    public T GetDataByID<T>(int id) where T : BaseScriptableObject
+    {
+        T data = _ItemDataBase.GetById(id) as T;
+        return data;
+    }
 }

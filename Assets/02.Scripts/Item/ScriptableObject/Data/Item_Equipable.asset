@@ -22,7 +22,7 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   description: "\uC7A5\uCC29 \uAC00\uB2A5"
-  type: 0
+  type: 1
   icon: {fileID: 0}
   dropPrefab: {fileID: 8450293212868446490, guid: f3eaae0b768fe0447b57df38ce0c4ed3, type: 3}
   canStack: 0

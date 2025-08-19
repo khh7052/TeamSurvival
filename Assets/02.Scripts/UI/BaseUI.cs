@@ -1,16 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BaseUI : MonoBehaviour
 {
+    Button closeButton;
 
-    public virtual void OnEnable()
+    protected virtual void Awake()
+    {
+        transform.Find("closeButton");
+    }
+
+    protected virtual void OnEnable()
     {
 
     }
 
-    public virtual void OnDisable()
+    protected virtual void OnDisable()
     {
 
     }
