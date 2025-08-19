@@ -7,9 +7,10 @@ using UnityEngine;
 public class UIManager : Singleton<UIManager>
 {
     Dictionary<string, BaseUI> uiInstances = new();
-    public Transform mainCanvas;
+    private Transform mainCanvas;
+    private Dictionary<string, Transform> canvasDictionary = new();
 
-    public T CreateUI<T>(Transform parent = null) where T : BaseUI
+    private T CreateUI<T>(Transform parent = null) where T : BaseUI
     {
         string className = typeof(T).Name;
         string path = UIPrefabPath.GetPrefabPath(className);
@@ -41,7 +42,7 @@ public class UIManager : Singleton<UIManager>
         return default;
     } 
 
-    public T ShowUI<T>(Transform parent = null) where T : BaseUI
+    public T ShowUI<T>(bool isDrawMainCanvas = false) where T : BaseUI
     {
         string className = typeof(T).Name;
 
@@ -53,7 +54,7 @@ public class UIManager : Singleton<UIManager>
         }
 
         // T UI doesn't created yet, Create New UI Instance
-        T t = CreateUI<T>(parent);
+        T t = CreateUI<T>(isDrawMainCanvas ? FindMainCanvas() : CreateCanvasTransform(className, false));
         if(t != default)
         {
             t.ShowUI();
@@ -66,13 +67,13 @@ public class UIManager : Singleton<UIManager>
         return default;
     }
 
-    public void AddUI<T>(BaseUI ui) where T : BaseUI
+    private void AddUI<T>(BaseUI ui) where T : BaseUI
     {
         // Registed created UI Instance in Dictioanry
         uiInstances[typeof(T).Name] = ui;
     }
 
-    public void RemoveUI<T>() where T : BaseUI
+    private void RemoveUI<T>() where T : BaseUI
     {
         string className = nameof(T);
 
@@ -85,13 +86,23 @@ public class UIManager : Singleton<UIManager>
             // Destroy UI Instace
             Destroy(targetUI.gameObject);
         }
+
+        if (canvasDictionary.ContainsKey(className))
+        {
+            Transform targetTrans = canvasDictionary[className];
+            canvasDictionary.Remove(className);
+
+            Destroy(targetTrans.gameObject);
+        }
     }
 
     private Transform FindMainCanvas()
     {
         if(mainCanvas == null)
         {
-            mainCanvas = Instantiate(Resources.Load<GameObject>(UIPrefabPath.GetPrefabPath(typeof(Canvas).Name))).transform;
+            mainCanvas = CreateCanvasTransform("MainCanvas", true);
+//            mainCanvas = Instantiate(Resources.Load<GameObject>(UIPrefabPath.GetPrefabPath(typeof(Canvas).Name))).transform;
+
         }
         return mainCanvas;
     }
@@ -100,5 +111,19 @@ public class UIManager : Singleton<UIManager>
     public void RegisterCanvas(Canvas canvas) 
     {
         mainCanvas = canvas.transform;
+    }
+
+    public Transform CreateCanvasTransform(string name, bool isMainCanvas = false)
+    {
+        if (canvasDictionary.ContainsKey(name)) return canvasDictionary[name];
+
+        Transform go = Instantiate(Resources.Load<GameObject>(UIPrefabPath.GetPrefabPath(typeof(Canvas).Name))).transform;
+        go.name = name;
+        canvasDictionary[name] = go;
+        if (isMainCanvas)
+        {
+            RegisterCanvas(go.gameObject.GetComponent<Canvas>());
+        }
+        return go;
     }
 }

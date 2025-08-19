@@ -8,11 +8,11 @@ using UnityEngine;
 public class CompositionRecipeData : BaseScriptableObject
 {
     [SerializeField]
-    public List<CompositionRecipe> recipe;
+    public List<Recipe> recipe;
 }
 
 [Serializable]
-public class CompositionRecipe
+public class Recipe
 {
     public int ItemID;
     public int ItemCount;

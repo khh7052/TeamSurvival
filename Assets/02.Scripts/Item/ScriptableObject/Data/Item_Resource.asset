@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 21001
   DisplayName: Resource
-  Icon: {fileID: 0}
+  Description: 
+  Icon: {fileID: 21300000, guid: 6054318fc678eef4e97655493b73c580, type: 3}
   Prefab: {fileID: 0}
   AssetReference:
     m_AssetGUID: 44b9a7d061d7b064884b7d4bf26eb723
@@ -23,7 +24,6 @@ MonoBehaviour:
     m_EditorAssetChanged: 0
   description: "\uC7AC\uB8CC"
   type: 0
-  icon: {fileID: 0}
   dropPrefab: {fileID: 6059253942827543989, guid: 44b9a7d061d7b064884b7d4bf26eb723, type: 3}
   canStack: 1
   maxStackAmount: 5
