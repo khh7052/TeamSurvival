@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public PlayerCondition condition;
     EquipSystem equip;
     public ItemData itemData;
-    public Action addItem;
+    public Action addItem { get; set; }
     public PlayerInventory inventory;
 
     public Transform dropPosition;

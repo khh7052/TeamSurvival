@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && equip != null)
+        if (context.phase == InputActionPhase.Started && equip != null && canLook)
         {
             equip.Attack();
         }
