@@ -30,6 +30,7 @@ public class BuildObj : MonoBehaviour
     {
         if (IsDead)
         {
+            Debug.Log("¿ÖµÚÁü?");
             gameObject.SetActive(false);
         }
         else

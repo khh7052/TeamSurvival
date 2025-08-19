@@ -49,10 +49,14 @@ public class EntityModel : MonoBehaviour, IDamageable
     }
     private void ApplyPassiveValueCondition() // 시간이 흐름에 따라 변화하는 스탯 이후에 온도 시스템 생기면 이곳에 추가 가능
     {
-        hunger.Subtract(hunger.PassiveValue * Time.deltaTime);
-        stamina.Add(stamina.PassiveValue * Time.deltaTime);
-        thirst.Subtract(thirst.PassiveValue * Time.deltaTime);
-        health.Add(health.PassiveValue * Time.deltaTime);
+        if(hunger.PassiveValue != 0)
+            hunger.Subtract(hunger.PassiveValue * Time.deltaTime);
+        if(stamina.PassiveValue != 0)
+            stamina.Add(stamina.PassiveValue * Time.deltaTime);
+        if(thirst.PassiveValue != 0)
+            thirst.Subtract(thirst.PassiveValue * Time.deltaTime);
+        if(health.PassiveValue != 0)
+            health.Add(health.PassiveValue * Time.deltaTime);
     }
 
     public void Heal(float amount)
