@@ -528,7 +528,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3416851327482827126}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5770628396632458348}
+        m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
+        m_MethodName: OnEquipButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1335392968275366576
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,7 +1436,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 839307162019168444}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5770628396632458348}
+        m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
+        m_MethodName: OnUnEquipButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6070517316587771674
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,7 +1516,6 @@ MonoBehaviour:
   - {fileID: 488672885788068252}
   inventoryWindow: {fileID: 6070517316587771674}
   slotPanel: {fileID: 1411102803047287399}
-  dropPosition: {fileID: 0}
   selectedItemName: {fileID: 5395778293438375832}
   selectedItemDescription: {fileID: 5013227801464735127}
   selectedItemStatName: {fileID: 5584214750980918129}
@@ -1501,7 +1524,6 @@ MonoBehaviour:
   equipButton: {fileID: 1004390599750178861}
   unEquipButton: {fileID: 5664206594547379184}
   dropButton: {fileID: 8703561422477457921}
-  player: {fileID: 0}
 --- !u!1 &7945497811024532980
 GameObject:
   m_ObjectHideFlags: 0
