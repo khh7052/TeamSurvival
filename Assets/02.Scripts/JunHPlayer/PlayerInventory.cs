@@ -6,7 +6,7 @@ public class PlayerInventory : MonoBehaviour
     public static PlayerInventory Instance { get; private set; }
 
     //최소 기능?그냥 담기만 (다음 단계에서 슬롯/스택 적용)
-    [HideInInspector] public List<ItemData> items = new List<ItemData>();
+    public List<ItemData> items = new List<ItemData>();
 
     public System.Action OnInventoryChanged;
 
