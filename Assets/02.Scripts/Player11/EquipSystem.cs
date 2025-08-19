@@ -24,6 +24,17 @@ public class EquipSystem : MonoBehaviour
     [SerializeField] private float staminaCostTool = 10f;     // 도구 사용 시 소모
     [SerializeField] private bool blockWhenNoStamina = true; // 스태미나 부족 시 행동 차단
 
+    [Header("맨손")]
+    [SerializeField] private bool allowUnarmedAttack = true;
+    [SerializeField] private float unarmedDistance = 2.0f;
+    [SerializeField] private float unarmedDelay = 0.5f;
+    [SerializeField] private float unarmedStaminaCost = 4f;
+    [SerializeField] private int unarmedDamage = 1;      // 맨손 데미지
+    [SerializeField] private int unarmedGatherPower = 1; // 맨손으로 나무만 약하게 캐지도록
+
+    [SerializeField] private string[] unarmedAllowedTags = new[] { "Tree" };
+    [SerializeField] private string[] unarmedAllowedNameKeywords = new[] { "Tree", "나무" };
+
     public bool debugLog = true; //테스트용 디버그 온오프 가능
 
     public void Equip(ItemData data)
