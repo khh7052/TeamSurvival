@@ -8,11 +8,8 @@ public class ItemObject : MonoBehaviour, IInteractable
 
     public string GetPrompt()
     {
-        if (data == null) return "Item";
-
-        string nameTitle = string.IsNullOrEmpty(data.name) ? "Item" : data.name;
-        string desc = string.IsNullOrWhiteSpace(data.description) ? "" : data.description;
-
+        string nameTitle = data ? data.name : "Item";
+        string desc = (data && !string.IsNullOrWhiteSpace(data.description)) ? data.description : "";
         return string.IsNullOrEmpty(desc) ? nameTitle : $"{nameTitle}\n{desc}";
     }
 
@@ -20,18 +17,15 @@ public class ItemObject : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        //인벤토리에 추가
-        if (PlayerInventory.Instance != null)
+        var player = FindFirstObjectByType<Player>(); // 씬에 1명 있다고 가정
+        if (player == null || data == null)
         {
-            PlayerInventory.Instance.Add(data);
-        }
-        else
-        {
-            Debug.LogWarning("Player에 PlayerInventory를 붙였는지 확인");
-            return; // 인벤토리가 없으면 파괴하지 않음(디버그 편의)
+            Debug.LogWarning("[ItemObject] Player 또는 ItemData 누락");
+            return;
         }
 
-        //제거
-        gameObject.SetActive(false);
+        player.itemData = data;
+        player.addItem?.Invoke();
+        Destroy(gameObject);
     }
 }
