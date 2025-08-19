@@ -18,5 +18,12 @@ public class AudioPlayer : MonoBehaviour
 
         AudioClip clip = soundData.clips[Random.Range(0, soundData.clips.Length)];
         audioSource.PlayOneShot(clip, soundData.volume);
+
+        // 재생이 끝난 후 자동으로 비활성화
+        Invoke(nameof(Disable), clip.length);
     }
+
+    private void Disable()
+        => gameObject.SetActive(false);
+
 }

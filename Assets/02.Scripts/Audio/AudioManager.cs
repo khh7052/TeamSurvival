@@ -31,10 +31,8 @@ public class AudioManager : Singleton<AudioManager>
     // 씬이 로드될 때 BGM을 자동으로 재생
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        SoundData bgmData = Resources.Load<SoundData>("Audio/BGM/" + scene.name);
-
-        if (bgmData != null)
-            PlayBGM(bgmData);
+        SoundData bgmData = Resources.Load<SoundData>(AudioConstants.BGMPath + scene.name);
+        PlayBGM(bgmData);
     }
 
     private void CreateAudioSource(SoundType soundType, ref AudioSource audioSource)
