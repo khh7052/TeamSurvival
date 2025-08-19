@@ -3,18 +3,24 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.AddressableAssets;
 
+public enum ResourceKind { Tree, Rock, Ore, Other }
+
 public class ResourceNode : MonoBehaviour, IHarvestable
 {
     [Header("기본")]
     public string resourceName = "Resource";
     public float maxDurability = 40f;
-    public ToolType preferredTool = ToolType.Axe; // 나무=Axe, 돌=Pickaxe
-    public bool allowBareHands = false;           // 맨손 허용 여부
+
+    [Header("종류(맨손)")]
+    public ResourceKind kind = ResourceKind.Other;
+
+    [Header("채집 도구 규칙")]
+    public ToolType preferredTool = ToolType.Axe;
 
     [Header("효율 계수")]
-    public float correctToolMultiplier = 1.5f;    // 맞는 도구
-    public float wrongToolMultiplier = 0.4f;    // 틀린 도구
-    public float bareHandsMultiplier = 0.25f;   // 맨손 허용 시
+    public float correctToolMultiplier = 1f;    // 맞는 도구
+    public float wrongToolMultiplier = 0f;    // 틀린 도구
+    public float bareHandsMultiplier = 0.5f;   // 맨손 허용 시
 
     [Header("재생성")]
     public bool respawn = true;
@@ -30,6 +36,11 @@ public class ResourceNode : MonoBehaviour, IHarvestable
     private float durability;
     private Collider[] cols;
     private Renderer[] rends;
+
+    private bool IsBareHandsAllowed()
+    {
+        return kind == ResourceKind.Tree;
+    }
 
     private void Log(string msg)
     {
@@ -83,25 +94,36 @@ public class ResourceNode : MonoBehaviour, IHarvestable
 
     public void Gather(float power)
     {
-        float m = 0f;
-        if (allowBareHands) m = bareHandsMultiplier;
+        if (!IsBareHandsAllowed())
+        {
+            if (debugLog) Log($"Bare hands NOT allowed (kind={kind})");
+            return;
+        }
+
+        float m = bareHandsMultiplier;
         ApplyDamage(power * m);
+        if (debugLog) Log($"Gather (BareHands) power={power} x {m} → hp={durability:0.##}");
     }
 
     public void GatherWithTool(ToolType tool, float power)
     {
         float m;
+
         if (tool == ToolType.None)
         {
-            if (allowBareHands) m = bareHandsMultiplier;
-            else m = 0f;
+            if (!IsBareHandsAllowed())
+            {
+                if (debugLog) Log($"Bare hands NOT allowed (kind={kind})");
+                return;
+            }
+            m = bareHandsMultiplier;
         }
         else
         {
-            if (tool == preferredTool) m = correctToolMultiplier;
-            else m = wrongToolMultiplier;
+            m = (tool == preferredTool) ? correctToolMultiplier : wrongToolMultiplier;
         }
         ApplyDamage(power * m);
+        if (debugLog) Log($"Gather (Tool={tool}) power={power} x {m} → hp={durability:0.##}");
     }
 
     private void ApplyDamage(float amount)

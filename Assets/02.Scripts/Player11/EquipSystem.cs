@@ -32,9 +32,6 @@ public class EquipSystem : MonoBehaviour
     [SerializeField] private int unarmedDamage = 1;      // 맨손 데미지
     [SerializeField] private int unarmedGatherPower = 1; // 맨손으로 나무만 약하게 캐지도록
 
-    [SerializeField] private string[] unarmedAllowedTags = new[] { "Tree" };
-    [SerializeField] private string[] unarmedAllowedNameKeywords = new[] { "Tree", "나무" };
-
     public bool debugLog = true; //테스트용 디버그 온오프 가능
 
     public void Equip(ItemData data)
@@ -67,18 +64,15 @@ public class EquipSystem : MonoBehaviour
 
     public void Attack()
     {
-        if (currentItem == null)
-        {
-            if (debugLog) Debug.Log("[Equip] Attack blocked: no item", this);
-            return;
-
-        }
-
         if (Time.time < nextUseTime) return;
 
+        bool hasWeapon = currentItem != null && currentItem.isWeapon;
+        bool hasTool = currentItem != null && currentItem.isTool;
+
         float cost = 0f;
-        if (currentItem.isWeapon) cost = staminaCostWeapon;
-        else if (currentItem.isTool) cost = staminaCostTool;
+        if (hasWeapon) cost = staminaCostWeapon;
+        else if (hasTool) cost = staminaCostTool;
+        else if (allowUnarmedAttack) cost = unarmedStaminaCost;
 
         if (!TryConsumeStamina(cost))
         {
@@ -89,19 +83,26 @@ public class EquipSystem : MonoBehaviour
             }
         }
 
-        if (debugLog) Debug.Log("[Equip] Attack with " + currentItem.name, this);
+        if (debugLog)
+        {
+            Debug.Log("[Equip] Attack with " + (hasWeapon || hasTool ? currentItem.name : "(Unarmed)"), this);
+        }
 
-        if (currentItem.isWeapon)
+        if (hasWeapon)
         {
             UseWeapon();
-            float delay = currentItem.weaponAttackDelay;
-            if (delay < 0.1f) delay = 0.7f;
+            float delay = Mathf.Max(currentItem.weaponAttackDelay, 0.7f);
             nextUseTime = Time.time + delay;
         }
-        else if (currentItem.isTool)
+        else if (hasTool)
         {
             UseTool();
             nextUseTime = Time.time + 0.5f;
+        }
+        else if (allowUnarmedAttack)
+        {
+            UseUnarmed();
+            nextUseTime = Time.time + Mathf.Max(unarmedDelay, 0.3f);
         }
     }
 
@@ -118,7 +119,7 @@ public class EquipSystem : MonoBehaviour
             }
         }
     }
-
+    
     private void UseTool()
     {
         float dist = currentItem.toolDistance;
@@ -129,12 +130,34 @@ public class EquipSystem : MonoBehaviour
             ResourceNode node = hit.collider.GetComponentInParent<ResourceNode>();
             if (node != null)
             {
-                if (debugLog) Debug.Log("[Equip] Hit resource: " + node.resourceName, this);
+                if (debugLog)
+                    Debug.Log("[Equip] Attack with " + (currentItem != null ? currentItem.name : "(Unarmed)"), this);
 
                 if (currentItem.toolType != ToolType.None)
                     node.GatherWithTool(currentItem.toolType, currentItem.toolGatherPower);
                 else
                     node.Gather(currentItem.toolGatherPower);
+            }
+        }
+    }
+
+    private void UseUnarmed()
+    {
+        if (debugLog) Debug.Log("[Equip] Unarmed swing", this);
+
+        if (Ray(out var hit, unarmedDistance))
+        {
+            if (unarmedDamage > 0)
+            {
+                var dmg = hit.collider.GetComponentInParent<IDamageable>();
+                if (dmg != null) dmg.TakePhysicalDamage(unarmedDamage);
+            }
+
+            var node = hit.collider.GetComponentInParent<ResourceNode>();
+            if (node != null && node.kind == ResourceKind.Tree)
+            {
+                if (unarmedGatherPower > 0)
+                    node.Gather(unarmedGatherPower);
             }
         }
     }
