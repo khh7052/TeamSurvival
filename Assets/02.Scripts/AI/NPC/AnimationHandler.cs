@@ -25,4 +25,10 @@ public class AnimationHandler : MonoBehaviour
 
     public void PlayDie()
         => animator?.SetTrigger(AnimatorHash.DieHash);
+
+    public void OnFootstep()
+    {
+        Vector3 offset = new Vector3(0f, 0.1f, 0f); // 약간의 높이 조정
+        FootstepManager.Instance.PlayFootstep(transform.position + offset);
+    }
 }

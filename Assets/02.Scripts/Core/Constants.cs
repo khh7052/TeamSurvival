@@ -37,6 +37,9 @@ namespace Constants
         {
             return volumeNameDictionary[volumeType];
         }
+
+        public static string BGMPath = "Audio/BGM/";
+        public static string FootstepPath = "Audio/SFX/Footstep/";
     }
 
 
