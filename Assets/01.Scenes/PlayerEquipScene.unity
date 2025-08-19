@@ -700,6 +700,10 @@ PrefabInstance:
       propertyPath: staminaFill
       value: 
       objectReference: {fileID: 1048627191}
+    - target: {fileID: 5900856902477478118, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+      propertyPath: model
+      value: 
+      objectReference: {fileID: 2087619952}
     - target: {fileID: 6533984410461744423, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -753,8 +757,52 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+      propertyPath: hunger.maxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+      propertyPath: thirst.maxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+      propertyPath: stamina.maxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
       propertyPath: health.startValue
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+      propertyPath: hunger.startValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+      propertyPath: thirst.startValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+      propertyPath: stamina.startValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+      propertyPath: health.passiveValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+      propertyPath: hunger.passiveValue
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+      propertyPath: jumpPower.baseValue
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+      propertyPath: thirst.passiveValue
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+      propertyPath: stamina.passiveValue
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1583,6 +1631,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   key: 25
+--- !u!114 &2087619952 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+  m_PrefabInstance: {fileID: 648765209}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087619928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af159adb59fc6fc49808eae13bac23b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2093813832
 GameObject:
   m_ObjectHideFlags: 0

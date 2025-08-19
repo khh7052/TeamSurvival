@@ -18,6 +18,12 @@ public class EquipSystem : MonoBehaviour
     public Transform handSlot;
     private GameObject viewInst;
 
+    [Header("Stamina")]
+    [SerializeField] private EntityModel model;              // stamina를 갖고 있는 모델
+    [SerializeField] private float staminaCostWeapon = 10f;  // 무기 휘두를 때 소모
+    [SerializeField] private float staminaCostTool = 10f;     // 도구 사용 시 소모
+    [SerializeField] private bool blockWhenNoStamina = true; // 스태미나 부족 시 행동 차단
+
     public bool debugLog = true; //테스트용 디버그 온오프 가능
 
     public void Equip(ItemData data)
@@ -59,19 +65,32 @@ public class EquipSystem : MonoBehaviour
 
         if (Time.time < nextUseTime) return;
 
+        float cost = 0f;
+        if (currentItem.isWeapon) cost = staminaCostWeapon;
+        else if (currentItem.isTool) cost = staminaCostTool;
+
+        if (!TryConsumeStamina(cost))
+        {
+            if (blockWhenNoStamina)
+            {
+                if (debugLog) Debug.Log("[Equip] Blocked: not enough stamina", this);
+                return;
+            }
+        }
+
         if (debugLog) Debug.Log("[Equip] Attack with " + currentItem.name, this);
 
         if (currentItem.isWeapon)
         {
             UseWeapon();
             float delay = currentItem.weaponAttackDelay;
-            if (delay < 0.1f) delay = 0.1f;
+            if (delay < 0.1f) delay = 0.7f;
             nextUseTime = Time.time + delay;
         }
         else if (currentItem.isTool)
         {
             UseTool();
-            nextUseTime = Time.time + 0.2f;
+            nextUseTime = Time.time + 0.5f;
         }
     }
 
@@ -107,6 +126,34 @@ public class EquipSystem : MonoBehaviour
                     node.Gather(currentItem.toolGatherPower);
             }
         }
+    }
+
+    private bool TryConsumeStamina(float cost)
+    {
+        if (model == null || model.stamina == null) return true;
+
+        if (cost <= 0f) return true;
+
+        float cur = model.stamina.CurValue;
+
+        if (cur < cost)
+        {
+            if (blockWhenNoStamina)
+            {
+                if (debugLog) Debug.Log($"[Equip] Stamina need {cost}, have {cur} → blocked", this);
+                return false;
+            }
+            else
+            {
+                if (cur > 0f) model.stamina.Subtract(cur);
+                if (debugLog) Debug.Log($"[Equip] Stamina partial consume {cur} (needed {cost})", this);
+                return true;
+            }
+        }
+
+        model.stamina.Subtract(cost);
+        if (debugLog) Debug.Log($"[Equip] Stamina -{cost} → {model.stamina.CurValue:0.##}", this);
+        return true;
     }
 
     private bool Ray(out RaycastHit hit, float distance)

@@ -279,6 +279,7 @@ GameObject:
   - component: {fileID: 1683975416896729174}
   - component: {fileID: 6488007886754215992}
   - component: {fileID: 5900856902477478118}
+  - component: {fileID: 1915174890719795521}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -539,31 +540,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health:
     curValue: 0
-    startValue: 0
-    maxValue: 0
-    passiveValue: 0
+    startValue: 100
+    maxValue: 100
+    passiveValue: 5
   hunger:
     curValue: 0
-    startValue: 0
-    maxValue: 0
-    passiveValue: 0
+    startValue: 100
+    maxValue: 100
+    passiveValue: -1
   thirst:
     curValue: 0
-    startValue: 0
-    maxValue: 0
-    passiveValue: 0
+    startValue: 100
+    maxValue: 100
+    passiveValue: -1
   stamina:
     curValue: 0
-    startValue: 0
-    maxValue: 0
-    passiveValue: 0
+    startValue: 100
+    maxValue: 100
+    passiveValue: 5
   moveSpeed:
     baseValue: 5
     additionalValue: 0
     multipleValue: 1
     constValue: 0
   jumpPower:
-    baseValue: 5
+    baseValue: 25
     additionalValue: 0
     multipleValue: 1
     constValue: 0
@@ -588,6 +589,7 @@ MonoBehaviour:
   maxXLook: 85
   lookSensitivity: 0.1
   canLook: 1
+  jumpStaminaCost: 10
 --- !u!114 &3850867666251352558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -600,14 +602,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d139b2f926fa222419bbc2c32fe43a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpSlider: {fileID: 0}
+  hpFill: {fileID: 0}
   hpText: {fileID: 0}
   moveSpeedText: {fileID: 0}
-  hungerSlider: {fileID: 0}
+  hungerFill: {fileID: 0}
   hungerText: {fileID: 0}
-  thirstSlider: {fileID: 0}
+  thirstFill: {fileID: 0}
   thirstText: {fileID: 0}
-  staminaSlider: {fileID: 0}
+  staminaFill: {fileID: 0}
   staminaText: {fileID: 0}
 --- !u!114 &9183120507124538938
 MonoBehaviour:
@@ -698,7 +700,25 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   handSlot: {fileID: 6306992753322779040}
+  model: {fileID: 6885103462339148826}
+  staminaCostWeapon: 10
+  staminaCostTool: 10
+  blockWhenNoStamina: 1
   debugLog: 1
+--- !u!114 &1915174890719795521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6771510593846623006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d04711ad665c1444bad0c3923f22781e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  key: 25
 --- !u!1 &7364016361463157510
 GameObject:
   m_ObjectHideFlags: 0

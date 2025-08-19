@@ -93,9 +93,8 @@ public class PlayerView : MonoBehaviour
             image.type = Image.Type.Filled;
             image.fillMethod = Image.FillMethod.Horizontal;
             image.fillOrigin = (int)Image.OriginHorizontal.Left;
-
-            float pct = (max > 0f) ? Mathf.Clamp01(cur / max) : 0f;
-            image.fillAmount = pct;
         }
+
+        image.fillAmount = (max > 0f) ? Mathf.Clamp01(cur / max) : 0f;
     }
 }
