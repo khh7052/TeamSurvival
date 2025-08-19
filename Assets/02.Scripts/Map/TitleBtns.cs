@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TitleBtns : MonoBehaviour
+public class TitleBtns : BaseUI
 {
     [Header("Button Setting")]
     public Button startBtn;
