@@ -61,7 +61,14 @@ public class UIInventory : BaseUI
     {
         base.OnEnable();
         inventory.OnChangeData += UpdateUI;
+        Debug.Log("Enable");
         UpdateUI();
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        inventory.OnChangeData -= UpdateUI;
     }
 
     protected override async void Awake()
@@ -119,7 +126,6 @@ public class UIInventory : BaseUI
 
     public void UpdateUI()
     {
-        Debug.Log("UI 업데이트!");
         var arr = slots;
         for (int i = 0; i < arr.Length; i++)
         {
@@ -128,7 +134,6 @@ public class UIInventory : BaseUI
 
             if (inventory.slots[i].item != null)
             {
-                Debug.Log(inventory.slots[i].item.DisplayName);
                 s.Set(inventory.slots[i]);
             }
             else s.Clear();

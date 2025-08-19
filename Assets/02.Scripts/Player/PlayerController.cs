@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
     public float lookSensitivity;
     private Vector2 mouseDelta;
     public bool canLook = true;
-    public Action inventory { get; set; }
 
     private Rigidbody rb;
 
@@ -137,8 +136,14 @@ public class PlayerController : MonoBehaviour
     {
         if (callbackContext.phase == InputActionPhase.Started)
         {
-            UIManager.Instance.ShowUI<UIInventory>();
-            inventory?.Invoke();
+            if (UIManager.Instance.IsEnableUI<UIInventory>())
+            {
+                UIManager.Instance.CloseUI<UIInventory>();
+            }
+            else
+            {
+                UIManager.Instance.ShowUI<UIInventory>();
+            }
             ToggleCursor();
         }
     }

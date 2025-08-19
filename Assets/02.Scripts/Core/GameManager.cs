@@ -39,8 +39,8 @@ public class GameManager : Singleton<GameManager>, IInitializableAsync
     public void GameStart()
     {
 
-        UIManager.Instance.ShowUI<TestConditionUI>();
         /* Test Area
+        UIManager.Instance.ShowUI<TestConditionUI>();
         Factory.Instance.CreateByID<BaseScriptableObject>(0);
 
         for(int i = 0; i < 10; i++)

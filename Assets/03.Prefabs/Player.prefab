@@ -544,6 +544,7 @@ MonoBehaviour:
   controller: {fileID: 0}
   condition: {fileID: 0}
   itemData: {fileID: 0}
+  inventory: {fileID: 0}
   dropPosition: {fileID: 6306992753322779040}
 --- !u!114 &6885103462339148826
 MonoBehaviour:
@@ -642,7 +643,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ba76e97d0c0774a9a7c54ff981a714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: []
+  slots:
+  - item: {fileID: 0}
+    Quantity: 0
+  - item: {fileID: 0}
+    Quantity: 0
+  - item: {fileID: 0}
+    Quantity: 0
+  - item: {fileID: 0}
+    Quantity: 0
+  - item: {fileID: 0}
+    Quantity: 0
+  - item: {fileID: 0}
+    Quantity: 0
+  - item: {fileID: 0}
+    Quantity: 0
+  - item: {fileID: 0}
+    Quantity: 0
+  - item: {fileID: 0}
+    Quantity: 0
+  - item: {fileID: 0}
+    Quantity: 0
+  - item: {fileID: 0}
+    Quantity: 0
+  - item: {fileID: 0}
+    Quantity: 0
+  - item: {fileID: 0}
+    Quantity: 0
+  - item: {fileID: 0}
+    Quantity: 0
 --- !u!114 &8566881413159209253
 MonoBehaviour:
   m_ObjectHideFlags: 0

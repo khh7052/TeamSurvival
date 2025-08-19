@@ -9,6 +9,7 @@ public class UIManager : Singleton<UIManager>
     Dictionary<string, BaseUI> uiInstances = new();
     private Transform mainCanvas;
     private Dictionary<string, Transform> canvasDictionary = new();
+    private Dictionary<string, bool> uiEnableDict = new();
 
     private T CreateUI<T>(Transform parent = null) where T : BaseUI
     {
@@ -35,7 +36,6 @@ public class UIManager : Singleton<UIManager>
                 GameObject go = Instantiate(Resources.Load<GameObject>(UIPrefabPath.paths[className]), parent);
                 T t = go.GetComponent<T>();
                 AddUI<T>(t);
-
                 return t;
             }
         }
@@ -54,6 +54,7 @@ public class UIManager : Singleton<UIManager>
         if (uiInstances.ContainsKey(className))
         {
             uiInstances[className].ShowUI();
+            uiEnableDict[className] = true;
             return uiInstances[className] as T;
         }
 
@@ -61,14 +62,44 @@ public class UIManager : Singleton<UIManager>
         T t = CreateUI<T>(isDrawMainCanvas ? FindMainCanvas() : CreateCanvasTransform(className, false));
         if(t != default)
         {
+            uiInstances[className] = t;
+            uiEnableDict[className] = true;
             t.ShowUI();
             return t;
-
         }
 
         // Failed create T UI, Return default and Log Error
         Debug.LogError($"{className} UI create failue... ");
         return default;
+    }
+
+    public void CloseUI<T>() where T : BaseUI
+    {
+        string className = typeof(T).Name;
+
+        if (uiInstances.ContainsKey(className))
+        {
+            Debug.Log($"Close UI {className}");
+            uiInstances[className].ExitUI();
+            uiEnableDict[className] = false;
+        }
+        else
+        {
+            Debug.Log("없는데?");
+        }
+    }
+
+    public bool IsEnableUI<T>() where T : BaseUI
+    {
+        string className = typeof(T).Name;
+        if (uiEnableDict.ContainsKey(className))
+        {
+            Debug.Log($"있어. {uiEnableDict[className]}");
+            return uiEnableDict[className];
+        }
+
+        Debug.Log($"없어. {false}");
+        return false;
     }
 
     private void AddUI<T>(BaseUI ui) where T : BaseUI
@@ -86,7 +117,7 @@ public class UIManager : Singleton<UIManager>
             // Find Target UI Instance
             BaseUI targetUI = uiInstances[nameof(T)];
             uiInstances.Remove(className);
-
+            uiEnableDict.Remove(className);
             // Destroy UI Instace
             Destroy(targetUI.gameObject);
         }

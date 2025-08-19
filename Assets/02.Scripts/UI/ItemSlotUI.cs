@@ -38,10 +38,10 @@ public class ItemSlotUI : MonoBehaviour
     public void Set(ItemSlot targetSlot)
     {
         item = targetSlot.item;
+        Debug.Log($"Item : {item.DisplayName}");
         quantity = targetSlot.Quantity;
         if (icon != null)
         {
-            Debug.Log("아이템은 있어");
             Debug.Log($"{item.Icon}");
             icon.sprite = item != null ? item.Icon : null;
             icon.enabled = (item != null && item.Icon != null);
@@ -63,7 +63,7 @@ public class ItemSlotUI : MonoBehaviour
         if (icon != null)
         {
             icon.sprite = null;
-            icon.gameObject.SetActive(false);
+            icon.enabled = false;
         }
         if (quatityText != null) quatityText.text = string.Empty;
         if (outline != null) outline.enabled = false;
