@@ -10,6 +10,7 @@ public class Factory : Singleton<Factory>, IInitializableAsync
 
     public bool IsInitialized { get; private set; }
 
+
     protected override void Initialize()
     {
         base.Initialize();

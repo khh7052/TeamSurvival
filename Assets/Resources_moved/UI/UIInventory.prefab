@@ -1460,7 +1460,7 @@ GameObject:
   - component: {fileID: 564413111121168004}
   - component: {fileID: 5770628396632458348}
   m_Layer: 5
-  m_Name: UIInventory1
+  m_Name: UIInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
