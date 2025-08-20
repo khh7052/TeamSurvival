@@ -18,6 +18,8 @@ public class NPC : MonoBehaviour, IInteractable
     [Header("Stats")]
 //    [SerializeField] private float moveSpeed;
     [SerializeField] private float lookSpeed;
+    [SerializeField] private SoundData hitSFX;
+
 
     [Header("AI Settings")]
     [SerializeField] private float detectDistance;
@@ -102,7 +104,8 @@ public class NPC : MonoBehaviour, IInteractable
         else
         {
             // NPC가 데미지를 받았을 때의 로직
-            // (현재 데미지 받았을 때의 이벤트가 따로 없으므로 일단 OnChanged에서 처리함, 나중에 수정필요)
+            // (현재 데미지 받았을 때의 이벤트가 따로 없으므로 일단 OnChanged에서 처리함, 나중에 수정필요)\
+            AudioManager.Instance.PlaySFX(hitSFX, transform.position);
             AnimationHandler?.PlayHit();
         }
     }

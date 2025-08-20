@@ -796,6 +796,7 @@ MonoBehaviour:
   interactPrompt: "\uB300\uD654\uD558\uAE30 E"
   dialogueData: {fileID: 11400000, guid: e4a77c5f068b1d448a950df9cee118cb, type: 2}
   lookSpeed: 5
+  hitSFX: {fileID: 0}
   detectDistance: 10
   targetLayerMask:
     serializedVersion: 2
@@ -914,6 +915,15 @@ MonoBehaviour:
     startValue: 0
     maxValue: 0
     passiveValue: 0
+  temperture:
+    curValue: 0
+    startValue: 0
+    maxValue: 0
+    passiveValue: 0
+  isApplyByWeather: 0
+  warningTemp: 34
+  dangerTemp: 32
+  rayLength: 5
   moveSpeed:
     baseValue: 0
     additionalValue: 0
@@ -1314,6 +1324,7 @@ MonoBehaviour:
   interactPrompt: "\uB300\uD654\uD558\uAE30 E"
   dialogueData: {fileID: 11400000, guid: e4a77c5f068b1d448a950df9cee118cb, type: 2}
   lookSpeed: 5
+  hitSFX: {fileID: 0}
   detectDistance: 10
   targetLayerMask:
     serializedVersion: 2
@@ -1402,6 +1413,15 @@ MonoBehaviour:
     startValue: 0
     maxValue: 0
     passiveValue: 0
+  temperture:
+    curValue: 0
+    startValue: 0
+    maxValue: 0
+    passiveValue: 0
+  isApplyByWeather: 0
+  warningTemp: 34
+  dangerTemp: 32
+  rayLength: 5
   moveSpeed:
     baseValue: 3
     additionalValue: 0
@@ -2940,6 +2960,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -13.775002
       objectReference: {fileID: 0}
+    - target: {fileID: 8338966613746870487, guid: 14e16022ff98cab44ac1e6173096bce9, type: 3}
+      propertyPath: hitSFX
+      value: 
+      objectReference: {fileID: 11400000, guid: 23912e2a3db2e824a923983295d3aaed, type: 2}
     - target: {fileID: 8338966613746870487, guid: 14e16022ff98cab44ac1e6173096bce9, type: 3}
       propertyPath: homePoint
       value: 
