@@ -6,6 +6,7 @@ public class EquipSystem : MonoBehaviour
 {
     [Header("Current")]
     [SerializeField] private ItemData currentItem;
+    [SerializeField] private GameObject currentItemInstance;
 
     public WeaponType EquippedWeaponType { get; private set; } = WeaponType.None;
     public ToolType EquippedToolType { get; private set; } = ToolType.None;
@@ -32,17 +33,21 @@ public class EquipSystem : MonoBehaviour
     [SerializeField] private int unarmedDamage = 1;      // 맨손 데미지
     [SerializeField] private int unarmedGatherPower = 1; // 맨손으로 나무만 약하게 캐지도록
 
+    public Transform EquipTransform;
+
     public bool debugLog = true; //테스트용 디버그 온오프 가능
 
     public void Equip(ItemData data)
     {
         currentItem = data;
-
+        currentItemInstance = new GameObject();
+        currentItemInstance.transform.parent = EquipTransform;
+        currentItemInstance.transform.localPosition = Vector3.zero;
         if (currentItem != null && currentItem.isWeapon)
             EquippedWeaponType = currentItem.weaponType;
         else
             EquippedWeaponType = WeaponType.None;
-
+        
         if (currentItem != null && currentItem.isTool)
             EquippedToolType = currentItem.toolType;
         else
@@ -56,6 +61,8 @@ public class EquipSystem : MonoBehaviour
     public void UnEquip()
     {
         currentItem = null;
+        Destroy(currentItemInstance);
+        currentItemInstance = null;
         EquippedWeaponType = WeaponType.None;
         EquippedToolType = ToolType.None;
 
