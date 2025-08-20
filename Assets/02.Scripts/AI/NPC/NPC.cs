@@ -19,6 +19,7 @@ public class NPC : MonoBehaviour, IInteractable
 //    [SerializeField] private float moveSpeed;
     [SerializeField] private float lookSpeed;
     [SerializeField] private SoundData hitSFX;
+    [SerializeField] private SoundData dieSFX;
 
 
     [Header("AI Settings")]
@@ -75,6 +76,7 @@ public class NPC : MonoBehaviour, IInteractable
     public float LimitMoveRange => limitMoveRange;
 
     public bool IsDead => entityModel.health.CurValue <= 0;
+    private float previousHealth;
 
     public AnimationHandler AnimationHandler => animationHandler;
 
@@ -96,9 +98,12 @@ public class NPC : MonoBehaviour, IInteractable
     {
         if (IsDead)
         {
+            if (previousHealth == entityModel.health.CurValue) return;
+
             // NPC가 죽었을 때의 로직
             Debug.Log($"{npcName}이(가) 죽었습니다.");
             StopMoving();
+            AudioManager.Instance.PlaySFX(dieSFX, transform.position);
             AnimationHandler?.PlayDie();
         }
         else
@@ -108,6 +113,8 @@ public class NPC : MonoBehaviour, IInteractable
             AudioManager.Instance.PlaySFX(hitSFX, transform.position);
             AnimationHandler?.PlayHit();
         }
+
+        previousHealth = entityModel.health.CurValue;
     }
 
     private void MoveSpeed_OnChanged()
