@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90534c289604d904995d92823d142e91, type: 3}
-  m_Name: Item_Water
+  m_Name: Item_YellowFlower
   m_EditorClassIdentifier: 
-  ID: 22004
-  DisplayName: "\uBB3C"
-  Description: "\uAC08\uC99D \uD68C\uBCF5"
+  ID: 22007
+  DisplayName: "\uB178\uB780 \uAF43"
+  Description: "\uCCB4\uB825, \uB0B4\uAD6C\uB825 \uD68C\uBCF5"
   Icon: {fileID: 0}
   Prefab: {fileID: 0}
   AssetReference:
-    m_AssetGUID: 8451f20c4b8a88a40b4549f1c2c18d5e
+    m_AssetGUID: 1e87eb22bc1b264458c5e6b19ad67f9e
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -28,8 +28,10 @@ MonoBehaviour:
   canStack: 1
   maxStackAmount: 10
   consumables:
-  - type: 1
-    value: 40
+  - type: 2
+    value: 20
+  - type: 3
+    value: 20
   isWeapon: 0
   isTool: 0
   weaponType: 0

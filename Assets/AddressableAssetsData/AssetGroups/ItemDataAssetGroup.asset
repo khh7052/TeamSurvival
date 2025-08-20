@@ -89,26 +89,32 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c6de00c5ea30e874a97d0ef32adbf08a
-    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Mushroom.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - ItemData
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ed3bde5f5c7d30c41942ae7621f941e3
     m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Fruit.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d575745a32d65c441925e8c3d114cf3d
-    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Beer.asset
+  - m_GUID: 812c22d6ebbd2e040ac4d80393715fa0
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Water.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 812c22d6ebbd2e040ac4d80393715fa0
-    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Water.asset
+  - m_GUID: 4e97271c9ce29b742a201f5fac52d792
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_RedFlower.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b68fdab490ac10a42ad1166b43f4f230
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_BlueFlower.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e025d8529cd72e48b92a947188e9eef
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_YellowFlower.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData
