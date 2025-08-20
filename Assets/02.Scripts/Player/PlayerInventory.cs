@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
@@ -126,6 +127,19 @@ public class PlayerInventory : MonoBehaviour
             case ConsumableType.Thirst: condition.Drink(c.value); break;
             case ConsumableType.Stamina: condition.RecoverStamina(c.value); break;
         }
+    }
+
+    public bool IsHasItem(ItemData[] datas, int[] counts)
+    {
+        if(datas.Length != counts.Length) return false;
+        for(int i = 0; i < datas.Length; i++)
+        {
+            // 해당 아이템 슬롯 찾기
+            var slot = slots.FirstOrDefault(s => s.item == datas[i]);
+            if (slot == null || slot.Quantity < counts[i])
+                return false;
+        }
+        return true;
     }
 }
 

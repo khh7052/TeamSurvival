@@ -3,18 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : Singleton<AudioManager>
 {
     private AudioMixer audioMixer;
     private AudioSource bgmSource;
-    private AudioSource sfxSource;
+    private GameObject audioPlayerObject;
 
     protected override void Initialize()
     {
         base.Initialize();
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
-        audioMixer = Resources.Load<AudioMixer>("AudioMixer");
+        audioMixer = Resources.Load<AudioMixer>("Audio/AudioMixer");
+        audioPlayerObject = Resources.Load<GameObject>("Audio/AudioPlayer");
 
         if (audioMixer == null)
         {
@@ -23,7 +26,13 @@ public class AudioManager : Singleton<AudioManager>
         }
 
         CreateAudioSource(SoundType.BGM, ref bgmSource);
-        CreateAudioSource(SoundType.SFX, ref sfxSource);
+    }
+
+    // 씬이 로드될 때 BGM을 자동으로 재생
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SoundData bgmData = Resources.Load<SoundData>(AudioConstants.BGMPath + scene.name);
+        PlayBGM(bgmData);
     }
 
     private void CreateAudioSource(SoundType soundType, ref AudioSource audioSource)
@@ -36,7 +45,6 @@ public class AudioManager : Singleton<AudioManager>
         audioSource.playOnAwake = false; // 자동 재생 방지
         audioSource.volume = 1f; // 기본 볼륨 설정
     }
-
 
     public void PlayBGM(SoundData soundData)
     {
@@ -58,19 +66,13 @@ public class AudioManager : Singleton<AudioManager>
         bgmSource.Play();
     }
 
-    public void PlaySFX(SoundData soundData)
+    public void PlaySFX(SoundData soundData, Vector3 pos)
     {
         if (soundData == null || soundData.clips.Length == 0) return;
 
-        AudioClip clip = soundData.clips[Random.Range(0, soundData.clips.Length)];
-        PlaySFX(clip, soundData.volume);
-    }
-
-    public void PlaySFX(AudioClip clip, float volume = 1f)
-    {
-        if (clip == null) return;
-
-        sfxSource.PlayOneShot(clip, volume);
+        GameObject go = ObjectPoolingManager.Instance.Get(audioPlayerObject, pos);
+        AudioPlayer audioPlayer = go.GetComponent<AudioPlayer>();
+        audioPlayer.PlaySFX(soundData);
     }
 
     public void SetVolume(VolumeType volumeType, float volume)
