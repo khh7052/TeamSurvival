@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
     {
         // 제작 켜져있을 땐 무시
         if (UIManager.Instance.IsEnableUI<CompositionUI>()) return;
-        if (UIManager.Instance.IsEnableUI<UIInventory>()) return;
+        if (UIManager.Instance.IsEnableUI<SettingUI>()) return;
 
         if (callbackContext.phase == InputActionPhase.Started)
         {
@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour
     public async void OnCraftUIButton(InputAction.CallbackContext callbackContext)
     {
         // 인벤토리 켜져있을 땐 무시
-        if (UIManager.Instance.IsEnableUI<CompositionUI>()) return;
+        if (UIManager.Instance.IsEnableUI<SettingUI>()) return;
         if (UIManager.Instance.IsEnableUI<UIInventory>()) return;
 
         if (callbackContext.phase == InputActionPhase.Started)
@@ -187,7 +187,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void OnSettingUIButton(InputAction.CallbackContext callbackContext)
+    public async void OnSettingUIButton(InputAction.CallbackContext callbackContext)
     {
         // 인벤토리 켜져있을 땐 무시
         bool isEnable = UIManager.Instance.IsEnableUI<SettingUI>();
@@ -200,7 +200,8 @@ public class PlayerController : MonoBehaviour
             if (isEnable)
                 UIManager.Instance.CloseUI<SettingUI>();
             else
-                UIManager.Instance.ShowUI<SettingUI>();
+                await UIManager.Instance.ShowUI<SettingUI>();
+
             ToggleCursor();
         }
     }
