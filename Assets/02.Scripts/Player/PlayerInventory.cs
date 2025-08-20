@@ -15,9 +15,31 @@ public class PlayerInventory : MonoBehaviour
 
     public System.Action OnInventoryChanged;
 
+    Dictionary<int, int> itemQuantityCache = new();
+
     private void Awake()
     {
         GetComponent<Player>().addItem += Add;
+    }
+
+    private void ItemCacheInInventory(int id, int Quantity)
+    {
+        if (itemQuantityCache.ContainsKey(id))
+        {
+            // 있으면 증가
+            itemQuantityCache[id] += Quantity;
+        }
+        else
+        {
+            // 없으면 해당 값 부여
+            itemQuantityCache[id] = Quantity;
+        }
+
+        // 0 이하일 경우 삭제
+        if (itemQuantityCache[id] <= 0)
+        {
+            itemQuantityCache.Remove(id);
+        }
     }
 
     // 아이템 추가
@@ -33,6 +55,7 @@ public class PlayerInventory : MonoBehaviour
             {
                 slot.Quantity++;
                 GameManager.player.itemData = null;
+                ItemCacheInInventory(data.ID, 1);
                 OnChangeData?.Invoke();
                 return;
             }
@@ -43,6 +66,7 @@ public class PlayerInventory : MonoBehaviour
         {
             emptySlot.item = data;
             emptySlot.Quantity = 1;
+            ItemCacheInInventory(data.ID, 1);
             GameManager.player.itemData = null;
             OnChangeData?.Invoke();
             return;
@@ -117,6 +141,24 @@ public class PlayerInventory : MonoBehaviour
         OnChangeData?.Invoke();
     }
 
+    private void RemoveItem(int itemID)
+    {
+        foreach(var slot in slots)
+        {
+            if(slot.item != null && slot.item.ID == itemID)
+            {
+                slot.Quantity--;
+
+                if(slot.Quantity <= 0)
+                {
+                    slot.item = null;
+                }
+                break;
+            }
+        }
+        OnChangeData?.Invoke();
+    }
+
     private void ApplyConsume(ItemDataConsumable c)
     {
         if (condition == null) return;
@@ -129,17 +171,38 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public bool IsHasItem(ItemData[] datas, int[] counts)
+    public bool IsHasItem(int[] ids, int[] counts)
     {
-        if(datas.Length != counts.Length) return false;
-        for(int i = 0; i < datas.Length; i++)
+        if(ids.Length != counts.Length) return false;
+
+        for(int i = 0; i < ids.Length; i++)
         {
-            // 해당 아이템 슬롯 찾기
-            var slot = slots.FirstOrDefault(s => s.item == datas[i]);
-            if (slot == null || slot.Quantity < counts[i])
-                return false;
+            if (itemQuantityCache.ContainsKey(ids[i]))
+            {
+                if (itemQuantityCache[ids[i]] < counts[i]) return false;    
+            }
+            else return false;
         }
+
         return true;
+    }
+
+    public void ItemCreate(CompositionRecipeData data)
+    {
+        var itemData = Factory.Instance.GetDataByID<ItemData>(data.ID);
+        GameManager.player.itemData = itemData;
+
+        for (int i = 0; i < data.recipe.Count; i++)
+        {
+            for (int j = 0; j < data.recipe[i].ItemCount; j++)
+            {
+                RemoveItem(data.recipe[i].ItemID); // 감소 로직 효율 안좋음.
+                ItemCacheInInventory(data.recipe[i].ItemID, -1);
+            }
+        }
+
+        Add();
+        OnChangeData?.Invoke();
     }
 }
 

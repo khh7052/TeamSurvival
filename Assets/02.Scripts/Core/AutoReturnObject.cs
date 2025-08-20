@@ -12,5 +12,6 @@ public class AutoReturnObject : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        AnimationHandler anim;
     }
 }

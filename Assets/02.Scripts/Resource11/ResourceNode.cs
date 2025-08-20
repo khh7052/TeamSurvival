@@ -141,8 +141,9 @@ public class ResourceNode : MonoBehaviour, IHarvestable
     private async void SpawnDrops()
     {
         if (yieldItem == null) return;
-        GameObject prefab = yieldItem.dropPrefab;
-        if (prefab == null) return;
+        
+        //GameObject prefab = yieldItem.dropPrefab;
+        //if (prefab == null) return;
 
         for (int i = 0; i < dropOnDeplete; i++)
         {

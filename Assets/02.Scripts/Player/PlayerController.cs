@@ -25,11 +25,14 @@ public class PlayerController : MonoBehaviour
     [Header("Jump Stamina")]
     [SerializeField] private float jumpStaminaCost = 10f;
 
+    AnimationHandler anim;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         model = GetComponent<EntityModel>();
         equip = GetComponent<EquipSystem>();
+        anim = GetComponent<AnimationHandler>();
     }
 
     private void Start()
@@ -71,6 +74,7 @@ public class PlayerController : MonoBehaviour
     private void Jump() //점프로직
     {
         rb.AddForce(Vector2.up * model.jumpPower.totalValue, ForceMode.Impulse);
+        anim.PlayerJump();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -78,10 +82,12 @@ public class PlayerController : MonoBehaviour
         if(context.phase == InputActionPhase.Performed)
         {
             curMovementInput = context.ReadValue<Vector2>();
+            anim.PlayerWalk();
         }
         else if(context.phase == InputActionPhase.Canceled)
         {
             curMovementInput = Vector2.zero;
+            anim.PlayerStop();
         }
     }
 
@@ -134,6 +140,34 @@ public class PlayerController : MonoBehaviour
 
     public void OnInventoryButton(InputAction.CallbackContext callbackContext)
     {
+        // 제작 켜져있을 땐 무시
+        if (UIManager.Instance.IsEnableUI<CompositionUI>()) return;
+        if (callbackContext.phase == InputActionPhase.Started)
+        {
+            if (UIManager.Instance.IsEnableUI<UIInventory>())
+            {
+                UIManager.Instance.CloseUI<UIInventory>();
+            }
+            else
+            {
+                UIManager.Instance.ShowUI<UIInventory>();
+            }
+            ToggleCursor();
+        }
+    }
+
+    void ToggleCursor()
+    {
+        bool toggle = Cursor.lockState == CursorLockMode.Locked;
+        Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
+        canLook = !toggle;
+    }
+
+
+    public void OnCraftUIButton(InputAction.CallbackContext callbackContext)
+    {
+        // 인벤토리 켜져있을 땐 무시
+        if (UIManager.Instance.IsEnableUI<UIInventory>()) return;
         if (callbackContext.phase == InputActionPhase.Started)
         {
             if (UIManager.Instance.IsEnableUI<CompositionUI>())
@@ -148,10 +182,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void ToggleCursor()
-    {
-        bool toggle = Cursor.lockState == CursorLockMode.Locked;
-        Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
-        canLook = !toggle;
-    }
 }

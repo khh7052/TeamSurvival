@@ -48,8 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rain: {fileID: 2000986084269997515}
   snow: {fileID: 850418110309085582}
-  rainChance: 0.434
-  snowChance: 0.417
+  rainChance: 0.3
+  snowChance: 0.3
   changeInterval: 10
 --- !u!1 &4113289438584255487
 GameObject:
@@ -157,7 +157,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -4907,13 +4907,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9207400536129396633}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.00018725368, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 109330566941360076}
-  m_LocalEulerAnglesHint: {x: 0, y: -0.021, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &2000986084269997515
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4987,7 +4987,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0

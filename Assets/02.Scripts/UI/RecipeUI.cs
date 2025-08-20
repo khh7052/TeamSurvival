@@ -12,7 +12,6 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
     public Image targetItemIcon;
     public TMP_Text targetItemText;
     public TMP_Text targetItemDesc;
-    private Image LayerImage;
 
     private CompositionUI originUI;
     int index;
@@ -20,8 +19,14 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
 
     [Header("재료")]
     public List<Image> sourceItemIcon = new();
+    public List<TMP_Text> sourceItemCntText = new();
 
+    [Header("데이터")]
     public CompositionRecipeData recipe;
+
+    [Header("활성화 여부")]
+    public bool isCreatable;
+    private Image LayerImage;
 
     public void Initialize(CompositionRecipeData recipe, int index, CompositionUI origin)
     {
@@ -40,13 +45,17 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
                 var Item = Factory.Instance.GetDataByID<ItemData>(recipe.recipe[i].ItemID);
                 Debug.Log(Item.DisplayName);
                 sourceItemIcon[i].sprite = Item.Icon;
+                sourceItemCntText[i].text = recipe.recipe[i].ItemCount.ToString();
                 sourceItemIcon[i].SetActive(true);
+                sourceItemCntText[i].SetActive(true);
             }
             else
             {
                 sourceItemIcon[i].SetActive(false);
+                sourceItemCntText[i].SetActive(false);
             }
         }
+        LayerImage = GetComponent<Image>();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -60,21 +69,24 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
         if(GameManager.player.inventory.IsHasItem(datas.Item1, datas.Item2))
         {
             LayerImage.color = Color.white;
+            isCreatable = true;
         }
         else
         {
             LayerImage.color = Color.gray;
+            isCreatable = false;
         }
     }
 
-    private (ItemData[], int[]) GetRecipeData()
+    private (int[], int[]) GetRecipeData()
     {
-        ItemData[] datas = new ItemData[recipe.recipe.Count];
+        int[] datas = new int[recipe.recipe.Count];
+
         int[] coutns = new int[recipe.recipe.Count];
 
         for(int i = 0; i < datas.Length; i++)
         {
-            datas[i] = Factory.Instance.GetDataByID<ItemData>(recipe.recipe[i].ItemID);
+            datas[i] = recipe.recipe[i].ItemID;
             coutns[i] = recipe.recipe[i].ItemCount;
         }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    EntityModel model;
+    public EntityModel model;
     PlayerView view;
     public PlayerController controller;
     public PlayerCondition condition;
@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public ItemData itemData;
     public Action addItem { get; set; }
     public PlayerInventory inventory;
+    public AnimationHandler animationHandler;
 
     public Transform dropPosition;
 
@@ -22,9 +23,10 @@ public class Player : MonoBehaviour
         view = GetComponent<PlayerView>();
         controller = GetComponent<PlayerController>();
         equip = GetComponent<EquipSystem>();
-        view.Initialize(model);
+        view.Initialize();
         condition = GetComponent<PlayerCondition>();
         inventory = GetComponent<PlayerInventory>();
+        animationHandler = GetComponent<AnimationHandler>();
 
         GameManager.player = this;
     }

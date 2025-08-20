@@ -61,6 +61,10 @@ namespace Constants
         public static readonly int AttackHash = Animator.StringToHash("Attack");
         public static readonly int HitHash = Animator.StringToHash("Hit");
         public static readonly int DieHash = Animator.StringToHash("Die");
+
+        // Player
+        public static readonly int IsMove = Animator.StringToHash("IsMove");
+        public static readonly int IsJump = Animator.StringToHash("IsJump");
     }
 
     public enum BuildMode
@@ -100,7 +104,8 @@ namespace Constants
             { "Canvas", "UI/Canvas" },
             { "TestConditionUI" , "UI/ConditionUI" },
             { "UIInventory", "UI/UIInventory1" },
-            { "CompositionUI", "UI/CompositionUI" }
+            { "CompositionUI", "UI/CompositionUI" },
+            { "InGameUI", "UI/InGameUI" }
         };
         public static string GetPrefabPath(string prefabName)
         {

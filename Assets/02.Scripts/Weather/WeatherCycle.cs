@@ -47,7 +47,7 @@ public class WeatherCycle : MonoBehaviour
         foreach (var observer in observers)
         {
             observer.OnWeatherChanged(currentWeather);
-            Debug.Log($"{observer}이 존재");
+//            Debug.Log($"{observer}이 존재");
         }
     }
 

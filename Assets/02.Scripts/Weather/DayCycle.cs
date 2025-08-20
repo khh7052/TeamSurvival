@@ -25,6 +25,11 @@ public class DayCycle : MonoBehaviour
     public AnimationCurve lightingIntensityMultiplier;
     public AnimationCurve reflectionIntensityMultiplier;
 
+    private void Awake()
+    {
+        if (sun != null)
+            RenderSettings.sun = sun;
+    }
     private void Start()
     {
         timeRate = 1.0f / fullDayLength;

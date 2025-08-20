@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BaseUI : MonoBehaviour
 {
-    Button closeButton;
-
     protected virtual void Awake()
     {
-        transform.Find("closeButton");
+
     }
 
     protected virtual void OnEnable()
@@ -30,5 +29,12 @@ public class BaseUI : MonoBehaviour
     public virtual void ExitUI()
     {
         gameObject.SetActive(false);
+    }
+    protected async Task WaitManagerInitialize()
+    {
+        while (!GameManager.Instance.IsInitialized)
+        {
+            await Task.Yield();
+        }
     }
 }
