@@ -85,6 +85,20 @@ public class AudioManager : Singleton<AudioManager>
         audioMixer.SetFloat(parameterName, Mathf.Log10(volume) * 20); // dB로 변환
     }
 
+    public float GetVolume(VolumeType volumeType)
+    {
+        string parameterName = AudioConstants.GetExposedVolumeName(volumeType);
+        if (audioMixer.GetFloat(parameterName, out float value))
+            return Mathf.Pow(10, value / 20); // dB에서 볼륨으로 변환
+
+        return volumeType switch {
+            VolumeType.Master => AudioConstants.MasterVolume,
+            VolumeType.BGM => AudioConstants.BGMVolume,
+            VolumeType.SFX => AudioConstants.SFXVolume,
+            _ => 1f, // 기본값
+        };
+    }
+
     public void ResetVolume()
     {
         if (audioMixer == null) return;
