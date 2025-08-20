@@ -53,6 +53,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - UIInstance
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 251494aa646f0b842831eadb6e9eafd7
+    m_Address: Assets/Resources_moved/UI/VolumeSlider.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UIInstance
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ee748b075cec9cc4088fa515056e5ade
+    m_Address: Assets/Resources_moved/UI/SettingUI.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UIInstance
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}
   m_SchemaSet:

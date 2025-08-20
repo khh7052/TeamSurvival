@@ -18,6 +18,9 @@ public class NPC : MonoBehaviour, IInteractable
     [Header("Stats")]
 //    [SerializeField] private float moveSpeed;
     [SerializeField] private float lookSpeed;
+    [SerializeField] private SoundData hitSFX;
+    [SerializeField] private SoundData dieSFX;
+
 
     [Header("AI Settings")]
     [SerializeField] private float detectDistance;
@@ -73,6 +76,7 @@ public class NPC : MonoBehaviour, IInteractable
     public float LimitMoveRange => limitMoveRange;
 
     public bool IsDead => entityModel.health.CurValue <= 0;
+    private float previousHealth;
 
     public AnimationHandler AnimationHandler => animationHandler;
 
@@ -94,17 +98,23 @@ public class NPC : MonoBehaviour, IInteractable
     {
         if (IsDead)
         {
+            if (previousHealth == entityModel.health.CurValue) return;
+
             // NPC가 죽었을 때의 로직
             Debug.Log($"{npcName}이(가) 죽었습니다.");
             StopMoving();
+            AudioManager.Instance.PlaySFX(dieSFX, transform.position);
             AnimationHandler?.PlayDie();
         }
         else
         {
             // NPC가 데미지를 받았을 때의 로직
-            // (현재 데미지 받았을 때의 이벤트가 따로 없으므로 일단 OnChanged에서 처리함, 나중에 수정필요)
+            // (현재 데미지 받았을 때의 이벤트가 따로 없으므로 일단 OnChanged에서 처리함, 나중에 수정필요)\
+            AudioManager.Instance.PlaySFX(hitSFX, transform.position);
             AnimationHandler?.PlayHit();
         }
+
+        previousHealth = entityModel.health.CurValue;
     }
 
     private void MoveSpeed_OnChanged()
