@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public interface IDamageable //피해받을수 있는지
@@ -23,6 +24,10 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     public Condition stamina; //스테미너
     public Condition temperture; //체온
     public bool isApplyByWeather; //체온에 영향을 받는가
+
+    private float time = 0f;
+    private float interval = 1f; //날씨에 대한 체온 영향 몇초에 한번 받을것인지
+    [SerializeField]private float rayLength = 5f; //테스트용 삭제가능
 
 
 
@@ -106,13 +111,13 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         health.Subtract(damage);
     }
 
-    public void OnWeatherChanged(WeatherType newWeather)
+    public void OnWeatherChanged(WeatherType newWeather) //날씨 바뀔때 호출되는 함수(옵저버)
     {
         currentWeather = newWeather;
         Debug.Log($"{gameObject.name} → 날씨가 {newWeather}로 바뀜");
     }
 
-    private float GetWeatherTempertureDecrease(WeatherType weather)
+    private float GetWeatherTempertureDecrease(WeatherType weather) //체온 감소량 반환 함수
     {
         switch (weather)
         {
@@ -125,16 +130,34 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         }
     }
 
-    private void DecreaseTemperture()
+    private void DecreaseTemperture() //체온 감소 로직
     {
-        if (!isApplyByWeather) return;
+        if (!isApplyByWeather) return; //날씨에 영향을 받는 대상인지?
+        if (IsInside()) // 실내인지?
+        {
+            Debug.Log("현재 실내 or 무언가 위에있어 날씨의 영향을 받지않습니다.");
+            return; 
+        }
+        time += Time.deltaTime;
+        if (time < interval) return;
+        time = 0f;
 
         float decreaseAmount = GetWeatherTempertureDecrease(currentWeather);
         if (decreaseAmount > 0f)
         {
             temperture.Subtract(decreaseAmount);
-            Debug.Log($"{gameObject.name} 체온 감소중: {decreaseAmount * Time.deltaTime}");
+            Debug.Log($"현재 체온 : {this.temperture.CurValue} 감소량 : {decreaseAmount}");
         }
+    }
+
+    private bool IsInside() //실내인지 체크해주는 함수
+    {
+        Vector3 ray = transform.position + Vector3.up * 1.8f;
+        bool isHit = Physics.Raycast(ray, Vector3.up, rayLength, ~0);
+
+        Debug.DrawRay(ray, Vector3.up * rayLength, isHit ? Color.green : Color.red);
+
+        return isHit;
     }
 }
 
