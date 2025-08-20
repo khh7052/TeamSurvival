@@ -4504,7 +4504,7 @@ MonoBehaviour:
     curValue: 0
     startValue: 100
     maxValue: 100
-    passiveValue: -1
+    passiveValue: 1
   stamina:
     curValue: 0
     startValue: 100
@@ -4516,6 +4516,8 @@ MonoBehaviour:
     maxValue: 42
     passiveValue: 0
   isApplyByWeather: 1
+  warningTemp: 34
+  dangerTemp: 32
   rayLength: 5
   moveSpeed:
     baseValue: 5
