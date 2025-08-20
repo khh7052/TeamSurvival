@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 593900302752527601}
   - component: {fileID: 3411141124624164488}
   - component: {fileID: 4899981568435828491}
+  - component: {fileID: 5812758591799737549}
   m_Layer: 0
   m_Name: Item_CampFire
   m_TagString: Untagged
@@ -120,3 +121,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmg: 10
   dmgRate: 1
+--- !u!114 &5812758591799737549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7594250004465198260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e517507d2059ab442957bd1b78a2d57e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 2
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  healRate: 1
