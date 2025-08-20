@@ -60,7 +60,7 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     private void Update()
     {
         ApplyPassiveValueCondition();
-        DecreaseTemperture();
+        UpdateTemperture();
     }
 
     public IEnumerable<Condition> AllConditions //EntityModel의 Condition순회 프로퍼티
@@ -130,17 +130,31 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         }
     }
 
-    private void DecreaseTemperture() //체온 감소 로직
+    private void UpdateTemperture() //체온 감소 로직
     {
         if (!isApplyByWeather) return; //날씨에 영향을 받는 대상인지?
-        if (IsInside()) // 실내인지?
-        {
-            Debug.Log("현재 실내 or 무언가 위에있어 날씨의 영향을 받지않습니다.");
-            return; 
-        }
+
+        bool isGood = IsInside() || currentWeather == WeatherType.Clear; //Ray를 time에 영향받지 않고 계속 쏴주려고 추가했습니다 수정가능
+
         time += Time.deltaTime;
         if (time < interval) return;
         time = 0f;
+
+        if (isGood) // 실내인지 or 날씨가 맑은지
+        {
+            Debug.Log("현재 실내 or 무언가 위에있어 날씨의 영향을 받지않습니다. 체온이 자연회복됩니다.");
+            if(temperture.CurValue <= 36.5f)
+            {
+                temperture.Add(0.05f);
+                Debug.Log($"체온회복{temperture.CurValue}");
+            }
+            else if(temperture.CurValue >= 36.5f)
+            {
+                //체온이 올라가는 날씨 추가시 ex ) Heat 올라간 체온을 36.5까지 맞춰주는 부분
+            }
+                return; 
+        }
+        
 
         float decreaseAmount = GetWeatherTempertureDecrease(currentWeather);
         if (decreaseAmount > 0f)
