@@ -19,6 +19,7 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
 
     [Header("재료")]
     public List<Image> sourceItemIcon = new();
+    public List<TMP_Text> sourceItemCntText = new();
 
     [Header("데이터")]
     public CompositionRecipeData recipe;
@@ -44,11 +45,14 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
                 var Item = Factory.Instance.GetDataByID<ItemData>(recipe.recipe[i].ItemID);
                 Debug.Log(Item.DisplayName);
                 sourceItemIcon[i].sprite = Item.Icon;
+                sourceItemCntText[i].text = recipe.recipe[i].ItemCount.ToString();
                 sourceItemIcon[i].SetActive(true);
+                sourceItemCntText[i].SetActive(true);
             }
             else
             {
                 sourceItemIcon[i].SetActive(false);
+                sourceItemCntText[i].SetActive(false);
             }
         }
         LayerImage = GetComponent<Image>();
