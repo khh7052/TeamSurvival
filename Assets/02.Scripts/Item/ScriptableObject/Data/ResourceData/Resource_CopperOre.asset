@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90534c289604d904995d92823d142e91, type: 3}
+  m_Name: Resource_CopperOre
+  m_EditorClassIdentifier: 
+  ID: 0
+  DisplayName: 
+  Icon: {fileID: 0}
+  Prefab: {fileID: 0}
+  AssetReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  description: 
+  type: 0
+  icon: {fileID: 0}
+  dropPrefab: {fileID: 0}
+  canStack: 0
+  maxStackAmount: 0
+  consumables: []
+  isWeapon: 0
+  isTool: 0
+  weaponType: 0
+  toolType: 0
+  weaponDamage: 10
+  weaponAttackDelay: 1
+  weaponAttackDistance: 1
+  toolGatherPower: 5
+  toolDistance: 1

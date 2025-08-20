@@ -8,7 +8,7 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>, IInitializableAsync
 {
     public bool IsInitialized {  get; private set; }
-
+    public static Player player;
     private void Start()
     {
         InitializeAsync();
@@ -40,8 +40,8 @@ public class GameManager : Singleton<GameManager>, IInitializableAsync
     {
 
         /* Test Area
-        Factory.Instance.CreateByID<BaseScriptableObject>(0);
         UIManager.Instance.ShowUI<TestConditionUI>();
+        Factory.Instance.CreateByID<BaseScriptableObject>(0);
 
         for(int i = 0; i < 10; i++)
         {

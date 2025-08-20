@@ -42,25 +42,25 @@ MonoBehaviour:
     - ItemData
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fb9a5bf0c6b46f74681aa51b42e9ef0c
-    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Resource.asset
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Resource_Wood.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a983af493f19bd24db3cf6784b7eb7fb
-    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Tool_Pickaxe.asset
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Tool_Pickaxe_Wood.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bf6514092f692ec40b06c8205482e44c
-    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Weapon.asset
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Weapon_Wood.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 65137dbf272471643bde826164ce5ac2
-    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Tool_Axe.asset
+  - m_GUID: e1f9b5606fb28bb41b8f3ebf4b372a88
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Tool_Pickaxe_Stone.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData
@@ -76,6 +76,78 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - BuildingItem
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cab0540b41318ba499e16e2918039106
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Meat.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe9fb99196c4197439fb139a887b6769
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Carrot.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed3bde5f5c7d30c41942ae7621f941e3
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Fruit.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 812c22d6ebbd2e040ac4d80393715fa0
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Water.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4e97271c9ce29b742a201f5fac52d792
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_RedFlower.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b68fdab490ac10a42ad1166b43f4f230
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_BlueFlower.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e025d8529cd72e48b92a947188e9eef
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_YellowFlower.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 491f078ecc8f36a4da5245b64e3917d3
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Weapon_Stone.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 65137dbf272471643bde826164ce5ac2
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Tool_Axe_Wood.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e4bc5fc7b14d94b42bcadf10c460d291
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Tool_Axe_Stone.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f41b82a59c500b48b6f0aa0276cebc8
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/ResourceData/Resource_Rock.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 04286cd49f532de479372dd3c52d8201
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}

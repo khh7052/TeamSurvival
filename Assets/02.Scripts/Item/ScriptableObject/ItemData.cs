@@ -33,7 +33,6 @@ public class ItemData : BaseScriptableObject
     [Header("Info")]
     public string description; //설명
     public ItemType type;
-    public Sprite icon;
     public GameObject dropPrefab; //보이는 프리팹
 
     [Header("Stacking")] 

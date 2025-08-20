@@ -37,6 +37,9 @@ namespace Constants
         {
             return volumeNameDictionary[volumeType];
         }
+
+        public static string BGMPath = "Audio/BGM/";
+        public static string FootstepPath = "Audio/SFX/Footstep/";
     }
 
 
@@ -58,6 +61,10 @@ namespace Constants
         public static readonly int AttackHash = Animator.StringToHash("Attack");
         public static readonly int HitHash = Animator.StringToHash("Hit");
         public static readonly int DieHash = Animator.StringToHash("Die");
+
+        // Player
+        public static readonly int IsMove = Animator.StringToHash("IsMove");
+        public static readonly int IsJump = Animator.StringToHash("IsJump");
     }
 
     public enum BuildMode
@@ -95,7 +102,12 @@ namespace Constants
         public static Dictionary<string, string> paths = new()
         {
             { "Canvas", "UI/Canvas" },
-            { "TestConditionUI" , "UI/ConditionUI" }
+            { "TestConditionUI" , "UI/ConditionUI" },
+            { "UIInventory", "UI/UIInventory1" },
+            { "CompositionUI", "UI/CompositionUI" },
+            { "InGameUI", "UI/InGameUI" },
+            { "DialogueUI", "UI/DialogueUI" },
+            { "SettingUI", "UI/SettingUI" }
         };
         public static string GetPrefabPath(string prefabName)
         {

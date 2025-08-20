@@ -47,23 +47,53 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 42e9b7af145cf8341aae6a51854ffdcf
-    m_Address: Assets/03.Prefabs/Item/Item_Weapon.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 44b9a7d061d7b064884b7d4bf26eb723
-    m_Address: Assets/03.Prefabs/Item/Item_Resource.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6e8108d6b6dedb840a9afd5fc4cd7eb3
-    m_Address: Assets/03.Prefabs/Item/Item_Tool_Axe.prefab
+    m_Address: Assets/03.Prefabs/Item/Item_Resource_Wood.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 07318b79f372b2d45a5de361e560ae02
     m_Address: Assets/03.Prefabs/GatheringNode/Tree.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a6542fa0556103e4e9b554444743bc53
+    m_Address: Assets/03.Prefabs/Item/Item_Meat.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed6866abde9ad624f854d98f4718f9ca
+    m_Address: Assets/03.Prefabs/Item/Item_Carrot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75af9c13291a4b74d8e23a4d0cd9e295
+    m_Address: Assets/03.Prefabs/Item/Item_Fruit.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8451f20c4b8a88a40b4549f1c2c18d5e
+    m_Address: Assets/03.Prefabs/Item/Item_TreeSap.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e86e6c8b9d820eb4685a3d7cb4feb822
+    m_Address: Assets/03.Prefabs/Item/Item_RedFlower.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56b27d3550dd18b47bef74d886cb70de
+    m_Address: Assets/03.Prefabs/Item/Item_BlueFlower.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e87eb22bc1b264458c5e6b19ad67f9e
+    m_Address: Assets/03.Prefabs/Item/Item_YellowFlower.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a2a5581c28145749aced54006c3c0bc
+    m_Address: Assets/03.Prefabs/GatheringNode/Rock.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

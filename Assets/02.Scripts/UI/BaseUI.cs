@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BaseUI : MonoBehaviour
 {
-
-    public virtual void OnEnable()
+    protected virtual void Awake()
     {
 
     }
 
-    public virtual void OnDisable()
+    protected virtual void OnEnable()
+    {
+
+    }
+
+    protected virtual void OnDisable()
     {
 
     }
@@ -23,5 +29,12 @@ public class BaseUI : MonoBehaviour
     public virtual void ExitUI()
     {
         gameObject.SetActive(false);
+    }
+    protected async Task WaitManagerInitialize()
+    {
+        while (!GameManager.Instance.IsInitialized)
+        {
+            await Task.Yield();
+        }
     }
 }
