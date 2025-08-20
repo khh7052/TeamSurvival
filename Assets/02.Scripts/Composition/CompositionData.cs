@@ -9,6 +9,21 @@ public class CompositionRecipeData : BaseScriptableObject
 {
     [SerializeField]
     public List<Recipe> recipe;
+
+    public (int[], int[]) GetRecipeData()
+    {
+        int[] datas = new int[recipe.Count];
+
+        int[] coutns = new int[recipe.Count];
+
+        for (int i = 0; i < datas.Length; i++)
+        {
+            datas[i] = recipe[i].ItemID;
+            coutns[i] = recipe[i].ItemCount;
+        }
+
+        return (datas, coutns);
+    }
 }
 
 [Serializable]

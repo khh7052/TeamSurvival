@@ -20,7 +20,8 @@ public class GameManager : Singleton<GameManager>, IInitializableAsync
             Factory.Instance,
             BuildingManager.Instance,
             GatheringManager.Instance,
-            UIManager.Instance
+            UIManager.Instance,
+            CompositionDataManager.Instance
         );
         IsInitialized = true;
         Debug.Log("[GameManager] 모든 매니저 초기화 완료");

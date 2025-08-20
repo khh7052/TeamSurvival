@@ -27,6 +27,9 @@ public class BuildingMode : MonoBehaviour
 
     // 안보이는 가상 건축 레이어 오브젝트 전방, 상단
     public GameObject[] invisibleLayer = new GameObject[2];
+    [SerializeField]
+    private CompositionRecipeData buildRecipe;
+    PlayerInventory playerInventory;
 
     private async void Start()
     {
@@ -53,6 +56,8 @@ public class BuildingMode : MonoBehaviour
         invisibleLayer[0].transform.localScale = new Vector3(rayDistance * 2f, rayDistance * 2f, 0.01f);
         invisibleLayer[1].transform.localPosition = new Vector3(0, rayDistance - 0.1f, 0);
         invisibleLayer[1].transform.localScale = new Vector3(rayDistance * 2f, rayDistance * 2f, 0.01f);
+
+        playerInventory = GetComponent<PlayerInventory>();
     }
 
     public void Update()
@@ -161,6 +166,9 @@ public class BuildingMode : MonoBehaviour
     public async void CreateBuildObj(RaycastHit hit, BuildMode mode)
     {
         var buildObjData = BuildingManager.Instance.GetBuildingObjectData<BaseScriptableObject>((int)mode);
+        
+        var data = buildRecipe.GetRecipeData();
+        playerInventory.RemoveItem(data.Item1, data.Item2);
 
         GameObject go = await Factory.Instance.CreateByAssetReferenceAsync<BaseScriptableObject>(buildObjData, (go) =>
         {
@@ -171,7 +179,7 @@ public class BuildingMode : MonoBehaviour
         });
 
         go.transform.SetPositionAndRotation(buildKey.Position, buildKey.rot);
-
+        
         BuildingManager.Instance.RegisterBuild(buildKey);
     }
     private bool CanBuildAt(Vector3 pos, Quaternion rot, BuildMode mode)
@@ -179,6 +187,14 @@ public class BuildingMode : MonoBehaviour
         Vector3 halfExtents = Vector3.one * 0.5f; // 건물 크기에 맞게 조정 필요
         Collider[] hits = Physics.OverlapBox(pos, halfExtents, rot, buildableLayer);
 
-        return hits.Length > 0;
+        return hits.Length > 0 && IsSourceExists();
+    }
+
+
+    private bool IsSourceExists()
+    {
+        if (buildRecipe == null) return true;
+        var recipe = buildRecipe.GetRecipeData();
+        return playerInventory.IsHasItem(recipe.Item1, recipe.Item2);
     }
 }
