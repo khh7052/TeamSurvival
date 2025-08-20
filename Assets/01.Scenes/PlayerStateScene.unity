@@ -474,26 +474,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
-      propertyPath: starvationDps
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
-      propertyPath: dehydrationDps
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
-      propertyPath: health.passiveValue
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
-      propertyPath: hunger.passiveValue
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
-      propertyPath: thirst.passiveValue
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
