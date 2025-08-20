@@ -16,7 +16,18 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: c22d7257746ad4a45b7dc6ca2352925f
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 025da35f9a1763b4d8c282df20d1a3e9
+    m_Address: Assets/03.Prefabs/Item/Item_Food.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 04286cd49f532de479372dd3c52d8201
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}
   m_SchemaSet:

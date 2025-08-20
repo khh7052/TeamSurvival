@@ -25,11 +25,14 @@ public class PlayerController : MonoBehaviour
     [Header("Jump Stamina")]
     [SerializeField] private float jumpStaminaCost = 10f;
 
+    AnimationHandler anim;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         model = GetComponent<EntityModel>();
         equip = GetComponent<EquipSystem>();
+        anim = GetComponent<AnimationHandler>();
     }
 
     private void Start()
@@ -71,6 +74,7 @@ public class PlayerController : MonoBehaviour
     private void Jump() //점프로직
     {
         rb.AddForce(Vector2.up * model.jumpPower.totalValue, ForceMode.Impulse);
+        anim.PlayerJump();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -78,10 +82,12 @@ public class PlayerController : MonoBehaviour
         if(context.phase == InputActionPhase.Performed)
         {
             curMovementInput = context.ReadValue<Vector2>();
+            anim.PlayerWalk();
         }
         else if(context.phase == InputActionPhase.Canceled)
         {
             curMovementInput = Vector2.zero;
+            anim.PlayerStop();
         }
     }
 

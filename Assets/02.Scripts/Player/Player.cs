@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public ItemData itemData;
     public Action addItem { get; set; }
     public PlayerInventory inventory;
+    public AnimationHandler animationHandler;
 
     public Transform dropPosition;
 
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
         view.Initialize(model);
         condition = GetComponent<PlayerCondition>();
         inventory = GetComponent<PlayerInventory>();
+        animationHandler = GetComponent<AnimationHandler>();
 
         GameManager.player = this;
     }
