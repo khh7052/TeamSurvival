@@ -11,7 +11,7 @@ public enum WeatherType
 
 public class WeatherCycle : MonoBehaviour
 {
-    public static WeatherCycle Instance; //테스트용 싱글톤
+    public static WeatherCycle Instance; 
 
     [Header("Weather Particle")]
     public ParticleSystem rain;
@@ -47,6 +47,7 @@ public class WeatherCycle : MonoBehaviour
         foreach (var observer in observers)
         {
             observer.OnWeatherChanged(currentWeather);
+            Debug.Log($"{observer}이 존재");
         }
     }
 

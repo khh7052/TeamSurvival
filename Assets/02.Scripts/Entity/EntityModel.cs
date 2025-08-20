@@ -46,6 +46,12 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         }
     }
 
+    private void Start()
+    {
+        if (WeatherCycle.Instance != null)
+            WeatherCycle.Instance.RegisterObserver(this);
+    }
+
     private void Update()
     {
         ApplyPassiveValueCondition();
@@ -60,7 +66,6 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
             yield return hunger;
             yield return thirst;
             yield return stamina;
-
             yield return temperture;
         }
     }
@@ -101,13 +106,6 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         health.Subtract(damage);
     }
 
-    private void OnEnable()
-    {
-        if (WeatherCycle.Instance != null)
-            WeatherCycle.Instance.RegisterObserver(this);
-    }
-
-
     public void OnWeatherChanged(WeatherType newWeather)
     {
         currentWeather = newWeather;
@@ -139,3 +137,4 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         }
     }
 }
+
