@@ -154,4 +154,20 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
         canLook = !toggle;
     }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            if (UIManager.Instance.IsEnableUI<UIInventory>())
+            {
+                UIManager.Instance.CloseUI<UIInventory>();
+            }
+            else
+            {
+                UIManager.Instance.ShowUI<UIInventory>();
+            }
+            ToggleCursor();
+        }
+    }
 }

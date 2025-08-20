@@ -15,6 +15,8 @@ public class CompositionUI : BaseUI
 
     public int selectIndex = -1;
 
+    private PlayerInventory playerInventory;
+
     protected override async void Awake()
     {
         base.Awake();
@@ -26,13 +28,26 @@ public class CompositionUI : BaseUI
             var ui = go.GetComponent<RecipeUI>();
             RecipeUIList.Add(ui);
             ui.Initialize(RecipeList[i], i, this);
-            ui.CheckCreatableSlot();
         }
 
         CreateButton.onClick.RemoveAllListeners();
         CreateButton.onClick.AddListener(OnClick);
+        playerInventory = GameManager.player.inventory;
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        if(playerInventory == null) playerInventory = GameManager.player.inventory;
+        UpdateUI();
+        playerInventory.OnChangeData += UpdateUI;
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        playerInventory.OnChangeData -= UpdateUI;
+    }
 
     async Task WaitManagerInitialize()
     {
@@ -46,7 +61,18 @@ public class CompositionUI : BaseUI
     {
         if(selectIndex != -1)
         {
-            Debug.Log($"{selectIndex} 번호 선택 제작. {RecipeUIList[selectIndex].recipe.DisplayName} 제작 시도");
+            if (RecipeUIList[selectIndex].isCreatable)
+            {
+                playerInventory.ItemCreate(RecipeList[selectIndex]);
+            }            
+        }
+    }
+
+    public void UpdateUI()
+    {
+        for (int i = 0; i < RecipeUIList.Count; i++)
+        {
+            RecipeUIList[i].CheckCreatableSlot();
         }
     }
 }
