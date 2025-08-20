@@ -64,11 +64,8 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     {
         ApplyPassiveValueCondition();
 
-        if (isApplyByWeather)
-        {
-            UpdateTemperture();
-            DamageByTemperature();
-        }
+        UpdateTemperture();
+        DamageByTemperature();
     }
 
     public IEnumerable<Condition> AllConditions //EntityModel의 Condition순회 프로퍼티

@@ -26,6 +26,7 @@ public class AudioManager : Singleton<AudioManager>
         }
 
         CreateAudioSource(SoundType.BGM, ref bgmSource);
+        OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
     // 씬이 로드될 때 BGM을 자동으로 재생
@@ -82,6 +83,20 @@ public class AudioManager : Singleton<AudioManager>
         volume = Mathf.Clamp(volume, AudioConstants.MinVolume, AudioConstants.MaxVolume); // 볼륨 범위 제한
         string parameterName = AudioConstants.GetExposedVolumeName(volumeType);
         audioMixer.SetFloat(parameterName, Mathf.Log10(volume) * 20); // dB로 변환
+    }
+
+    public float GetVolume(VolumeType volumeType)
+    {
+        string parameterName = AudioConstants.GetExposedVolumeName(volumeType);
+        if (audioMixer.GetFloat(parameterName, out float value))
+            return Mathf.Pow(10, value / 20); // dB에서 볼륨으로 변환
+
+        return volumeType switch {
+            VolumeType.Master => AudioConstants.MasterVolume,
+            VolumeType.BGM => AudioConstants.BGMVolume,
+            VolumeType.SFX => AudioConstants.SFXVolume,
+            _ => 1f, // 기본값
+        };
     }
 
     public void ResetVolume()
