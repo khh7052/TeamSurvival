@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 22002
   DisplayName: "\uB2F9\uADFC"
-  Description: "\uBC30\uACE0\uD514 \uD68C\uBCF5"
+  Description: "\uBC30\uACE0\uD514, \uAC08\uC99D \uD68C\uBCF5"
   Icon: {fileID: 0}
   Prefab: {fileID: 0}
   AssetReference:
@@ -29,7 +29,9 @@ MonoBehaviour:
   maxStackAmount: 10
   consumables:
   - type: 0
-    value: 20
+    value: 30
+  - type: 1
+    value: 10
   isWeapon: 0
   isTool: 0
   weaponType: 0

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90534c289604d904995d92823d142e91, type: 3}
-  m_Name: Item_Beer
+  m_Name: Item_RedFlower
   m_EditorClassIdentifier: 
   ID: 22005
-  DisplayName: "\uB9E5\uC8FC"
-  Description: "\uAC08\uC99D \uD68C\uBCF5, \uCCB4\uB825 \uCC28\uAC10"
+  DisplayName: "\uBE68\uAC04 \uAF43"
+  Description: "\uCCB4\uB825 \uD68C\uBCF5"
   Icon: {fileID: 0}
   Prefab: {fileID: 0}
   AssetReference:
-    m_AssetGUID: 736b73c9a72fa2140b1736acfe54e0de
+    m_AssetGUID: e86e6c8b9d820eb4685a3d7cb4feb822
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -28,10 +28,8 @@ MonoBehaviour:
   canStack: 1
   maxStackAmount: 10
   consumables:
-  - type: 1
-    value: 40
   - type: 2
-    value: 20
+    value: 30
   isWeapon: 0
   isTool: 0
   weaponType: 0
