@@ -23,6 +23,32 @@ public class DialogueManager : Singleton<DialogueManager>
         dialoguePanel.SetActive(false);
     }
 
+    private void Update()
+    {
+        // 대화창이 활성화되어 있지 않으면 아무것도 하지 않음
+        if (!IsDialogueActive)
+            return;
+
+        // E키로 다음 대화
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            // 텍스트 출력 중
+            if (typingCoroutine != null)
+            {
+                // 타이핑 코루틴을 중지하고 전체 텍스트를 바로 표시
+                StopCoroutine(typingCoroutine);
+                typingCoroutine = null;
+                dialogueText.text = currentDialogue.lines[index].text;
+            }
+            // 타이핑이 끝난 상태라면
+            else
+            {
+                // 다음 대사를 보여줌
+                NextLine();
+            }
+        }
+    }
+
     public void StartDialogue(DialogueData dialogue, Action callback = null)
     {
         if (IsDialogueActive)
