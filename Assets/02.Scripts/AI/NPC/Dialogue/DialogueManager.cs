@@ -8,8 +8,7 @@ public class DialogueManager : Singleton<DialogueManager>
 {
     private Action EndDialogueAction;
 
-    [SerializeField] private GameObject dialoguePanel; // 대화 UI 패널
-    [SerializeField] private TMP_Text spekaerText;
+    [SerializeField] private TMP_Text speakerText;
     [SerializeField] private TMP_Text dialogueText;
     private DialogueData currentDialogue;
     private int index;
@@ -20,7 +19,11 @@ public class DialogueManager : Singleton<DialogueManager>
     protected override void Initialize()
     {
         base.Initialize();
-        dialoguePanel.SetActive(false);
+
+        var dialogue = UIManager.Instance.ShowUI<DialogueUI>();
+        speakerText = dialogue.speakerText;
+        dialogueText = dialogue.scriptText;
+        UIManager.Instance.CloseUI<DialogueUI>();
     }
 
     private void Update()
@@ -57,7 +60,7 @@ public class DialogueManager : Singleton<DialogueManager>
             return;
         }
 
-        dialoguePanel.SetActive(true);
+        UIManager.Instance.ShowUI<DialogueUI>();
         currentDialogue = dialogue;
         index = 0;
         ShowLine();
@@ -83,7 +86,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
         DialogueLine line = currentDialogue.lines[index];
         // UI에 출력
-        spekaerText.text = line.speaker;
+        speakerText.text = line.speaker;
 
         if(line.useTypingEffect)
             typingCoroutine = StartCoroutine(TypingText(line.text, line.typingSpeed));
@@ -94,7 +97,7 @@ public class DialogueManager : Singleton<DialogueManager>
     private void EndDialogue()
     {
         currentDialogue = null;
-        dialoguePanel.SetActive(false);
+        UIManager.Instance.CloseUI<DialogueUI>();
         Debug.Log("대화 종료");
 
         EndDialogueAction?.Invoke();

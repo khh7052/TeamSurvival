@@ -45,6 +45,7 @@ public class MapManager : Singleton<MapManager>
 
     protected override async void Initialize()
     {
+        dontDestroyOnLoad = false;
         base.Initialize();
         groundMesh = GetComponent<MeshFilter>();
         spawnAreas = spawnAreasParent.GetComponentsInChildren<Collider>();
