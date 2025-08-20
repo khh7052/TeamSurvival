@@ -46,8 +46,8 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     private WeatherType currentWeather;
 
     [Header("결핍 데미지")]
-    [SerializeField] private float starvationDps = 0.1f;
-    [SerializeField] private float dehydrationDps = 0.1f;
+    [SerializeField] private float starvationDps = 10f;
+    [SerializeField] private float dehydrationDps = 10f;
 
     private void Awake()
     {
@@ -69,6 +69,7 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
 
         UpdateTemperture();
         DamageByTemperature();
+        DamageByNeeds();
     }
 
     public IEnumerable<Condition> AllConditions //EntityModel의 Condition순회 프로퍼티
@@ -90,8 +91,21 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
             stamina.Add(stamina.PassiveValue * Time.deltaTime);
         if (thirst.PassiveValue != 0)
             thirst.Subtract(thirst.PassiveValue * Time.deltaTime);
-        if (health.PassiveValue != 0)
-            health.Add(health.PassiveValue * Time.deltaTime);       
+
+        bool isDeprived = (hunger.CurValue <= 0f) || (thirst.CurValue <= 0f);
+        if (!isDeprived && health.PassiveValue != 0)
+            health.Add(health.PassiveValue * Time.deltaTime);
+    }
+
+    private void DamageByNeeds()
+    {
+        float dps = 0f;
+
+        if (hunger.CurValue <= 0f) dps += starvationDps;
+        if (thirst.CurValue <= 0f) dps += dehydrationDps;
+
+        if (dps > 0f && health.CurValue > 0f)
+            health.Subtract(dps * Time.deltaTime);
     }
 
     public void Heal(float amount)

@@ -4494,12 +4494,12 @@ MonoBehaviour:
     curValue: 0
     startValue: 100
     maxValue: 100
-    passiveValue: 5
+    passiveValue: 2
   hunger:
     curValue: 0
     startValue: 100
     maxValue: 100
-    passiveValue: 3
+    passiveValue: 1
   thirst:
     curValue: 0
     startValue: 100
@@ -4529,6 +4529,8 @@ MonoBehaviour:
     additionalValue: 0
     multipleValue: 1
     constValue: 0
+  starvationDps: 0.25
+  dehydrationDps: 0.25
 --- !u!114 &777261130677496077
 MonoBehaviour:
   m_ObjectHideFlags: 0
