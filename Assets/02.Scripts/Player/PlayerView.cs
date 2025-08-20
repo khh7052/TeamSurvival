@@ -81,9 +81,9 @@ public class PlayerView : MonoBehaviour
         {
             float temp = model.temperture.CurValue;
             tempertureText.text = $"{temp:F1} ¡ÆC";
-            if (temp >= 36f) tempertureText.color = Color.green;   
-            else if (temp >= 34f) tempertureText.color = Color.yellow;  
-            else tempertureText.color = Color.red;  
+            if (temp <= model.dangerTemp) tempertureText.color = Color.red;
+            else if (temp <= model.warningTemp) tempertureText.color = Color.yellow;  
+            else tempertureText.color = Color.green;  
         }
 
         
