@@ -7,4 +7,5 @@ public class DialogueUI : BaseUI
 {
     public TMP_Text speakerText;
     public TMP_Text scriptText;
+
 }
