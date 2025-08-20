@@ -126,7 +126,6 @@ public class MapManager : Singleton<MapManager>
                 }
             }
         }
-        Debug.Log($"Time : {Time.time} RespawnDelay : {respawnTime}");
     }
 
     private void Update()
@@ -134,7 +133,6 @@ public class MapManager : Singleton<MapManager>
         if(isInitialize)
             if(Time.time -  lastSpawnT >= respawnTime)
             {
-                Debug.Log($"Time : {Time.time - lastSpawnT} RespawnDelay : {respawnTime}");
                 SpawnObjects();
             }
     }

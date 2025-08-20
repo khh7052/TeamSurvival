@@ -39,7 +39,7 @@ public class Factory : Singleton<Factory>, IInitializableAsync
             Debug.LogError($"Factory : ID : {id} 해당 데이터가 없거나 Prefab이 없습니다");
             return null;
         }
-
+        Debug.Log($"{id} 있고 {data.AssetReference}");
         GameObject go = await ObjectPoolingManager.Instance.GetAsync(data.AssetReference, Vector3.zero, Quaternion.identity);
         go.name = data.DisplayName;
         if(go != null)

@@ -140,6 +140,34 @@ public class PlayerController : MonoBehaviour
 
     public void OnInventoryButton(InputAction.CallbackContext callbackContext)
     {
+        // 제작 켜져있을 땐 무시
+        if (UIManager.Instance.IsEnableUI<CompositionUI>()) return;
+        if (callbackContext.phase == InputActionPhase.Started)
+        {
+            if (UIManager.Instance.IsEnableUI<UIInventory>())
+            {
+                UIManager.Instance.CloseUI<UIInventory>();
+            }
+            else
+            {
+                UIManager.Instance.ShowUI<UIInventory>();
+            }
+            ToggleCursor();
+        }
+    }
+
+    void ToggleCursor()
+    {
+        bool toggle = Cursor.lockState == CursorLockMode.Locked;
+        Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
+        canLook = !toggle;
+    }
+
+
+    public void OnCraftUIButton(InputAction.CallbackContext callbackContext)
+    {
+        // 인벤토리 켜져있을 땐 무시
+        if (UIManager.Instance.IsEnableUI<UIInventory>()) return;
         if (callbackContext.phase == InputActionPhase.Started)
         {
             if (UIManager.Instance.IsEnableUI<CompositionUI>())
@@ -154,26 +182,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void ToggleCursor()
-    {
-        bool toggle = Cursor.lockState == CursorLockMode.Locked;
-        Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
-        canLook = !toggle;
-    }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            if (UIManager.Instance.IsEnableUI<UIInventory>())
-            {
-                UIManager.Instance.CloseUI<UIInventory>();
-            }
-            else
-            {
-                UIManager.Instance.ShowUI<UIInventory>();
-            }
-            ToggleCursor();
-        }
-    }
 }

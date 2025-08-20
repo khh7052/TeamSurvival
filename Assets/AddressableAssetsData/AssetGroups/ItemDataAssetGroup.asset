@@ -42,7 +42,7 @@ MonoBehaviour:
     - ItemData
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fb9a5bf0c6b46f74681aa51b42e9ef0c
-    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Resource.asset
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Resource_Wood.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData
@@ -133,6 +133,18 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e4bc5fc7b14d94b42bcadf10c460d291
     m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Tool_Axe_Stone.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f41b82a59c500b48b6f0aa0276cebc8
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/ResourceData/Resource_Rock.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 04286cd49f532de479372dd3c52d8201
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData

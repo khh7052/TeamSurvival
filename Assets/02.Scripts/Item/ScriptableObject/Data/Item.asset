@@ -23,7 +23,7 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   description: 
-  type: 2
+  type: 0
   dropPrefab: {fileID: 0}
   canStack: 1
   maxStackAmount: 12

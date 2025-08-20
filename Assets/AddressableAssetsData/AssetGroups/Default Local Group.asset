@@ -22,11 +22,10 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 04286cd49f532de479372dd3c52d8201
-    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item.asset
+  - m_GUID: 6463e2d6e0d16a6468b6af6bec3984b2
+    m_Address: Assets/03.Prefabs/Item/Item_Resource_Rock.prefab
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - ItemData
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}

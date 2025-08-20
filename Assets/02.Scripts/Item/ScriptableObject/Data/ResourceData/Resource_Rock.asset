@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90534c289604d904995d92823d142e91, type: 3}
   m_Name: Resource_Rock
   m_EditorClassIdentifier: 
-  ID: 0
-  DisplayName: 
+  ID: 21002
+  DisplayName: "\uB3CC"
+  Description: "\uB3CC"
   Icon: {fileID: 0}
   Prefab: {fileID: 0}
   AssetReference:
-    m_AssetGUID: 
+    m_AssetGUID: 6463e2d6e0d16a6468b6af6bec3984b2
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   description: 
   type: 0
-  icon: {fileID: 0}
   dropPrefab: {fileID: 0}
-  canStack: 0
-  maxStackAmount: 0
+  canStack: 1
+  maxStackAmount: 5
   consumables: []
   isWeapon: 0
   isTool: 0

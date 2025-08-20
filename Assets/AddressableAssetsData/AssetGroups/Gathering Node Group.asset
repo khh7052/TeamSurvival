@@ -23,6 +23,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Gathering
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b15725230f8dfce4087aa68356e82a97
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/GatheringNode Data/Gathering_Rock_Node.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gathering
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}
   m_SchemaSet:

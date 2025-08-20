@@ -142,11 +142,11 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
 
         if (isGood) // 실내인지 or 날씨가 맑은지
         {
-            Debug.Log("현재 실내 or 무언가 위에있어 날씨의 영향을 받지않습니다. 체온이 자연회복됩니다.");
+            //Debug.Log("현재 실내 or 무언가 위에있어 날씨의 영향을 받지않습니다. 체온이 자연회복됩니다.");
             if(temperture.CurValue <= 36.5f)
             {
                 temperture.Add(0.05f);
-                Debug.Log($"체온회복{temperture.CurValue}");
+                //Debug.Log($"체온회복{temperture.CurValue}");
             }
             else if(temperture.CurValue >= 36.5f)
             {
@@ -160,7 +160,7 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         if (decreaseAmount > 0f)
         {
             temperture.Subtract(decreaseAmount);
-            Debug.Log($"현재 체온 : {this.temperture.CurValue} 감소량 : {decreaseAmount}");
+            //Debug.Log($"현재 체온 : {this.temperture.CurValue} 감소량 : {decreaseAmount}");
         }
     }
 

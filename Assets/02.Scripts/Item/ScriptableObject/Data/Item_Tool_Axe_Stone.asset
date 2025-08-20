@@ -31,7 +31,7 @@ MonoBehaviour:
   isWeapon: 0
   isTool: 1
   weaponType: 0
-  toolType: 0
+  toolType: 2
   weaponDamage: 20
   weaponAttackDelay: 1
   weaponAttackDistance: 1

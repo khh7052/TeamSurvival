@@ -9,10 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7291776847772915228}
-  - component: {fileID: 8706455855259852799}
-  - component: {fileID: 5798703807715967622}
-  - component: {fileID: 932628468657891104}
   - component: {fileID: 4338764972549693299}
+  - component: {fileID: 5116774264163472003}
   m_Layer: 12
   m_Name: Tree
   m_TagString: Untagged
@@ -32,24 +30,103 @@ Transform:
   m_LocalPosition: {x: 13.34, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3639832988846172471}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8706455855259852799
+--- !u!114 &4338764972549693299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23671800762948470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c3f25eb1b693a84981ca626772c93d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceName: "\uB098\uBB34"
+  maxDurability: 40
+  kind: 0
+  preferredTool: 1
+  correctToolMultiplier: 1.5
+  wrongToolMultiplier: 0
+  bareHandsMultiplier: 1
+  respawn: 1
+  respawnSeconds: 30
+  yieldItem: {fileID: 11400000, guid: fb9a5bf0c6b46f74681aa51b42e9ef0c, type: 2}
+  dropOnDeplete: 3
+  debugLog: 1
+--- !u!65 &5116774264163472003
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23671800762948470}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.73423576, y: 6.5890765, z: 0.8759773}
+  m_Center: {x: -0.008858681, y: 3.308347, z: 0.02657634}
+--- !u!1 &647178240751186488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 265973523852716162}
+  - component: {fileID: 3755780088925873959}
+  - component: {fileID: 1439957117174387693}
+  m_Layer: 0
+  m_Name: PP_Tree_02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &265973523852716162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647178240751186488}
+  serializedVersion: 2
+  m_LocalRotation: {x: 9.313227e-10, y: 0.00000011932572, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3639832988846172471}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &3755780088925873959
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 23671800762948470}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &5798703807715967622
+  m_GameObject: {fileID: 647178240751186488}
+  m_Mesh: {fileID: 2249462234500842342, guid: c6b568bf9e55de141add501b8cd2a0e9, type: 3}
+--- !u!23 &1439957117174387693
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 23671800762948470}
+  m_GameObject: {fileID: 647178240751186488}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,7 +140,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bcefb47cd8cdc83469d0a1fa2a198aa1, type: 2}
+  - {fileID: 2100000, guid: 0799a1e95665ef14f8fe2cbcd4ba3dc4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,48 +162,35 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &932628468657891104
-BoxCollider:
+--- !u!1 &7005184337436842579
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 23671800762948470}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4338764972549693299
-MonoBehaviour:
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3639832988846172471}
+  m_Layer: 0
+  m_Name: Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3639832988846172471
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 23671800762948470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c3f25eb1b693a84981ca626772c93d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resourceName: Resource
-  maxDurability: 40
-  kind: 0
-  preferredTool: 1
-  correctToolMultiplier: 1.5
-  wrongToolMultiplier: 0
-  bareHandsMultiplier: 1
-  respawn: 1
-  respawnSeconds: 30
-  yieldItem: {fileID: 11400000, guid: fb9a5bf0c6b46f74681aa51b42e9ef0c, type: 2}
-  dropOnDeplete: 3
-  debugLog: 1
+  m_GameObject: {fileID: 7005184337436842579}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 265973523852716162}
+  m_Father: {fileID: 7291776847772915228}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -48,7 +48,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 44b9a7d061d7b064884b7d4bf26eb723
-    m_Address: Assets/03.Prefabs/Item/Item_Resource.prefab
+    m_Address: Assets/03.Prefabs/Item/Item_Resource_Wood.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -89,6 +89,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1e87eb22bc1b264458c5e6b19ad67f9e
     m_Address: Assets/03.Prefabs/Item/Item_YellowFlower.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a2a5581c28145749aced54006c3c0bc
+    m_Address: Assets/03.Prefabs/GatheringNode/Rock.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
