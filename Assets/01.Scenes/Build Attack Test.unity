@@ -253,7 +253,7 @@ MonoBehaviour:
   spawnMaxCount: 1
   spawnMinCount: 5
   spawnHeightOffset: 0.1
-  minDistanceBetweenObjs: 3
+  minDistanceBetweenObjs: 2.95
   GatheringLayer:
     serializedVersion: 2
     m_Bits: 4096

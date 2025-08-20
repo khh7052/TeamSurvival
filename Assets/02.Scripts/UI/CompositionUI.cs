@@ -49,13 +49,7 @@ public class CompositionUI : BaseUI
         playerInventory.OnChangeData -= UpdateUI;
     }
 
-    async Task WaitManagerInitialize()
-    {
-        while (!GameManager.Instance.IsInitialized)
-        {
-            await Task.Yield();
-        }
-    }
+
 
     public void OnClick()
     {
