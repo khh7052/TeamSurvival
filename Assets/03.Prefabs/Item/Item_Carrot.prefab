@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6530424552938797823}
-  m_Mesh: {fileID: -7818595843673011575, guid: d062f5c56ffb55c4f832432ada269abe, type: 3}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &5502057421746579471
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 2284149536284936196}
   - component: {fileID: 2663993248870408418}
   m_Layer: 11
-  m_Name: Item_Mushroom
+  m_Name: Item_Carrot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,8 +137,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.43186653, y: 0.43094566, z: 0.5364799}
-  m_Center: {x: 0.0098538995, y: 0.16955854, z: 0.0045196116}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2284149536284936196
 Rigidbody:
   m_ObjectHideFlags: 0
