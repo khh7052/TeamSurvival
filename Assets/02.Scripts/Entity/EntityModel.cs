@@ -7,13 +7,24 @@ public interface IDamageable //피해받을수 있는지
 {
     void TakePhysicalDamage(int damage);
 }
-public class EntityModel : MonoBehaviour, IDamageable
+
+public interface IWeatherObserver
+{
+    void OnWeatherChanged(WeatherType newWeather);
+}
+
+public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
+
 {
     [Header("상태관련")]
     public Condition health; //체력
     public Condition hunger; //배고픔
     public Condition thirst; //목마름
     public Condition stamina; //스테미너
+    public Condition temperture; //체온
+    public bool isApplyByWeather; //체온에 영향을 받는가
+
+
 
     [Header("이동관련")]
     /*
@@ -24,6 +35,9 @@ public class EntityModel : MonoBehaviour, IDamageable
     public Status jumpPower; // 점프력
     //public event Action OnChangeStatuses;
 
+    private WeatherType currentWeather;
+
+
     private void Awake()
     {
         foreach(var condition in AllConditions)
@@ -32,9 +46,16 @@ public class EntityModel : MonoBehaviour, IDamageable
         }
     }
 
+    private void Start()
+    {
+        if (WeatherCycle.Instance != null)
+            WeatherCycle.Instance.RegisterObserver(this);
+    }
+
     private void Update()
     {
         ApplyPassiveValueCondition();
+        DecreaseTemperture();
     }
 
     public IEnumerable<Condition> AllConditions //EntityModel의 Condition순회 프로퍼티
@@ -45,6 +66,7 @@ public class EntityModel : MonoBehaviour, IDamageable
             yield return hunger;
             yield return thirst;
             yield return stamina;
+            yield return temperture;
         }
     }
     private void ApplyPassiveValueCondition() // 시간이 흐름에 따라 변화하는 스탯 이후에 온도 시스템 생기면 이곳에 추가 가능
@@ -83,4 +105,36 @@ public class EntityModel : MonoBehaviour, IDamageable
     {
         health.Subtract(damage);
     }
+
+    public void OnWeatherChanged(WeatherType newWeather)
+    {
+        currentWeather = newWeather;
+        Debug.Log($"{gameObject.name} → 날씨가 {newWeather}로 바뀜");
+    }
+
+    private float GetWeatherTempertureDecrease(WeatherType weather)
+    {
+        switch (weather)
+        {
+            case WeatherType.Rain:
+                return 0.01f;
+            case WeatherType.Snow:
+                return 0.05f;
+            default:
+                return 0f;
+        }
+    }
+
+    private void DecreaseTemperture()
+    {
+        if (!isApplyByWeather) return;
+
+        float decreaseAmount = GetWeatherTempertureDecrease(currentWeather);
+        if (decreaseAmount > 0f)
+        {
+            temperture.Subtract(decreaseAmount);
+            Debug.Log($"{gameObject.name} 체온 감소중: {decreaseAmount * Time.deltaTime}");
+        }
+    }
 }
+
