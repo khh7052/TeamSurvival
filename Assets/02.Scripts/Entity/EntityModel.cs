@@ -23,11 +23,14 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     public Condition thirst; //목마름
     public Condition stamina; //스테미너
     public Condition temperture; //체온
-    public bool isApplyByWeather; //체온에 영향을 받는가
+    public bool isApplyByWeather; //날씨에 체온이 영향을 받는가
 
+    public float warningTemp = 34f; //경고
+    public float dangerTemp = 32f; //위험 
+    
     private float time = 0f;
     private float interval = 1f; //날씨에 대한 체온 영향 몇초에 한번 받을것인지
-    [SerializeField]private float rayLength = 5f; //테스트용 삭제가능
+    [SerializeField] private float rayLength = 5f; //테스트용 삭제가능
 
 
 
@@ -45,7 +48,7 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
 
     private void Awake()
     {
-        foreach(var condition in AllConditions)
+        foreach (var condition in AllConditions)
         {
             condition.Init();
         }
@@ -60,7 +63,9 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     private void Update()
     {
         ApplyPassiveValueCondition();
+
         UpdateTemperture();
+        DamageByTemperature();
     }
 
     public IEnumerable<Condition> AllConditions //EntityModel의 Condition순회 프로퍼티
@@ -76,14 +81,14 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     }
     private void ApplyPassiveValueCondition() // 시간이 흐름에 따라 변화하는 스탯 이후에 온도 시스템 생기면 이곳에 추가 가능
     {
-        if(hunger.PassiveValue != 0)
+        if (hunger.PassiveValue != 0)
             hunger.Subtract(hunger.PassiveValue * Time.deltaTime);
-        if(stamina.PassiveValue != 0)
+        if (stamina.PassiveValue != 0)
             stamina.Add(stamina.PassiveValue * Time.deltaTime);
-        if(thirst.PassiveValue != 0)
+        if (thirst.PassiveValue != 0)
             thirst.Subtract(thirst.PassiveValue * Time.deltaTime);
-        if(health.PassiveValue != 0)
-            health.Add(health.PassiveValue * Time.deltaTime);
+        if (health.PassiveValue != 0)
+            health.Add(health.PassiveValue * Time.deltaTime);       
     }
 
     public void Heal(float amount)
@@ -140,27 +145,51 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         if (time < interval) return;
         time = 0f;
 
-        if (isGood) // 실내인지 or 날씨가 맑은지
+        if (isGood) // 실내인지 or 날씨가 맑은지  
         {
             Debug.Log("현재 실내 or 무언가 위에있어 날씨의 영향을 받지않습니다. 체온이 자연회복됩니다.");
-            if(temperture.CurValue <= 36.5f)
+            if (temperture.CurValue <= 36.5f)
             {
                 temperture.Add(0.05f);
                 Debug.Log($"체온회복{temperture.CurValue}");
             }
-            else if(temperture.CurValue >= 36.5f)
+            else if (temperture.CurValue >= 36.5f)
             {
                 //체온이 올라가는 날씨 추가시 ex ) Heat 올라간 체온을 36.5까지 맞춰주는 부분
             }
-                return; 
+            return;
         }
-        
+
 
         float decreaseAmount = GetWeatherTempertureDecrease(currentWeather);
         if (decreaseAmount > 0f)
         {
             temperture.Subtract(decreaseAmount);
             Debug.Log($"현재 체온 : {this.temperture.CurValue} 감소량 : {decreaseAmount}");
+        }
+    }
+
+    private void DamageByTemperature()
+    {
+        float temp = temperture.CurValue;
+        float dmg = 0f;
+
+        if(temp <= dangerTemp)
+        {
+            dmg = 0.2f;
+        }
+        else if(temp <= warningTemp)
+        {
+            dmg = 0.05f;
+        }
+        else
+        {
+            dmg = 0f;
+        }
+
+        if(dmg > 0f)
+        {
+            health.Subtract(dmg);
         }
     }
 
