@@ -4437,6 +4437,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 080e4cfa-04cc-482c-9646-6b9d3d85411a
     m_ActionName: Player/Inventory[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 777261130677496077}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnCraftUIButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ca327124-347c-45db-b1bc-689a8072e046
+    m_ActionName: Player/Craft[/Keyboard/c]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -4454,6 +4470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d525c442decada49a0e50831280b8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 0}
   controller: {fileID: 0}
   condition: {fileID: 0}
   equip: {fileID: 0}
@@ -4544,16 +4561,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d139b2f926fa222419bbc2c32fe43a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpFill: {fileID: 0}
-  hpText: {fileID: 0}
-  moveSpeedText: {fileID: 0}
-  hungerFill: {fileID: 0}
-  hungerText: {fileID: 0}
-  thirstFill: {fileID: 0}
-  thirstText: {fileID: 0}
-  staminaFill: {fileID: 0}
-  staminaText: {fileID: 0}
-  tempertureText: {fileID: 0}
 --- !u!114 &9183120507124538938
 MonoBehaviour:
   m_ObjectHideFlags: 0
