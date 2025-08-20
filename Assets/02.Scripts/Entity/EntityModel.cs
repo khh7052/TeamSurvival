@@ -49,7 +49,7 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     private void Update()
     {
         ApplyPassiveValueCondition();
-        TestCheck();
+        DecreaseTemperture();
     }
 
     public IEnumerable<Condition> AllConditions //EntityModel의 Condition순회 프로퍼티
@@ -114,7 +114,7 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         Debug.Log($"{gameObject.name} → 날씨가 {newWeather}로 바뀜");
     }
 
-    private float GetWeatherTemperatureDecrease(WeatherType weather)
+    private float GetWeatherTempertureDecrease(WeatherType weather)
     {
         switch (weather)
         {
@@ -127,11 +127,11 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         }
     }
 
-    private void TestCheck()
+    private void DecreaseTemperture()
     {
         if (!isApplyByWeather) return;
 
-        float decreaseAmount = GetWeatherTemperatureDecrease(currentWeather);
+        float decreaseAmount = GetWeatherTempertureDecrease(currentWeather);
         if (decreaseAmount > 0f)
         {
             temperture.Subtract(decreaseAmount);
