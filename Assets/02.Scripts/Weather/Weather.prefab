@@ -48,8 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rain: {fileID: 2000986084269997515}
   snow: {fileID: 850418110309085582}
-  rainChance: 0.434
-  snowChance: 0.417
+  rainChance: 0.3
+  snowChance: 0.3
   changeInterval: 10
 --- !u!1 &4113289438584255487
 GameObject:

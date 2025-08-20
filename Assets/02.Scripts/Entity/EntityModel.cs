@@ -23,7 +23,7 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     public Condition thirst; //목마름
     public Condition stamina; //스테미너
     public Condition temperture; //체온
-    public bool isApplyByWeather; //체온에 영향을 받는가
+    public bool isApplyByWeather; //날씨에 체온이 영향을 받는가
 
     private float time = 0f;
     private float interval = 1f; //날씨에 대한 체온 영향 몇초에 한번 받을것인지
