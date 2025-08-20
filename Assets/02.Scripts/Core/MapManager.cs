@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class MapManager : Singleton<MapManager>
 {
@@ -51,8 +52,83 @@ public class MapManager : Singleton<MapManager>
         {
             c.isTrigger = true;
         }
-//        respawnTime = UnityEngine.Random.Range(respawnMinDelay, respawnMaxDelay);
+        CombineMeshes();
         await WaitForInstantiate();
+    }
+
+    private void CombineMeshes()
+    {
+        // 자식 오브젝트들의 MeshFilter와 MeshRenderer 정보를 담을 리스트
+        List<MeshFilter> meshFilters = new List<MeshFilter>();
+        List<CombineInstance> combineInstances = new List<CombineInstance>();
+
+        // Map 오브젝트의 모든 자식들을 순회하며 MeshFilter를 가져옵니다.
+        foreach (Transform child in transform)
+        {
+            MeshFilter childMeshFilter = child.GetComponent<MeshFilter>();
+            if (childMeshFilter != null)
+            {
+                meshFilters.Add(childMeshFilter);
+
+                // 베이킹을 위해 CombineInstance를 생성하고 추가
+                CombineInstance combine = new CombineInstance();
+                combine.mesh = childMeshFilter.sharedMesh;
+                combine.transform = childMeshFilter.transform.localToWorldMatrix;
+                combineInstances.Add(combine);
+
+                // 기존 자식 오브젝트의 렌더러는 비활성화하여 렌더링되지 않도록 합니다.
+                Renderer childRenderer = child.GetComponent<Renderer>();
+                if (childRenderer != null)
+                {
+                    childRenderer.enabled = false;
+                }
+            }
+        }
+
+        // 새로운 MeshFilter 컴포넌트를 추가하거나 가져옵니다.
+        MeshFilter mapMeshFilter = GetComponent<MeshFilter>();
+        if (mapMeshFilter == null)
+        {
+            mapMeshFilter = gameObject.AddComponent<MeshFilter>();
+        }
+
+        // 새로운 MeshRenderer 컴포넌트를 추가하거나 가져옵니다.
+        MeshRenderer mapMeshRenderer = GetComponent<MeshRenderer>();
+        if (mapMeshRenderer == null)
+        {
+            mapMeshRenderer = gameObject.AddComponent<MeshRenderer>();
+        }
+
+        // 새로운 Mesh를 생성합니다.
+        Mesh combinedMesh = new Mesh();
+        combinedMesh.indexFormat = IndexFormat.UInt32;
+        combinedMesh.CombineMeshes(combineInstances.ToArray());
+
+        // 생성된 Mesh를 Map 오브젝트의 MeshFilter에 할당합니다.
+        mapMeshFilter.mesh = combinedMesh;
+
+        // 모든 MeshMapTile이 동일한 재질(Material)을 사용한다고 가정하고
+        // 첫 번째 자식의 재질을 가져와 새로운 렌더러에 할당합니다.
+        if (meshFilters.Count > 0)
+        {
+            Renderer firstChildRenderer = meshFilters[0].GetComponent<Renderer>();
+            if (firstChildRenderer != null)
+            {
+                mapMeshRenderer.material = firstChildRenderer.sharedMaterial;
+            }
+        }
+
+        MeshCollider collider = GetComponent<MeshCollider>();
+        if(collider == null)
+        {
+            collider = gameObject.AddComponent<MeshCollider>();
+        }
+        collider.sharedMesh = combinedMesh;
+
+        foreach(var mesh in meshFilters)
+        {
+            mesh.gameObject.SetActive(false);
+        }
     }
 
     async Task WaitForInstantiate()
@@ -91,8 +167,8 @@ public class MapManager : Singleton<MapManager>
                         // 랜덤한 오브젝트 선택
                         var randData = GatheringManager.Instance.GetRandomObjectData<BaseScriptableObject>();
 
-                        
-                        Vector3 spawnPos = hit.point + Vector3.up * spawnHeightOffset;
+                        // 생성 위치가 충돌 지점이라 아래로 넣어 울퉁붕퉁한 면 위에서 떠있는 느낌을 줄이기 위함
+                        Vector3 spawnPos = hit.point + Vector3.down * spawnHeightOffset;
                         // 현재 소환되는 객체가 비동기 생성이라 생성 되기 전에 다음 위치를 계산할 수 있음. 따라서 리스트로 이를 먼저 관리
                         if (spawnPositions.Any(pos => Vector3.Distance(pos, spawnPos) < minDistanceBetweenObjs))
                         {
