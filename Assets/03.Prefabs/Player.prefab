@@ -4261,6 +4261,7 @@ GameObject:
   - component: {fileID: 1915174890719795521}
   - component: {fileID: 1091273375218444925}
   - component: {fileID: 8971917150165243536}
+  - component: {fileID: 6015278227392280579}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -4494,8 +4495,8 @@ MonoBehaviour:
     passiveValue: 5
   temperture:
     curValue: 500
-    startValue: 500
-    maxValue: 500
+    startValue: 36.5
+    maxValue: 42
     passiveValue: 0
   isApplyByWeather: 1
   rayLength: 5
@@ -4651,6 +4652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentItem: {fileID: 0}
+  currentItemInstance: {fileID: 0}
   hitMask:
     serializedVersion: 2
     m_Bits: 4864
@@ -4665,6 +4667,7 @@ MonoBehaviour:
   unarmedStaminaCost: 4
   unarmedDamage: 1
   unarmedGatherPower: 1
+  EquipTransform: {fileID: 2685170793834150853}
   debugLog: 1
 --- !u!114 &1915174890719795521
 MonoBehaviour:
@@ -4724,6 +4727,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6015278227392280579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6771510593846623006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d2525766f81294399e9ecc6ab681ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6857895242329397200
 GameObject:
   m_ObjectHideFlags: 0
