@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class GatheringManager : Singleton<GatheringManager>, IInitializableAsync
@@ -7,6 +8,7 @@ public class GatheringManager : Singleton<GatheringManager>, IInitializableAsync
     private ScriptableObjectDataBase<BaseScriptableObject> _dataBase = new();
 
     public bool IsInitialized { get; private set; }
+
 
     protected override void Initialize()
     {

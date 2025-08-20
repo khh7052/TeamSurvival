@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    public void OnInventoryButton(InputAction.CallbackContext callbackContext)
+    public async void OnInventoryButton(InputAction.CallbackContext callbackContext)
     {
         // 제작 켜져있을 땐 무시
         if (UIManager.Instance.IsEnableUI<CompositionUI>()) return;
@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                UIManager.Instance.ShowUI<UIInventory>();
+                await UIManager.Instance.ShowUI<UIInventory>();
             }
             ToggleCursor();
         }
@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void OnCraftUIButton(InputAction.CallbackContext callbackContext)
+    public async void OnCraftUIButton(InputAction.CallbackContext callbackContext)
     {
         // 인벤토리 켜져있을 땐 무시
         if (UIManager.Instance.IsEnableUI<CompositionUI>()) return;
@@ -180,7 +180,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                UIManager.Instance.ShowUI<CompositionUI>();
+                await UIManager.Instance.ShowUI<CompositionUI>();
             }
             ToggleCursor();
         }

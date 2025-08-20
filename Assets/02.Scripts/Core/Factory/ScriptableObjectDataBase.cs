@@ -10,6 +10,7 @@ public class ScriptableObjectDataBase<T> where T : BaseScriptableObject
 {
     private Dictionary<int, T> _data;
 
+    private T[] cachedValues; // 랜덤하게 찾기 위한 캐싱
 
     public async Task Initialize(string label)
     {
@@ -31,7 +32,7 @@ public class ScriptableObjectDataBase<T> where T : BaseScriptableObject
         await handle.Task; // 모든 로드 완료 대기
 
         cachedValues = new T[_data.Count];
-        _data.Values.CopyTo(cachedValues, 0); // 한 번만 캐싱
+        _data.Values.CopyTo(cachedValues, 0); // 밸류 캐싱
         Debug.Log($"[ScriptableObjectDatabase] {label} 라벨의 {_data.Count}개의 {typeof(T).Name} 데이터 로드 완료");
     }
 
@@ -41,7 +42,6 @@ public class ScriptableObjectDataBase<T> where T : BaseScriptableObject
         return result;
     }
 
-    private T[] cachedValues;
 
     public T GetRandomData()
     {

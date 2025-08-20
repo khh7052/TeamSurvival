@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerView : MonoBehaviour
 {
-    public void Initialize()
+    public async void Initialize()
     {
-        UIManager.Instance.ShowUI<InGameUI>();
+        await UIManager.Instance.ShowUI<InGameUI>();
     }
 }

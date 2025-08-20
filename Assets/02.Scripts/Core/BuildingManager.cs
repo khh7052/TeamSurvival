@@ -2,6 +2,7 @@ using Constants;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 
@@ -190,4 +191,5 @@ public struct BuildKey : IEquatable<BuildKey>
             hash ^= Dir.GetHashCode();
         return hash;
     }
+
 }
