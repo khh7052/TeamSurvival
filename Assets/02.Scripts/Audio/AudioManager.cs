@@ -26,6 +26,7 @@ public class AudioManager : Singleton<AudioManager>
         }
 
         CreateAudioSource(SoundType.BGM, ref bgmSource);
+        OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
     // 씬이 로드될 때 BGM을 자동으로 재생
