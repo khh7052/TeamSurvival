@@ -7,11 +7,8 @@ using UnityEngine;
 
 
 
-public class BuildingManager : Singleton<BuildingManager>, IInitializableAsync
+public class BuildingManager : Singleton<BuildingManager>
 {
-    private ScriptableObjectDataBase<BaseScriptableObject> _dataBase; 
-    public bool IsInitialized { get; private set; }
-
     private object lockObj = new();
     [SerializeField]
     private float gridSize = 1f;
@@ -19,18 +16,10 @@ public class BuildingManager : Singleton<BuildingManager>, IInitializableAsync
     // 건축 데이터 해쉬셋
     private HashSet<BuildKey> occupied = new();
 
-    public async void InitializeAsync()
-    {
-        _dataBase = new ScriptableObjectDataBase<BaseScriptableObject>();
-        await _dataBase.Initialize("BuildingItem");
-        IsInitialized = true;
-    }
 
     protected override void Initialize()
     {
         base.Initialize();
-        InitializeAsync();
-        
     }
 
     public (Vector3, Direction, Quaternion) GetBuildPos(Vector3 pos)
@@ -98,12 +87,6 @@ public class BuildingManager : Singleton<BuildingManager>, IInitializableAsync
         return enums[best];
     }
 
-    public T GetBuildingObjectData<T>(int id) where T : BaseScriptableObject
-    {
-        T data = _dataBase.GetById(id) as T;
-
-        return data;
-    }
 
     public bool IsOccupied(BuildKey key) => occupied.Contains(key);
     

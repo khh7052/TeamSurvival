@@ -102,12 +102,12 @@ public class PlayerInventory : MonoBehaviour
 
     public void ThrowItem(ItemData data)
     {
-        if (data?.dropPrefab == null || GameManager.player.dropPosition == null) return;
-        Instantiate(
-            data.dropPrefab,
-            GameManager.player.dropPosition.position,
-            Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360f)
-        );
+        if (data?.ID == null || GameManager.player.dropPosition == null) return;
+        AssetDataLoader.Instance.InstantiateByID(data.ID, (go) =>
+        {
+            go.transform.position = GameManager.player.dropPosition.position;
+            go.transform.rotation = Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360f);
+        });
     }
 
     public void ThrowItemInInventory(int index)
@@ -193,9 +193,9 @@ public class PlayerInventory : MonoBehaviour
         return true;
     }
 
-    public void ItemCreate(CompositionRecipeData data)
+    public async void ItemCreate(CompositionRecipeData data)
     {
-        var itemData = Factory.Instance.GetDataByID<ItemData>(data.ID);
+        var itemData = await AssetDataLoader.Instance.GetDataByID<ItemData>(data.ID);
         GameManager.player.itemData = itemData;
 
         for (int i = 0; i < data.recipe.Count; i++)

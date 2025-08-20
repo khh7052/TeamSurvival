@@ -49,7 +49,7 @@ MonoBehaviour:
   resourceName: "\uBC14\uC704"
   maxDurability: 40
   kind: 1
-  preferredTool: 2
+  preferredTool: 0
   correctToolMultiplier: 1.5
   wrongToolMultiplier: 0
   bareHandsMultiplier: 1

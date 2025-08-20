@@ -8,7 +8,7 @@ public class CompositionUI : BaseUI
 {
     public GameObject compositinoListPrefab;
     public Transform ScrollViewContentTrans;
-    public List<CompositionRecipeData> RecipeList;  // 따로 매니저 만들어서 거기서 받아오게 할 것
+    public CompositionRecipeData[] RecipeList;  // 따로 매니저 만들어서 거기서 받아오게 할 것
     private List<RecipeUI> RecipeUIList = new();
 
     public Button CreateButton;
@@ -20,9 +20,12 @@ public class CompositionUI : BaseUI
     protected override async void Awake()
     {
         base.Awake();
-        await WaitManagerInitialize();
+        CreateButton.onClick.RemoveAllListeners();
+        CreateButton.onClick.AddListener(OnClick);
+        playerInventory = GameManager.player.inventory;
 
-        for (int i = 0; i < RecipeList.Count; i++)
+        RecipeList = await AssetDataLoader.Instance.GetDatasByType<CompositionRecipeData>(DataType.Compositive);
+        for (int i = 0; i < RecipeList.Length; i++)
         {
             GameObject go = Instantiate(compositinoListPrefab, ScrollViewContentTrans);
             var ui = go.GetComponent<RecipeUI>();
@@ -30,9 +33,7 @@ public class CompositionUI : BaseUI
             ui.Initialize(RecipeList[i], i, this);
         }
 
-        CreateButton.onClick.RemoveAllListeners();
-        CreateButton.onClick.AddListener(OnClick);
-        playerInventory = GameManager.player.inventory;
+        UpdateUI();
     }
 
     protected override void OnEnable()

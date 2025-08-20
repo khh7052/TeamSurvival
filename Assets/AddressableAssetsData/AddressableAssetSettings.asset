@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: c22d7257746ad4a45b7dc6ca2352925f
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 40e6ac36a26f02a867ed1641cc91e24a
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -38,7 +38,7 @@ MonoBehaviour:
     m_Id: 
   m_RemoteCatalogLoadPath:
     m_Id: 
-  m_ContentStateBuildPathProfileVariableName: 
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
@@ -98,6 +98,8 @@ MonoBehaviour:
     - UIInstance
     - Canvas
     - CompositeRecipe
+    - Item
+    - ItemDataList
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 9a63d738cfe1f494e9cf1538edbcb6ef, type: 2}

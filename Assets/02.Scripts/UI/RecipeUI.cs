@@ -28,7 +28,7 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
     public bool isCreatable;
     private Image LayerImage;
 
-    public void Initialize(CompositionRecipeData recipe, int index, CompositionUI origin)
+    public async void Initialize(CompositionRecipeData recipe, int index, CompositionUI origin)
     {
         this.recipe = recipe;
         this.index = index;
@@ -42,7 +42,7 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
         {
             if(i < recipe.recipe.Count)
             {
-                var Item = Factory.Instance.GetDataByID<ItemData>(recipe.recipe[i].ItemID);
+                var Item = await AssetDataLoader.Instance.GetDataByID<ItemData>(recipe.recipe[i].ItemID);
                 Debug.Log(Item.DisplayName);
                 sourceItemIcon[i].sprite = Item.Icon;
                 sourceItemCntText[i].text = recipe.recipe[i].ItemCount.ToString();
