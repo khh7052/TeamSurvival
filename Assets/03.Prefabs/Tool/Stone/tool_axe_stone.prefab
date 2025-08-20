@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2452079844045144931}
   - component: {fileID: -7021590602274843282}
-  m_Layer: 0
+  - component: {fileID: 6866177983076201107}
+  - component: {fileID: 287081300988535251}
+  m_Layer: 11
   m_Name: tool_axe_stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,6 +48,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: e4bc5fc7b14d94b42bcadf10c460d291, type: 2}
+--- !u!54 &6866177983076201107
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141329698237318731}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &287081300988535251
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141329698237318731}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.050260484, y: 0.23727739, z: 0.71791506}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6364081347031117659
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +107,7 @@ GameObject:
   - component: {fileID: 6173983314706598672}
   - component: {fileID: 4959352687566866248}
   - component: {fileID: 8965901124923378951}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +158,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -8067726398312463513, guid: 50ef3d3e9e1b8c342a84432bceaa753a, type: 3}
-  - {fileID: -8067726398312463513, guid: 50ef3d3e9e1b8c342a84432bceaa753a, type: 3}
+  - {fileID: 2100000, guid: 638df8d89b0f1c84aa447e7883732d5d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
