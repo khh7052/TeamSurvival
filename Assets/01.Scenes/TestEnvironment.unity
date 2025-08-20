@@ -2897,6 +2897,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1683975416896729174, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+      propertyPath: buildRecipe
+      value: 
+      objectReference: {fileID: 11400000, guid: a82778da6cb075f47a3877cdac9d4792, type: 2}
     - target: {fileID: 6533984410461744423, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.7
@@ -5307,7 +5311,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857515380}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7866ad7c7414ff5498434f8199c564ac, type: 3}
   m_Name: 

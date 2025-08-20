@@ -65,7 +65,7 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
 
     public void CheckCreatableSlot()
     {
-        var datas = GetRecipeData();
+        var datas = recipe.GetRecipeData();
         if(GameManager.player.inventory.IsHasItem(datas.Item1, datas.Item2))
         {
             LayerImage.color = Color.white;
@@ -78,18 +78,4 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private (int[], int[]) GetRecipeData()
-    {
-        int[] datas = new int[recipe.recipe.Count];
-
-        int[] coutns = new int[recipe.recipe.Count];
-
-        for(int i = 0; i < datas.Length; i++)
-        {
-            datas[i] = recipe.recipe[i].ItemID;
-            coutns[i] = recipe.recipe[i].ItemCount;
-        }
-
-        return (datas, coutns);
-    }
 }

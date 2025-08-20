@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -26,20 +27,23 @@ public class PlayerInventory : MonoBehaviour
     {
         if (itemQuantityCache.ContainsKey(id))
         {
-            // 있으면 증가
+            // 있으면 증감
             itemQuantityCache[id] += Quantity;
+            // 0 이하일 경우 삭제
+            if (itemQuantityCache[id] <= 0)
+            {
+                itemQuantityCache.Remove(id);
+            }
         }
         else
         {
             // 없으면 해당 값 부여
-            itemQuantityCache[id] = Quantity;
+            if(Quantity > 0)
+            {
+                itemQuantityCache[id] = Quantity;
+            }
         }
 
-        // 0 이하일 경우 삭제
-        if (itemQuantityCache[id] <= 0)
-        {
-            itemQuantityCache.Remove(id);
-        }
     }
 
     // 아이템 추가
@@ -134,6 +138,8 @@ public class PlayerInventory : MonoBehaviour
         if(slots[index].item == null) return;
         slots[index].Quantity--;
 
+        ItemCacheInInventory(slots[index].item.ID, -1);
+
         if (slots[index].Quantity <= 0)
         {
             slots[index].item = null;
@@ -202,6 +208,38 @@ public class PlayerInventory : MonoBehaviour
         }
 
         Add();
+        OnChangeData?.Invoke();
+    }
+
+    public void RemoveItem(int[] itemIds,  int[] counts)
+    {
+        // 두개 길이 안맞으면 진행 못함
+        if (itemIds.Length != counts.Length) return;
+
+        for(int i = 0; i < itemIds.Length; i++)
+        {
+            ItemCacheInInventory(itemIds[i], -counts[i]);
+            if (counts[i] > 0)
+            {
+                for (int j = 0; j < slots.Count; j++)
+                {
+                    if (slots[j].item != null && slots[j].item.ID == itemIds[i])
+                    {
+                        slots[j].Quantity -= counts[i];
+                        if (slots[j].Quantity <= 0)
+                        {
+                            slots[j].item = null;
+                            // 음수면 모자른 만큼 count 복원
+                            counts[i] = -slots[j].Quantity;
+                            slots[j].Quantity = 0;
+                        }
+                    }
+
+                    if (counts[i] <= 0) break;
+                }
+            }
+
+        }
         OnChangeData?.Invoke();
     }
 }
