@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4280251682058709516}
   - component: {fileID: 3644700962905919856}
   - component: {fileID: 1256565635524583201}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: -7550791558316035920}
   - component: {fileID: 265206192404746602}
   - component: {fileID: 232604523480475473}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: tools_sword_stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

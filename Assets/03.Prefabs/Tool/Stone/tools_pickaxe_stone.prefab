@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3047885265765457442}
   - component: {fileID: 5932253873108505199}
   - component: {fileID: 5767231705640365891}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: -3503244495887312928}
   - component: {fileID: 4172402559830725122}
   - component: {fileID: 2376646188452802383}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: tools_pickaxe_stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
