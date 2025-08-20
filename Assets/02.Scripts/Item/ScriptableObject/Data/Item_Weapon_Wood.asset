@@ -30,7 +30,7 @@ MonoBehaviour:
   consumables: []
   isWeapon: 1
   isTool: 0
-  weaponType: 1
+  weaponType: 0
   toolType: 0
   weaponDamage: 10
   weaponAttackDelay: 1
