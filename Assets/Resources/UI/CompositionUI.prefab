@@ -828,7 +828,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   compositinoListPrefab: {fileID: 6172161956834473861, guid: 977b366525022df4cb7a608a5b8bf5cf, type: 3}
   ScrollViewContentTrans: {fileID: 6285959148998599768}
-  RecipeList: []
+  RecipeList:
+  - {fileID: 11400000, guid: f7143463f9bee62488300ca72c5458a0, type: 2}
+  - {fileID: 11400000, guid: f7143463f9bee62488300ca72c5458a0, type: 2}
+  - {fileID: 11400000, guid: f7143463f9bee62488300ca72c5458a0, type: 2}
+  - {fileID: 11400000, guid: f7143463f9bee62488300ca72c5458a0, type: 2}
+  - {fileID: 11400000, guid: f7143463f9bee62488300ca72c5458a0, type: 2}
   CreateButton: {fileID: 3490201879029698796}
   selectIndex: -1
 --- !u!1 &7364953302985786142

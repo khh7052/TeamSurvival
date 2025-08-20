@@ -35,6 +35,7 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
         targetItemIcon.sprite = recipe.Icon;
         targetItemText.text = recipe.DisplayName;
         targetItemDesc.text = recipe.Description;
+        LayerImage = GetComponent<Image>();
 
         for(int i = 0; i < sourceItemIcon.Count; i++) 
         {
@@ -76,6 +77,7 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
     private (int[], int[]) GetRecipeData()
     {
         int[] datas = new int[recipe.recipe.Count];
+
         int[] coutns = new int[recipe.recipe.Count];
 
         for(int i = 0; i < datas.Length; i++)

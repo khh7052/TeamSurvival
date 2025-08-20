@@ -136,13 +136,13 @@ public class PlayerController : MonoBehaviour
     {
         if (callbackContext.phase == InputActionPhase.Started)
         {
-            if (UIManager.Instance.IsEnableUI<UIInventory>())
+            if (UIManager.Instance.IsEnableUI<CompositionUI>())
             {
-                UIManager.Instance.CloseUI<UIInventory>();
+                UIManager.Instance.CloseUI<CompositionUI>();
             }
             else
             {
-                UIManager.Instance.ShowUI<UIInventory>();
+                UIManager.Instance.ShowUI<CompositionUI>();
             }
             ToggleCursor();
         }

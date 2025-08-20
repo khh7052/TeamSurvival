@@ -21,7 +21,7 @@ public class Condition
     public void Init() //상태초기화 함수
     {
         curValue = startValue;
-        OnChanged?.Invoke(); //상태변경 알림
+//        OnChanged?.Invoke(); //상태변경 알림
     }
 
     public float GetPercentage()

@@ -37,6 +37,9 @@ namespace Constants
         {
             return volumeNameDictionary[volumeType];
         }
+
+        public static string BGMPath = "Audio/BGM/";
+        public static string FootstepPath = "Audio/SFX/Footstep/";
     }
 
 
@@ -96,7 +99,8 @@ namespace Constants
         {
             { "Canvas", "UI/Canvas" },
             { "TestConditionUI" , "UI/ConditionUI" },
-            { "UIInventory", "UI/UIInventory1" }
+            { "UIInventory", "UI/UIInventory1" },
+            { "CompositionUI", "UI/CompositionUI" }
         };
         public static string GetPrefabPath(string prefabName)
         {
