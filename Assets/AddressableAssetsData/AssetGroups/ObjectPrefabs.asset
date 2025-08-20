@@ -47,18 +47,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 42e9b7af145cf8341aae6a51854ffdcf
-    m_Address: Assets/03.Prefabs/Item/Item_Weapon.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 44b9a7d061d7b064884b7d4bf26eb723
     m_Address: Assets/03.Prefabs/Item/Item_Resource.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6e8108d6b6dedb840a9afd5fc4cd7eb3
-    m_Address: Assets/03.Prefabs/Item/Item_Tool_Axe.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
