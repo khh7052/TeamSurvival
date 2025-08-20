@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 2284149536284936196}
   - component: {fileID: 2663993248870408418}
   m_Layer: 11
-  m_Name: Item_Beer
+  m_Name: Item_BlueFlower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,4 +178,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f9a271c46724542beae00d9be934e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: d575745a32d65c441925e8c3d114cf3d, type: 2}
+  data: {fileID: 11400000, guid: b68fdab490ac10a42ad1166b43f4f230, type: 2}
