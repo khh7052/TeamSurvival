@@ -34,12 +34,7 @@ namespace Constants
         };
 
         public static string GetExposedVolumeName(VolumeType volumeType)
-        {
-            return volumeNameDictionary[volumeType];
-        }
-
-        public static string BGMPath = "Audio/BGM/";
-        public static string FootstepPath = "Audio/SFX/Footstep/";
+            => volumeNameDictionary[volumeType];
     }
 
 

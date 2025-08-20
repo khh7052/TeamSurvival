@@ -1,40 +1,61 @@
 using Constants;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.AddressableAssets;
+using UnityEditor;
+using System.Threading.Tasks;
 
-public class AudioManager : Singleton<AudioManager>
+public class AudioManager : Singleton<AudioManager>, IInitializableAsync
 {
     private AudioMixer audioMixer;
     private AudioSource bgmSource;
     private GameObject audioPlayerObject;
 
-    protected override void Initialize()
+    public bool IsInitialized { get; private set; }
+
+    public async void InitializeAsync()
     {
-        base.Initialize();
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        var mixerHandle = Addressables.LoadAssetsAsync<AudioMixer>("AudioMixer", obj =>
+        {                   
+            audioMixer = obj;
+            Debug.Log($"AudioMixer loaded: {audioMixer.name}");
+        });
 
-        audioMixer = Resources.Load<AudioMixer>("Audio/AudioMixer");
-        audioPlayerObject = Resources.Load<GameObject>("Audio/AudioPlayer");
-
-        if (audioMixer == null)
+        var audioPlayerHandle = Addressables.LoadAssetsAsync<GameObject>("AudioPlayer", obj =>
         {
-            Debug.LogError("AudioMixer not found in Resources folder.");
-            return;
-        }
+            audioPlayerObject = obj;
+            Debug.Log($"AudioPlayerObject loaded: {audioPlayerObject.name}");
+        });
+
+        await mixerHandle.Task;
+        await audioPlayerHandle.Task;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
         CreateAudioSource(SoundType.BGM, ref bgmSource);
         OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+
+        IsInitialized = true;
+    }
+
+
+    protected override void Initialize()
+    {
+        base.Initialize();
+        InitializeAsync();
     }
 
     // 씬이 로드될 때 BGM을 자동으로 재생
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private async void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        SoundData bgmData = Resources.Load<SoundData>(AudioConstants.BGMPath + scene.name);
+        SoundData bgmData = await LoadSoundData(scene.name);
         PlayBGM(bgmData);
     }
+
+
+    public static Task<SoundData> LoadSoundData(string name)
+        => Addressables.LoadAssetAsync<SoundData>(name).Task;
 
     private void CreateAudioSource(SoundType soundType, ref AudioSource audioSource)
     {

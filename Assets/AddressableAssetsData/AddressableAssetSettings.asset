@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: c22d7257746ad4a45b7dc6ca2352925f
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: f2e9e3c6d2a32b7f24de0cace78735d7
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -51,6 +51,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 09c773feb3bcc23478af0c69134199bf, type: 2}
   - {fileID: 11400000, guid: 03301b4dd60d219429beefbfc12293e5, type: 2}
   - {fileID: 11400000, guid: c3e08ca5117e11d45bcef5eb5242e0a4, type: 2}
+  - {fileID: 11400000, guid: c1927a5e3eef00341bf8c809dae21845, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -98,6 +99,9 @@ MonoBehaviour:
     - UIInstance
     - Canvas
     - CompositeRecipe
+    - Audio
+    - BGM
+    - SFX
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 9a63d738cfe1f494e9cf1538edbcb6ef, type: 2}
