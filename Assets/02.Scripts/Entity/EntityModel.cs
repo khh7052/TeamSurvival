@@ -45,6 +45,9 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
 
     private WeatherType currentWeather;
 
+    [Header("결핍 데미지")]
+    [SerializeField] private float starvationDps = 0.1f;
+    [SerializeField] private float dehydrationDps = 0.1f;
 
     private void Awake()
     {
