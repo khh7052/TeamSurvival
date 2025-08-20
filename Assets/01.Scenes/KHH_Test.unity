@@ -2199,8 +2199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
-  dialoguePanel: {fileID: 621172763}
-  spekaerText: {fileID: 806328505}
+  speakerText: {fileID: 0}
   dialogueText: {fileID: 426901032}
 --- !u!4 &1787634215
 Transform:
