@@ -77,6 +77,42 @@ MonoBehaviour:
     m_SerializedLabels:
     - BuildingItem
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cab0540b41318ba499e16e2918039106
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Meat.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe9fb99196c4197439fb139a887b6769
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Carrot.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c6de00c5ea30e874a97d0ef32adbf08a
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Mushroom.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed3bde5f5c7d30c41942ae7621f941e3
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Fruit.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d575745a32d65c441925e8c3d114cf3d
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Beer.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 812c22d6ebbd2e040ac4d80393715fa0
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Water.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}
   m_SchemaSet:
