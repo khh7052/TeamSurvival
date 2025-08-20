@@ -10,29 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90534c289604d904995d92823d142e91, type: 3}
-  m_Name: Item_Tool_Axe
+  m_Name: Item_Weapon_Stone
   m_EditorClassIdentifier: 
-  ID: 23001
-  DisplayName: Axe
+  ID: 23005
+  DisplayName: Weapon
+  Description: 
   Icon: {fileID: 0}
   Prefab: {fileID: 0}
   AssetReference:
-    m_AssetGUID: 6e8108d6b6dedb840a9afd5fc4cd7eb3
+    m_AssetGUID: 42e9b7af145cf8341aae6a51854ffdcf
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  description: "\uB3C4\uB07C"
+  description: "\uACF5\uACA9 \uAC00\uB2A5"
   type: 1
-  icon: {fileID: 0}
-  dropPrefab: {fileID: 1201119067026082314, guid: 6e8108d6b6dedb840a9afd5fc4cd7eb3, type: 3}
+  dropPrefab: {fileID: 2386048475404025379, guid: bc6d9ac3e43ff6f49b85739df2a5b364, type: 3}
   canStack: 0
   maxStackAmount: 0
   consumables: []
-  isWeapon: 0
-  isTool: 1
-  weaponType: 0
-  toolType: 1
-  weaponDamage: 10
+  isWeapon: 1
+  isTool: 0
+  weaponType: 1
+  toolType: 0
+  weaponDamage: 15
   weaponAttackDelay: 1
   weaponAttackDistance: 1
   toolGatherPower: 5
