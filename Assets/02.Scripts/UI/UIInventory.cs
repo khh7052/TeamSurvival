@@ -25,9 +25,9 @@ public class UIInventory : BaseUI
     public GameObject dropButton;
 
     private PlayerInventory inventory;
+    private EquipSystem playerEquip;
 
-    private int curEquipIndex;
-
+    private int curEquipIndex = -1;
 
     private bool slotsReady = false;
 
@@ -55,6 +55,7 @@ public class UIInventory : BaseUI
 
         slotsReady = true;
         inventory = GameManager.player.inventory;
+        playerEquip = GameManager.player.equip;
     }
 
     protected override void OnEnable()
@@ -194,12 +195,37 @@ public class UIInventory : BaseUI
         }
     }
 
+    public void OnEquipButton()
+    {
+        Equip(selectedItemIndex);
+    }
+
+    public void OnUnEquipButton()
+    {
+        UnEquip(selectedItemIndex);
+    }
+
+    public void Equip(int index)
+    {
+        if(curEquipIndex != -1) UnEquip(curEquipIndex);
+        if (index < 0 || index >= slots.Length) return;
+        slots[index].equipped = true;
+        playerEquip.Equip(slots[index].item);
+        curEquipIndex = index; 
+        equipButton.SetActive(selectedItem.item.type == ItemType.Equipable && !slots[index].equipped);
+        unEquipButton.SetActive(selectedItem.item.type == ItemType.Equipable && slots[index].equipped);
+
+    }
 
     // 최소 스텁(장비 시스템은 나중에 확장)
     public void UnEquip(int index)
     {
         if (index < 0 || index >= slots.Length) return;
         slots[index].equipped = false;
+        playerEquip.UnEquip();
+        equipButton.SetActive(selectedItem.item.type == ItemType.Equipable && !slots[index].equipped);
+        unEquipButton.SetActive(selectedItem.item.type == ItemType.Equipable && slots[index].equipped);
+
     }
 
     public bool HasItem(ItemData item, int quantity)

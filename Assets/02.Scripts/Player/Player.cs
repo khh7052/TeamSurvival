@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     PlayerView view;
     public PlayerController controller;
     public PlayerCondition condition;
-    EquipSystem equip;
+    public EquipSystem equip;
     public ItemData itemData;
     public Action addItem { get; set; }
     public PlayerInventory inventory;

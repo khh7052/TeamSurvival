@@ -77,20 +77,44 @@ MonoBehaviour:
     m_SerializedLabels:
     - BuildingItem
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e4bc5fc7b14d94b42bcadf10c460d291
-    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Tool_Axe_Stone.asset
+  - m_GUID: cab0540b41318ba499e16e2918039106
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Meat.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e1f9b5606fb28bb41b8f3ebf4b372a88
-    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Tool_Pickaxe_Stone.asset
+  - m_GUID: fe9fb99196c4197439fb139a887b6769
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Carrot.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 491f078ecc8f36a4da5245b64e3917d3
-    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Weapon_Stone.asset
+  - m_GUID: ed3bde5f5c7d30c41942ae7621f941e3
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Fruit.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 812c22d6ebbd2e040ac4d80393715fa0
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Water.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4e97271c9ce29b742a201f5fac52d792
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_RedFlower.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b68fdab490ac10a42ad1166b43f4f230
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_BlueFlower.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e025d8529cd72e48b92a947188e9eef
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_YellowFlower.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData

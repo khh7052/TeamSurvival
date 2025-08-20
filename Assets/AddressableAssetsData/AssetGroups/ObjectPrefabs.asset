@@ -57,6 +57,41 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a6542fa0556103e4e9b554444743bc53
+    m_Address: Assets/03.Prefabs/Item/Item_Meat.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed6866abde9ad624f854d98f4718f9ca
+    m_Address: Assets/03.Prefabs/Item/Item_Carrot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75af9c13291a4b74d8e23a4d0cd9e295
+    m_Address: Assets/03.Prefabs/Item/Item_Fruit.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8451f20c4b8a88a40b4549f1c2c18d5e
+    m_Address: Assets/03.Prefabs/Item/Item_TreeSap.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e86e6c8b9d820eb4685a3d7cb4feb822
+    m_Address: Assets/03.Prefabs/Item/Item_RedFlower.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56b27d3550dd18b47bef74d886cb70de
+    m_Address: Assets/03.Prefabs/Item/Item_BlueFlower.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e87eb22bc1b264458c5e6b19ad67f9e
+    m_Address: Assets/03.Prefabs/Item/Item_YellowFlower.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}
   m_SchemaSet:

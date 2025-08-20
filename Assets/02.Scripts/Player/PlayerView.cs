@@ -25,6 +25,9 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private Image staminaFill;
     [SerializeField] private TMP_Text staminaText;
 
+    [Header("Temperture")]
+    [SerializeField] private TMP_Text tempertureText;
+
     private EntityModel model;
 
     public void Initialize(EntityModel model)
@@ -72,6 +75,18 @@ public class PlayerView : MonoBehaviour
         //스테미너
         SetFill(staminaFill, model.stamina.CurValue, model.stamina.MaxValue);
         if (staminaText != null) staminaText.text = $"{model.stamina.CurValue:0}";
+
+        //체온
+        if (tempertureText != null) //Text.Color로 상태 표시 변경 가능
+        {
+            float temp = model.temperture.CurValue;
+            tempertureText.text = $"{temp:F1} °C";
+            if (temp >= 36f) tempertureText.color = Color.green;   
+            else if (temp >= 34f) tempertureText.color = Color.yellow;  
+            else tempertureText.color = Color.red;  
+        }
+
+        
     }
 
     private void OnDestroy()
