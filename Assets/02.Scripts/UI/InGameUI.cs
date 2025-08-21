@@ -31,6 +31,10 @@ public class InGameUI : BaseUI
     [Header("Building UI")]
     [SerializeField] private BuildSlotUI[] buildSlotUI;
 
+    [Header("DamageIndicator")]
+    [SerializeField] private Image dmgIndicator;
+    private Coroutine coroutine;
+
     [SerializeField]
     private TMP_Text promptText;
 
@@ -46,6 +50,7 @@ public class InGameUI : BaseUI
         {
             c.OnChanged += OnChangeStatuses;
         }
+        model.OnHitEvent += OnDamageEvent;
         model.moveSpeed.OnChangeValue += OnChangeStatuses;
         model.jumpPower.OnChangeValue += OnChangeStatuses;
     }
@@ -57,6 +62,7 @@ public class InGameUI : BaseUI
         {
             c.OnChanged -= OnChangeStatuses;
         }
+        model.OnHitEvent -= OnDamageEvent;
         model.moveSpeed.OnChangeValue -= OnChangeStatuses;
         model.jumpPower.OnChangeValue -= OnChangeStatuses;
     }
@@ -122,5 +128,34 @@ public class InGameUI : BaseUI
     public void EndPromptText()
     {
         promptText.gameObject.SetActive(false);
+    }
+
+    public void OnDamageEvent()
+    {
+        if(coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+        coroutine = StartCoroutine(DamageIndicator());
+    }
+
+    public IEnumerator DamageIndicator()
+    {
+        Color c = Color.red;
+        c.a = 0.6f;
+        dmgIndicator.color = c;
+
+        dmgIndicator.SetActive(true);
+        float fadeSpeed = 1.5f; // 페이드 속도 (1.5초 정도 걸려 사라짐)
+        while (c.a > 0f)
+        {
+            c.a -= fadeSpeed * Time.deltaTime;
+            dmgIndicator.color = c;
+            yield return null;
+        }
+
+        // 완전히 안 보이게만 하고 오브젝트는 꺼지지 않음
+        c.a = 0f;
+        dmgIndicator.color = c;
     }
 }
