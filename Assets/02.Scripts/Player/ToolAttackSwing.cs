@@ -18,41 +18,48 @@ public class ToolAttackSwing : MonoBehaviour
 
     public bool resetToBaseOnDisable = true;
 
-    Transform _t;
-    Vector3 _basePos;
-    Quaternion _baseRot;
-    Coroutine _playing;
+    Transform tr;
+    Vector3 basePos;
+    Quaternion baseRot;
+    Coroutine playing;
 
     void Awake()
     {
-        _t = target ? target : transform;
-        _basePos = _t.localPosition;
-        _baseRot = _t.localRotation;
+        tr = target ? target : transform;
+        basePos = tr.localPosition;
+        baseRot = tr.localRotation;
     }
 
     void OnEnable()
     {
-        _t = target ? target : transform;
-        _basePos = _t.localPosition;
-        _baseRot = _t.localRotation;
+        tr = target ? target : transform;
+        basePos = tr.localPosition;
+        baseRot = tr.localRotation;
     }
+
 
     void OnDisable()
     {
-        if (resetToBaseOnDisable && _t != null)
+        if (resetToBaseOnDisable && tr != null)
         {
-            if (_playing != null) StopCoroutine(_playing);
-            _t.localPosition = _basePos;
-            _t.localRotation = _baseRot;
-            _playing = null;
+            if (playing != null) StopCoroutine(playing);
+            tr.localPosition = basePos;
+            tr.localRotation = baseRot;
+            playing = null;
         }
+    }
+
+    void OnDestroy()
+    {
+        if (playing != null) StopCoroutine(playing);
+        playing = null;
     }
 
     public void CaptureAsBasePose()
     {
-        if (_t == null) _t = target ? target : transform;
-        _basePos = _t.localPosition;
-        _baseRot = _t.localRotation;
+        if (tr == null) tr = target ? target : transform;
+        basePos = tr.localPosition;
+        baseRot = tr.localRotation;
     }
 
     public void SetProfile(Vector3 euler, Vector3 offset, float inT, float outT)
@@ -67,26 +74,32 @@ public class ToolAttackSwing : MonoBehaviour
     public void Play(float intensity = 1f)
     {
         if (!isActiveAndEnabled) return;
-        if (_playing != null) StopCoroutine(_playing);
-        _playing = StartCoroutine(CoSwing(intensity));
+
+        if (tr == null) tr = target ? target : transform;
+        if (playing != null) StopCoroutine(playing);
+        playing = StartCoroutine(CoSwing(intensity));
     }
 
     IEnumerator CoSwing(float intensity)
     {
-        var posA = _basePos;
-        var rotA = _baseRot;
+        if (tr == null || !this || !isActiveAndEnabled) { playing = null; yield break; }
+
+        var posA = basePos;
+        var rotA = baseRot;
 
         var rotB = rotA * Quaternion.Euler(swingEuler * intensity);
-        var posB = posA + swingOffset * Mathf.Clamp(intensity, 0f, 10f);
+        var posB = posA + swingOffset * intensity; // 상한 클램프 제거
 
         // 진입
         float t = 0f, durIn = Mathf.Max(inTime, 0.0001f);
         while (t < 1f)
         {
+            if (tr == null || !this || !isActiveAndEnabled) { playing = null; yield break; }
+
             t += Time.deltaTime / durIn;
             float e = inCurve.Evaluate(Mathf.Clamp01(t));
-            _t.localRotation = Quaternion.Slerp(rotA, rotB, e);
-            _t.localPosition = Vector3.Lerp(posA, posB, e);
+            tr.localRotation = Quaternion.Slerp(rotA, rotB, e);
+            tr.localPosition = Vector3.Lerp(posA, posB, e);
             yield return null;
         }
 
@@ -94,15 +107,20 @@ public class ToolAttackSwing : MonoBehaviour
         t = 0f; float durOut = Mathf.Max(outTime, 0.0001f);
         while (t < 1f)
         {
+            if (tr == null || !this || !isActiveAndEnabled) { playing = null; yield break; }
+
             t += Time.deltaTime / durOut;
             float e = outCurve.Evaluate(Mathf.Clamp01(t));
-            _t.localRotation = Quaternion.Slerp(rotB, rotA, e);
-            _t.localPosition = Vector3.Lerp(posB, posA, e);
+            tr.localRotation = Quaternion.Slerp(rotB, rotA, e);
+            tr.localPosition = Vector3.Lerp(posB, posA, e);
             yield return null;
         }
 
-        _t.localRotation = rotA;
-        _t.localPosition = posA;
-        _playing = null;
+        if (tr != null)
+        {
+            tr.localRotation = rotA;
+            tr.localPosition = posA;
+        }
+        playing = null;
     }
 }
