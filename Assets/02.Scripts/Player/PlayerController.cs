@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpStaminaCost = 10f;
 
     AnimationHandler anim;
+    public Action OnBuildModeInput;
+    public BuildingMode buildMode;
 
     private void Awake()
     {
@@ -186,7 +188,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     public async void OnSettingUIButton(InputAction.CallbackContext callbackContext)
     {
         // 인벤토리 켜져있을 땐 무시
@@ -205,5 +206,21 @@ public class PlayerController : MonoBehaviour
             ToggleCursor();
         }
     }
+    public void OnBuildButton(InputAction.CallbackContext context)
+    {
+        if(context.phase == InputActionPhase.Started)
+        {
+            buildMode.DestroyPrevObj();
+            buildMode.isBuild = !buildMode.isBuild;
+        }
+    }
 
+    public void OnBuildTryButton(InputAction.CallbackContext context)
+    {
+        if(context.phase == InputActionPhase.Started)
+        {
+            if(buildMode.isBuild) 
+                buildMode.TryBuild();
+        }
+    }
 }

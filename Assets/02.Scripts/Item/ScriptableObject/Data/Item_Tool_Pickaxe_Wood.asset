@@ -15,8 +15,8 @@ MonoBehaviour:
   ID: 23003
   DisplayName: Pickaxe
   Description: 
-  Icon: {fileID: 0}
-  Prefab: {fileID: 0}
+  Icon: {fileID: 21300000, guid: bc67dad7572144a4e971fb54a9592722, type: 3}
+  Prefab: {fileID: 7226089064373163802, guid: a20bad11f2cc23e4f9a26143167c62b4, type: 3}
   AssetReference:
     m_AssetGUID: 
     m_SubObjectName: 
@@ -31,7 +31,7 @@ MonoBehaviour:
   isWeapon: 0
   isTool: 1
   weaponType: 0
-  toolType: 1
+  toolType: 2
   weaponDamage: 10
   weaponAttackDelay: 1
   weaponAttackDistance: 1

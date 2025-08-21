@@ -15,7 +15,7 @@ MonoBehaviour:
   ID: 21001
   DisplayName: "\uBAA9\uC7AC"
   Description: "\uC7AC\uB8CC"
-  Icon: {fileID: 21300000, guid: 6054318fc678eef4e97655493b73c580, type: 3}
+  Icon: {fileID: 21300000, guid: 5b3dfc23d973fdb44a3a149415647d0f, type: 3}
   Prefab: {fileID: 0}
   AssetReference:
     m_AssetGUID: 44b9a7d061d7b064884b7d4bf26eb723

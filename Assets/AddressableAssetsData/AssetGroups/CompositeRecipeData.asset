@@ -18,8 +18,7 @@ MonoBehaviour:
   m_GUID: a1ab33ee99591ba40b227d34c0f6a3ec
   m_SerializeEntries:
   - m_GUID: f7143463f9bee62488300ca72c5458a0
-    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Composition Recipe/Composition
-      Item.asset
+    m_Address: Data_Craft_1
     m_ReadOnly: 0
     m_SerializedLabels:
     - CompositeRecipe

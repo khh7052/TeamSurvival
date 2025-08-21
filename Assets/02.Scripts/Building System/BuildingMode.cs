@@ -42,12 +42,13 @@ public class BuildingMode : MonoBehaviour
         // Preview 오브젝트 초기화
         for(int i = 0; i < preViewObjs.Length; i++)
         {
-            var data = BuildingManager.Instance.GetBuildingObjectData<BaseScriptableObject>(BuildObjectConst.PrevObjectIds[i]);
-
-            preViewObjs[i] = await Factory.Instance.CreateByAssetReferenceAsync(data, (go) =>
+            var data = AssetDataLoader.Instance.GetPrefabAddressByID(BuildObjectConst.PrevObjectIds[i]);
+            int index = i;
+            AssetDataLoader.Instance.InstantiateByAssetReference(data, (go) =>
             {
                 go.SetActive(false);
                 go.GetComponentInChildren<MeshRenderer>().material.color = new Color(0, 0, 1, 0.6f);
+                preViewObjs[index] = go;
             });
         }
 
@@ -62,13 +63,6 @@ public class BuildingMode : MonoBehaviour
 
     public void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            DestroyPrevObj();
-            isBuild = !isBuild;
-        }
-
         if (isBuild)
         {
             // 키 입력으로 건축 모듈 선택
@@ -109,17 +103,18 @@ public class BuildingMode : MonoBehaviour
 
                 }
             }
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                if (CanBuildAt(buildKey.Position, buildKey.rot, buildMode))
-                {
-                    CreateBuildObj(hit, buildMode);
-                }
-                else
-                {
-                    Debug.Log("건설 불가 위치!");
-                }
-            }
+        }
+    }
+
+    public void TryBuild()
+    {
+        if (CanBuildAt(buildKey.Position, buildKey.rot, buildMode))
+        {
+            CreateBuildObj(hit, buildMode);
+        }
+        else
+        {
+            Debug.Log("건설 불가 위치!");
         }
     }
 
@@ -139,7 +134,7 @@ public class BuildingMode : MonoBehaviour
         return Physics.Raycast(origin, dir, out hit, distance, buildMask, QueryTriggerInteraction.Collide);
     }
 
-    private void DestroyPrevObj()
+    public void DestroyPrevObj()
     {
         if (preViewObj != null)
         {
@@ -163,22 +158,22 @@ public class BuildingMode : MonoBehaviour
         preViewObj = go;
     }
 
-    public async void CreateBuildObj(RaycastHit hit, BuildMode mode)
+    public void CreateBuildObj(RaycastHit hit, BuildMode mode)
     {
-        var buildObjData = BuildingManager.Instance.GetBuildingObjectData<BaseScriptableObject>((int)mode);
+        var buildObjData = AssetDataLoader.Instance.GetPrefabAddressByID((int)mode);
         
         var data = buildRecipe.GetRecipeData();
         playerInventory.RemoveItem(data.Item1, data.Item2);
 
-        GameObject go = await Factory.Instance.CreateByAssetReferenceAsync<BaseScriptableObject>(buildObjData, (go) =>
+        AssetDataLoader.Instance.InstantiateByAssetReference(buildObjData, (go) =>
         {
-            var obj = go.AddComponent<BuildObj>();
+            var obj = go.GetComponent<BuildObj>();
             obj.key = buildKey;
             obj.Initialize();
             obj.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
+            go.transform.SetPositionAndRotation(buildKey.Position, buildKey.rot);
         });
 
-        go.transform.SetPositionAndRotation(buildKey.Position, buildKey.rot);
         
         BuildingManager.Instance.RegisterBuild(buildKey);
     }

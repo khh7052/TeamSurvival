@@ -7,6 +7,7 @@ using UnityEngine;
 public interface IDamageable //피해받을수 있는지
 {
     void TakePhysicalDamage(int damage);
+    Action OnHitEvent {  get; }
 }
 
 public interface IWeatherObserver
@@ -31,7 +32,9 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     private float time = 0f;
     private float interval = 1f; //날씨에 대한 체온 영향 몇초에 한번 받을것인지
     [SerializeField] private float rayLength = 5f; //테스트용 삭제가능
+    public Action OnHitEvent { get; set; }
 
+    public bool isDie = false;
 
 
     [Header("이동관련")]
@@ -49,6 +52,10 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     [SerializeField] private float starvationDps = 0.25f;
     [SerializeField] private float dehydrationDps = 0.25f;
 
+    [Header("피격 시 처리 렌더러")]
+    [SerializeField] MeshRenderer mesh;
+    private Coroutine coroutine;
+
     private void Awake()
     {
         foreach (var condition in AllConditions)
@@ -57,10 +64,16 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         }
     }
 
-    private void Start()
+    private void OnEnable()
     {
         if (WeatherCycle.Instance != null)
             WeatherCycle.Instance.RegisterObserver(this);
+        OnHitEvent += OnHit;
+    }
+
+    private void OnDisable()
+    {
+        OnHitEvent -= OnHit;
     }
 
     private void Update()
@@ -135,6 +148,7 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     public void TakePhysicalDamage(int damage)
     {
         health.Subtract(damage);
+        OnHitEvent?.Invoke();
     }
 
     public void OnWeatherChanged(WeatherType newWeather) //날씨 바뀔때 호출되는 함수(옵저버)
@@ -222,6 +236,36 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         Debug.DrawRay(ray, Vector3.up * rayLength, isHit ? Color.green : Color.red);
 
         return isHit;
+    }
+
+
+    public void OnHit()
+    {
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+        coroutine = StartCoroutine(SetMeshColorAtDamage());
+    }
+
+    private IEnumerator SetMeshColorAtDamage()
+    {
+        Color startColor = Color.red;       // 시작 색 (빨강)
+        Color endColor = Color.white;       // 최종 색 (하양)
+        float duration = 1.0f;              // 효과 지속 시간 (1초)
+        float elapsed = 0f;
+
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration; // 0 → 1 로 증가
+            mesh.material.color = Color.Lerp(startColor, endColor, t);
+            yield return null;
+        }
+
+        // 보정: 최종적으로 흰색 확정
+        mesh.material.color = endColor;
     }
 }
 

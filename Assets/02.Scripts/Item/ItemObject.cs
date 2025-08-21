@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Properties;
 using UnityEngine;
 
 public class ItemObject : MonoBehaviour, IInteractable
@@ -26,6 +27,6 @@ public class ItemObject : MonoBehaviour, IInteractable
 
         player.itemData = data;
         player.addItem?.Invoke();
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

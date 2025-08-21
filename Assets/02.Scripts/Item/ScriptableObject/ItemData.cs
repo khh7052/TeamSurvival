@@ -18,7 +18,7 @@ public enum ConsumableType
 }
 
 public enum WeaponType { None, Sword, Bow}
-public enum ToolType { None, Axe, Pickaxe}
+public enum ToolType { None, Axe, Pickaxe, Hammer}
 
 [System.Serializable]
 public class ItemDataConsumable
@@ -58,4 +58,7 @@ public class ItemData : BaseScriptableObject
     [Header("Tool")]
     public float toolGatherPower = 5f;      //자원 채취 힘
     public float toolDistance = 1f;         //도구 사거리
+
+    [Header("Build / Demolition (Hammer)")]
+    public int demolitionDamage = 10;
 }

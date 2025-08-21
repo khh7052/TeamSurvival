@@ -18,13 +18,13 @@ MonoBehaviour:
   m_GUID: a39f7e263b74d2640b44b09ab887db70
   m_SerializeEntries:
   - m_GUID: 2f548aa10ed8ab04da53e9f4c18026d8
-    m_Address: Assets/02.Scripts/Item/ScriptableObject/GatheringNode Data/Gathering_Tree_Node.asset
+    m_Address: Data_Gathering_Tree
     m_ReadOnly: 0
     m_SerializedLabels:
     - Gathering
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b15725230f8dfce4087aa68356e82a97
-    m_Address: Assets/02.Scripts/Item/ScriptableObject/GatheringNode Data/Gathering_Rock_Node.asset
+    m_Address: Data_Gathering_Rock
     m_ReadOnly: 0
     m_SerializedLabels:
     - Gathering

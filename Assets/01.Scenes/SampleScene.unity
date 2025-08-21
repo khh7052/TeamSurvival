@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -184,7 +184,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 80e4a2f5c0c7a7648bd597d515a697b1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -240,6 +240,10 @@ PrefabInstance:
     - target: {fileID: 6059253942827543989, guid: 44b9a7d061d7b064884b7d4bf26eb723, type: 3}
       propertyPath: m_Name
       value: Item_Resource (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6059253942827543989, guid: 44b9a7d061d7b064884b7d4bf26eb723, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7039213033747743049, guid: 44b9a7d061d7b064884b7d4bf26eb723, type: 3}
       propertyPath: m_LocalPosition.x
@@ -298,6 +302,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_Resource (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6059253942827543989, guid: 44b9a7d061d7b064884b7d4bf26eb723, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7039213033747743049, guid: 44b9a7d061d7b064884b7d4bf26eb723, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.56
@@ -354,6 +362,10 @@ PrefabInstance:
     - target: {fileID: 6059253942827543989, guid: 44b9a7d061d7b064884b7d4bf26eb723, type: 3}
       propertyPath: m_Name
       value: Item_Resource (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6059253942827543989, guid: 44b9a7d061d7b064884b7d4bf26eb723, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7039213033747743049, guid: 44b9a7d061d7b064884b7d4bf26eb723, type: 3}
       propertyPath: m_LocalPosition.x
@@ -505,6 +517,10 @@ PrefabInstance:
     - target: {fileID: 6059253942827543989, guid: 44b9a7d061d7b064884b7d4bf26eb723, type: 3}
       propertyPath: m_Name
       value: Item_Resource
+      objectReference: {fileID: 0}
+    - target: {fileID: 6059253942827543989, guid: 44b9a7d061d7b064884b7d4bf26eb723, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7039213033747743049, guid: 44b9a7d061d7b064884b7d4bf26eb723, type: 3}
       propertyPath: m_LocalPosition.x

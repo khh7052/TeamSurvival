@@ -69,9 +69,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Setting",
+                    "name": "BuildMode",
                     "type": "Button",
-                    "id": "6e8c7a58-8326-4cf0-a296-d935add95a47",
+                    "id": "47106a98-962c-4f22-879d-77084ef0aa23",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TryBuild",
+                    "type": "Button",
+                    "id": "68db926c-318b-41d9-85e7-6db83210e552",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -202,12 +211,23 @@
                 },
                 {
                     "name": "",
-                    "id": "b49453c5-3fa1-42e9-8ce6-444c643e7f5e",
-                    "path": "<Keyboard>/escape",
+                    "id": "5637b513-ef01-4539-8309-36d6bd13f8df",
+                    "path": "<Keyboard>/b",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Setting",
+                    "action": "BuildMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4302dc19-2217-4879-9d32-04967db50a41",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TryBuild",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

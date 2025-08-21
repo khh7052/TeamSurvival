@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,6 +18,9 @@ public class Interaction : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI promptText;
     private Camera cam;
+
+    public Action<IInteractable> OnDetectRay;
+    public Action OnEndDetectRay;
 
     void Start()
     {
@@ -40,6 +44,7 @@ public class Interaction : MonoBehaviour
                 {
                     curInteractGameObject = hit.collider.gameObject;
                     curInteractable = hit.collider.GetComponent<IInteractable>();
+                    OnDetectRay?.Invoke(curInteractable);
                     SetPromptText();
                 }
             }
@@ -48,6 +53,7 @@ public class Interaction : MonoBehaviour
                 // 아무것도 안 보고 있으면 초기화
                 curInteractGameObject = null;
                 curInteractable = null;
+                OnEndDetectRay?.Invoke();
                 if (promptText != null) promptText.gameObject.SetActive(false);
             }
         }

@@ -1,12 +1,13 @@
+using Constants;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using Constants;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(NPCStateMachine))]
 [RequireComponent(typeof(EntityModel))]
-public class NPC : MonoBehaviour, IInteractable
+public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
 {
     [Header("Interact")]
     [SerializeField] private bool interactEnabled = true;
@@ -18,9 +19,6 @@ public class NPC : MonoBehaviour, IInteractable
     [Header("Stats")]
 //    [SerializeField] private float moveSpeed;
     [SerializeField] private float lookSpeed;
-    [SerializeField] private SoundData hitSFX;
-    [SerializeField] private SoundData dieSFX;
-
 
     [Header("AI Settings")]
     [SerializeField] private float detectDistance;
@@ -76,7 +74,6 @@ public class NPC : MonoBehaviour, IInteractable
     public float LimitMoveRange => limitMoveRange;
 
     public bool IsDead => entityModel.health.CurValue <= 0;
-    private float previousHealth;
 
     public AnimationHandler AnimationHandler => animationHandler;
 
@@ -98,23 +95,73 @@ public class NPC : MonoBehaviour, IInteractable
     {
         if (IsDead)
         {
-            if (previousHealth == entityModel.health.CurValue) return;
+            if (entityModel.isDie) return;
 
+            entityModel.isDie = true;   
             // NPC가 죽었을 때의 로직
             Debug.Log($"{npcName}이(가) 죽었습니다.");
             StopMoving();
-            AudioManager.Instance.PlaySFX(dieSFX, transform.position);
             AnimationHandler?.PlayDie();
+            Die();
         }
         else
         {
             // NPC가 데미지를 받았을 때의 로직
-            // (현재 데미지 받았을 때의 이벤트가 따로 없으므로 일단 OnChanged에서 처리함, 나중에 수정필요)\
-            AudioManager.Instance.PlaySFX(hitSFX, transform.position);
+            // (현재 데미지 받았을 때의 이벤트가 따로 없으므로 일단 OnChanged에서 처리함, 나중에 수정필요)
             AnimationHandler?.PlayHit();
         }
+    }
 
-        previousHealth = entityModel.health.CurValue;
+    public void Die()
+    {
+        StartCoroutine(FadeOutAndDestroy());
+        WeatherCycle.Instance.RemoveObserver(entityModel);
+    }
+
+    private IEnumerator FadeOutAndDestroy()
+    {
+        yield return new WaitForSeconds(5f);
+
+        float duration = 2f;
+        float elapsed = 0f;
+
+        List<Material> materials = new List<Material>();
+        foreach (var renderer in GetComponentsInChildren<Renderer>())
+        {
+            foreach (var mat in renderer.materials)
+            {
+                mat.SetFloat("_Mode", 2); 
+                mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                mat.SetInt("_ZWrite", 0);
+                mat.DisableKeyword("_ALPHATEST_ON");
+                mat.EnableKeyword("_ALPHABLEND_ON");
+                mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                mat.renderQueue = 3000;
+
+                materials.Add(mat);
+            }
+        }
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsed / duration);
+
+            foreach (var mat in materials)
+            {
+                if (mat.HasProperty("_Color"))
+                {
+                    Color color = mat.color;
+                    color.a = alpha;
+                    mat.color = color;
+                }
+            }
+
+            yield return null;
+        }
+
+        Destroy(gameObject); //테스트
     }
 
     private void MoveSpeed_OnChanged()
@@ -238,4 +285,6 @@ public class NPC : MonoBehaviour, IInteractable
             Gizmos.DrawWireSphere(homePoint.position, limitMoveRange);
         }
     }
+
+
 }

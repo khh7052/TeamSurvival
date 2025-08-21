@@ -102,12 +102,12 @@ public class PlayerInventory : MonoBehaviour
 
     public void ThrowItem(ItemData data)
     {
-        if (data?.dropPrefab == null || GameManager.player.dropPosition == null) return;
-        Instantiate(
-            data.dropPrefab,
-            GameManager.player.dropPosition.position,
-            Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360f)
-        );
+        if (data?.ID == null || GameManager.player.dropPosition == null) return;
+        AssetDataLoader.Instance.InstantiateByID(data.ID, (go) =>
+        {
+            go.transform.position = GameManager.player.dropPosition.position;
+            go.transform.rotation = Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360f);
+        });
     }
 
     public void ThrowItemInInventory(int index)
@@ -193,9 +193,9 @@ public class PlayerInventory : MonoBehaviour
         return true;
     }
 
-    public void ItemCreate(CompositionRecipeData data)
+    public async void ItemCreate(CompositionRecipeData data)
     {
-        var itemData = Factory.Instance.GetDataByID<ItemData>(data.ID);
+        var itemData = await AssetDataLoader.Instance.GetDataByID<ItemData>(data.ID);
         GameManager.player.itemData = itemData;
 
         for (int i = 0; i < data.recipe.Count; i++)
@@ -211,35 +211,36 @@ public class PlayerInventory : MonoBehaviour
         OnChangeData?.Invoke();
     }
 
-    public void RemoveItem(int[] itemIds,  int[] counts)
+    public void RemoveItem(int[] itemIds, int[] counts)
     {
-        // 두개 길이 안맞으면 진행 못함
         if (itemIds.Length != counts.Length) return;
 
-        for(int i = 0; i < itemIds.Length; i++)
+        for (int i = 0; i < itemIds.Length; i++)
         {
+            int remaining = counts[i]; // 남은 삭제 수량
+
             ItemCacheInInventory(itemIds[i], -counts[i]);
-            if (counts[i] > 0)
+
+            if (remaining > 0)
             {
                 for (int j = 0; j < slots.Count; j++)
                 {
-                    if (slots[j].item != null && slots[j].item.ID == itemIds[i])
+                    var slot = slots[j];
+                    if (slot.item != null && slot.item.ID == itemIds[i])
                     {
-                        slots[j].Quantity -= counts[i];
-                        if (slots[j].Quantity <= 0)
-                        {
-                            slots[j].item = null;
-                            // 음수면 모자른 만큼 count 복원
-                            counts[i] = -slots[j].Quantity;
-                            slots[j].Quantity = 0;
-                        }
-                    }
+                        int removeAmount = Math.Min(slot.Quantity, remaining);
+                        slot.Quantity -= removeAmount;
+                        remaining -= removeAmount;
 
-                    if (counts[i] <= 0) break;
+                        if (slot.Quantity <= 0)
+                            slot.item = null;
+
+                        if (remaining <= 0) break; // 다 삭제했으면 종료
+                    }
                 }
             }
-
         }
+
         OnChangeData?.Invoke();
     }
 }

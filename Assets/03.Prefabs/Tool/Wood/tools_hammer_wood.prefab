@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2310552314053327499}
   - component: {fileID: 1320107856665442342}
-  m_Layer: 0
+  - component: {fileID: 2656535254466930279}
+  - component: {fileID: 2502269991129011602}
+  m_Layer: 11
   m_Name: tools_hammer_wood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +47,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f9a271c46724542beae00d9be934e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 4a4703d784bdf36439616e1d6835951a, type: 2}
+--- !u!54 &2656535254466930279
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3199682286253641288}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &2502269991129011602
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3199682286253641288}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.2, y: 0.2, z: 0.5}
+  m_Center: {x: 0, y: 0, z: -0.13}
 --- !u!1 &7646510598184742821
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +107,7 @@ GameObject:
   - component: {fileID: 7918002943343789100}
   - component: {fileID: 4971756287222663101}
   - component: {fileID: 1083585883797548599}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: hammer_ouch
   m_TagString: Untagged
   m_Icon: {fileID: 0}

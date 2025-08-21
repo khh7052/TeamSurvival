@@ -8,6 +8,9 @@ public class PlayerView : MonoBehaviour
 {
     public async void Initialize()
     {
-        await UIManager.Instance.ShowUI<InGameUI>();
+        var obj = await UIManager.Instance.ShowUI<InGameUI>();
+        InGameUI ui = obj as InGameUI;
+        GameManager.player.interaction.OnDetectRay += obj.SetPromptText;
+        GameManager.player.interaction.OnEndDetectRay += obj.EndPromptText;
     }
 }

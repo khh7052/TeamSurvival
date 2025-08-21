@@ -184,9 +184,11 @@ MonoBehaviour:
     maxValue: 0
     passiveValue: 0
   isApplyByWeather: 0
+  warningTemp: 34
+  dangerTemp: 32
   rayLength: 5
   moveSpeed:
-    baseValue: 5
+    baseValue: 0
     additionalValue: 0
     multipleValue: 1
     constValue: 0
@@ -195,6 +197,9 @@ MonoBehaviour:
     additionalValue: 0
     multipleValue: 1
     constValue: 0
+  starvationDps: 0.25
+  dehydrationDps: 0.25
+  mesh: {fileID: 4209703160644332426}
 --- !u!114 &4594068989153598977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +220,7 @@ MonoBehaviour:
   detectDistance: 8
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 8055
+    m_Bits: 0
   updateInterval: 0.2
   playerObject: {fileID: 0}
   minFleeDistance: 0
