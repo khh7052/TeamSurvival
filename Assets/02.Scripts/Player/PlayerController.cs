@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnHit()
     {
-//        AudioManager.Instance.PlaySFX(hitSFX, transform.position);
+        AudioManager.Instance.PlaySFX(hitSFX, transform.position);
     }
 
     private void Move() //이동로직
