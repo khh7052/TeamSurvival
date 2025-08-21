@@ -1,39 +1,61 @@
 using Constants;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.AddressableAssets;
+using UnityEditor;
+using System.Threading.Tasks;
 
-public class AudioManager : Singleton<AudioManager>
+public class AudioManager : Singleton<AudioManager>, IInitializableAsync
 {
     private AudioMixer audioMixer;
     private AudioSource bgmSource;
     private GameObject audioPlayerObject;
 
+    public bool IsInitialized { get; private set; }
+
+    public async void InitializeAsync()
+    {
+        var mixerHandle = Addressables.LoadAssetsAsync<AudioMixer>("AudioMixer", obj =>
+        {                   
+            audioMixer = obj;
+            Debug.Log($"AudioMixer loaded: {audioMixer.name}");
+        });
+
+        var audioPlayerHandle = Addressables.LoadAssetsAsync<GameObject>("AudioPlayer", obj =>
+        {
+            audioPlayerObject = obj;
+            Debug.Log($"AudioPlayerObject loaded: {audioPlayerObject.name}");
+        });
+
+        await mixerHandle.Task;
+        await audioPlayerHandle.Task;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        CreateAudioSource(SoundType.BGM, ref bgmSource);
+        OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+
+        IsInitialized = true;
+    }
+
+
     protected override void Initialize()
     {
         base.Initialize();
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
-        audioMixer = Resources.Load<AudioMixer>("Audio/AudioMixer");
-        audioPlayerObject = Resources.Load<GameObject>("Audio/AudioPlayer");
-
-        if (audioMixer == null)
-        {
-            Debug.LogError("AudioMixer not found in Resources folder.");
-            return;
-        }
-
-        CreateAudioSource(SoundType.BGM, ref bgmSource);
+        InitializeAsync();
     }
 
     // 씬이 로드될 때 BGM을 자동으로 재생
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private async void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        SoundData bgmData = Resources.Load<SoundData>(AudioConstants.BGMPath + scene.name);
+        SoundData bgmData = await LoadSoundData(scene.name);
         PlayBGM(bgmData);
     }
+
+
+    public static Task<SoundData> LoadSoundData(string name)
+        => Addressables.LoadAssetAsync<SoundData>(name).Task;
 
     private void CreateAudioSource(SoundType soundType, ref AudioSource audioSource)
     {
@@ -82,6 +104,20 @@ public class AudioManager : Singleton<AudioManager>
         volume = Mathf.Clamp(volume, AudioConstants.MinVolume, AudioConstants.MaxVolume); // 볼륨 범위 제한
         string parameterName = AudioConstants.GetExposedVolumeName(volumeType);
         audioMixer.SetFloat(parameterName, Mathf.Log10(volume) * 20); // dB로 변환
+    }
+
+    public float GetVolume(VolumeType volumeType)
+    {
+        string parameterName = AudioConstants.GetExposedVolumeName(volumeType);
+        if (audioMixer.GetFloat(parameterName, out float value))
+            return Mathf.Pow(10, value / 20); // dB에서 볼륨으로 변환
+
+        return volumeType switch {
+            VolumeType.Master => AudioConstants.MasterVolume,
+            VolumeType.BGM => AudioConstants.BGMVolume,
+            VolumeType.SFX => AudioConstants.SFXVolume,
+            _ => 1f, // 기본값
+        };
     }
 
     public void ResetVolume()
