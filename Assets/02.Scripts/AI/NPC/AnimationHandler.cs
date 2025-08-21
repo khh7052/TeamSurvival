@@ -3,6 +3,7 @@ using Constants;
 
 public class AnimationHandler : MonoBehaviour
 {
+    [SerializeField] private SoundData jumpSFX;
     private Animator animator;
 
     private void Awake()
@@ -34,5 +35,10 @@ public class AnimationHandler : MonoBehaviour
     {
         Vector3 offset = new Vector3(0f, 0.1f, 0f); // 약간의 높이 조정
         FootstepManager.Instance.PlayFootstep(transform.position + offset);
+    }
+
+    public void OnJumpStart()
+    {
+        AudioManager.Instance.PlaySFX(jumpSFX, transform.position);
     }
 }
