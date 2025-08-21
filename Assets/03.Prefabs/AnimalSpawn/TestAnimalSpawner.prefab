@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 2800032110386603320}
   - component: {fileID: 1052104115495916528}
   m_Layer: 0
-  m_Name: TestAnimalSpawn 1
+  m_Name: TestAnimalSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,5 +147,5 @@ MonoBehaviour:
   respawnMinDelay: 20
   respawnMaxDelay: 40
   animalPrefabs:
-  - {fileID: 5325562669103464093, guid: 029501a65990b5946a990a5616ba51f2, type: 3}
+  - {fileID: 1687845419527105011, guid: 14e16022ff98cab44ac1e6173096bce9, type: 3}
   maxAnimalCount: 10

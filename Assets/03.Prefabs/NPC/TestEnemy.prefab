@@ -465,6 +465,7 @@ MonoBehaviour:
   attackDelay: 2
   attackDamage: 1
   useGizmo: 1
+  yieldItem: {fileID: 11400000, guid: cab0540b41318ba499e16e2918039106, type: 2}
   nearestEnemyObject: {fileID: 0}
 --- !u!114 &2260514193931000130
 MonoBehaviour:
@@ -521,6 +522,7 @@ MonoBehaviour:
   starvationDps: 0.25
   dehydrationDps: 0.25
   mesh: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!65 &3644704582592984884
 BoxCollider:
   m_ObjectHideFlags: 0

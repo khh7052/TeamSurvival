@@ -1,6 +1,7 @@
 using Constants;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -34,6 +35,8 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
     [Header("Return")]
     [SerializeField] private Transform homePoint;
     [SerializeField] private float limitMoveRange = 10f;
+
+    private GameObject homePointObj;
 
     [Header("Patrol")]
     [SerializeField] private bool patrolEnabled = true;
@@ -311,5 +314,22 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
             go.transform.SetLocalPositionAndRotation(pos, transform.rotation);
             Debug.Log($"[DropLoot] Dropped item: {go.name} at {pos}");
         });
+    }
+
+    public void SetHome(Vector3 spawnPos)
+    {
+        homePointObj = new GameObject("HomePoint" + name);  
+        homePoint = homePointObj.transform;
+        homePoint.transform.position = spawnPos;
+    }
+
+    private void OnDisable()
+    {
+        if(homePointObj != null)
+        {
+            Destroy(homePointObj);
+            homePointObj = null;
+            homePoint = null;
+        }
     }
 }
