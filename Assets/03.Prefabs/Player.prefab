@@ -4453,6 +4453,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ca327124-347c-45db-b1bc-689a8072e046
     m_ActionName: Player/Craft[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 777261130677496077}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnBuildButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 47106a98-962c-4f22-879d-77084ef0aa23
+    m_ActionName: Player/BuildMode[/Keyboard/b]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 777261130677496077}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnBuildTryButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 68db926c-318b-41d9-85e7-6db83210e552
+    m_ActionName: Player/TryBuild[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -4494,12 +4526,12 @@ MonoBehaviour:
     curValue: 0
     startValue: 100
     maxValue: 100
-    passiveValue: 5
+    passiveValue: 2
   hunger:
     curValue: 0
     startValue: 100
     maxValue: 100
-    passiveValue: 3
+    passiveValue: 1
   thirst:
     curValue: 0
     startValue: 100
@@ -4529,6 +4561,8 @@ MonoBehaviour:
     additionalValue: 0
     multipleValue: 1
     constValue: 0
+  starvationDps: 0.25
+  dehydrationDps: 0.25
 --- !u!114 &777261130677496077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4551,6 +4585,7 @@ MonoBehaviour:
   lookSensitivity: 0.5
   canLook: 1
   jumpStaminaCost: 10
+  buildMode: {fileID: 0}
 --- !u!114 &3850867666251352558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4648,6 +4683,7 @@ MonoBehaviour:
   invisibleLayer:
   - {fileID: 3557723576270362355}
   - {fileID: 8038968992211998914}
+  buildRecipe: {fileID: 11400000, guid: a82778da6cb075f47a3877cdac9d4792, type: 2}
 --- !u!114 &5900856902477478118
 MonoBehaviour:
   m_ObjectHideFlags: 0

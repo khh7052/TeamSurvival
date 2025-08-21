@@ -27,6 +27,9 @@ public class BuildingMode : MonoBehaviour
 
     // 안보이는 가상 건축 레이어 오브젝트 전방, 상단
     public GameObject[] invisibleLayer = new GameObject[2];
+    [SerializeField]
+    private CompositionRecipeData buildRecipe;
+    PlayerInventory playerInventory;
 
     private async void Start()
     {
@@ -39,12 +42,13 @@ public class BuildingMode : MonoBehaviour
         // Preview 오브젝트 초기화
         for(int i = 0; i < preViewObjs.Length; i++)
         {
-            var data = BuildingManager.Instance.GetBuildingObjectData<BaseScriptableObject>(BuildObjectConst.PrevObjectIds[i]);
-
-            preViewObjs[i] = await Factory.Instance.CreateByAssetReferenceAsync(data, (go) =>
+            var data = AssetDataLoader.Instance.GetPrefabAddressByID(BuildObjectConst.PrevObjectIds[i]);
+            int index = i;
+            AssetDataLoader.Instance.InstantiateByAssetReference(data, (go) =>
             {
                 go.SetActive(false);
                 go.GetComponentInChildren<MeshRenderer>().material.color = new Color(0, 0, 1, 0.6f);
+                preViewObjs[index] = go;
             });
         }
 
@@ -53,17 +57,12 @@ public class BuildingMode : MonoBehaviour
         invisibleLayer[0].transform.localScale = new Vector3(rayDistance * 2f, rayDistance * 2f, 0.01f);
         invisibleLayer[1].transform.localPosition = new Vector3(0, rayDistance - 0.1f, 0);
         invisibleLayer[1].transform.localScale = new Vector3(rayDistance * 2f, rayDistance * 2f, 0.01f);
+
+        playerInventory = GetComponent<PlayerInventory>();
     }
 
     public void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            DestroyPrevObj();
-            isBuild = !isBuild;
-        }
-
         if (isBuild)
         {
             // 키 입력으로 건축 모듈 선택
@@ -104,17 +103,18 @@ public class BuildingMode : MonoBehaviour
 
                 }
             }
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                if (CanBuildAt(buildKey.Position, buildKey.rot, buildMode))
-                {
-                    CreateBuildObj(hit, buildMode);
-                }
-                else
-                {
-                    Debug.Log("건설 불가 위치!");
-                }
-            }
+        }
+    }
+
+    public void TryBuild()
+    {
+        if (CanBuildAt(buildKey.Position, buildKey.rot, buildMode))
+        {
+            CreateBuildObj(hit, buildMode);
+        }
+        else
+        {
+            Debug.Log("건설 불가 위치!");
         }
     }
 
@@ -134,7 +134,7 @@ public class BuildingMode : MonoBehaviour
         return Physics.Raycast(origin, dir, out hit, distance, buildMask, QueryTriggerInteraction.Collide);
     }
 
-    private void DestroyPrevObj()
+    public void DestroyPrevObj()
     {
         if (preViewObj != null)
         {
@@ -158,20 +158,23 @@ public class BuildingMode : MonoBehaviour
         preViewObj = go;
     }
 
-    public async void CreateBuildObj(RaycastHit hit, BuildMode mode)
+    public void CreateBuildObj(RaycastHit hit, BuildMode mode)
     {
-        var buildObjData = BuildingManager.Instance.GetBuildingObjectData<BaseScriptableObject>((int)mode);
+        var buildObjData = AssetDataLoader.Instance.GetPrefabAddressByID((int)mode);
+        
+        var data = buildRecipe.GetRecipeData();
+        playerInventory.RemoveItem(data.Item1, data.Item2);
 
-        GameObject go = await Factory.Instance.CreateByAssetReferenceAsync<BaseScriptableObject>(buildObjData, (go) =>
+        AssetDataLoader.Instance.InstantiateByAssetReference(buildObjData, (go) =>
         {
-            var obj = go.AddComponent<BuildObj>();
+            var obj = go.GetComponent<BuildObj>();
             obj.key = buildKey;
             obj.Initialize();
             obj.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
+            go.transform.SetPositionAndRotation(buildKey.Position, buildKey.rot);
         });
 
-        go.transform.SetPositionAndRotation(buildKey.Position, buildKey.rot);
-
+        
         BuildingManager.Instance.RegisterBuild(buildKey);
     }
     private bool CanBuildAt(Vector3 pos, Quaternion rot, BuildMode mode)
@@ -179,6 +182,14 @@ public class BuildingMode : MonoBehaviour
         Vector3 halfExtents = Vector3.one * 0.5f; // 건물 크기에 맞게 조정 필요
         Collider[] hits = Physics.OverlapBox(pos, halfExtents, rot, buildableLayer);
 
-        return hits.Length > 0;
+        return hits.Length > 0 && IsSourceExists();
+    }
+
+
+    private bool IsSourceExists()
+    {
+        if (buildRecipe == null) return true;
+        var recipe = buildRecipe.GetRecipeData();
+        return playerInventory.IsHasItem(recipe.Item1, recipe.Item2);
     }
 }

@@ -138,7 +138,7 @@ public class ResourceNode : MonoBehaviour, IHarvestable
         }
     }
 
-    private async void SpawnDrops()
+    private void SpawnDrops()
     {
         if (yieldItem == null) return;
         
@@ -149,9 +149,9 @@ public class ResourceNode : MonoBehaviour, IHarvestable
         {
             Vector3 pos = transform.position + Random.insideUnitSphere * 0.3f;
             if (pos.y < transform.position.y) pos.y = transform.position.y + 0.2f;
-//            Instantiate(prefab, pos, Quaternion.identity);
+            //            Instantiate(prefab, pos, Quaternion.identity);
 
-            await Factory.Instance.CreateByIDAsync<ItemData>(yieldItem.ID, (go) =>
+            AssetDataLoader.Instance.InstantiateByID(yieldItem.ID, (go) =>
             {
                 go.transform.SetLocalPositionAndRotation(pos, transform.rotation);
             });

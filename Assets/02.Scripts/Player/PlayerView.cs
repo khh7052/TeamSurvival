@@ -6,8 +6,11 @@ using UnityEngine.UI;
 
 public class PlayerView : MonoBehaviour
 {
-    public void Initialize()
+    public async void Initialize()
     {
-        UIManager.Instance.ShowUI<InGameUI>();
+        var obj = await UIManager.Instance.ShowUI<InGameUI>();
+        InGameUI ui = obj as InGameUI;
+        GameManager.player.interaction.OnDetectRay += obj.SetPromptText;
+        GameManager.player.interaction.OnEndDetectRay += obj.EndPromptText;
     }
 }

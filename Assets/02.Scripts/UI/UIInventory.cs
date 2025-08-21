@@ -64,6 +64,7 @@ public class UIInventory : BaseUI
         inventory.OnChangeData += UpdateUI;
         Debug.Log("Enable");
         UpdateUI();
+        ClearSelectedItemWindow();
     }
 
     protected override void OnDisable()

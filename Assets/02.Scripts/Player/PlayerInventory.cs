@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -26,20 +27,23 @@ public class PlayerInventory : MonoBehaviour
     {
         if (itemQuantityCache.ContainsKey(id))
         {
-            // 있으면 증가
+            // 있으면 증감
             itemQuantityCache[id] += Quantity;
+            // 0 이하일 경우 삭제
+            if (itemQuantityCache[id] <= 0)
+            {
+                itemQuantityCache.Remove(id);
+            }
         }
         else
         {
             // 없으면 해당 값 부여
-            itemQuantityCache[id] = Quantity;
+            if(Quantity > 0)
+            {
+                itemQuantityCache[id] = Quantity;
+            }
         }
 
-        // 0 이하일 경우 삭제
-        if (itemQuantityCache[id] <= 0)
-        {
-            itemQuantityCache.Remove(id);
-        }
     }
 
     // 아이템 추가
@@ -98,12 +102,12 @@ public class PlayerInventory : MonoBehaviour
 
     public void ThrowItem(ItemData data)
     {
-        if (data?.dropPrefab == null || GameManager.player.dropPosition == null) return;
-        Instantiate(
-            data.dropPrefab,
-            GameManager.player.dropPosition.position,
-            Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360f)
-        );
+        if (data?.ID == null || GameManager.player.dropPosition == null) return;
+        AssetDataLoader.Instance.InstantiateByID(data.ID, (go) =>
+        {
+            go.transform.position = GameManager.player.dropPosition.position;
+            go.transform.rotation = Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360f);
+        });
     }
 
     public void ThrowItemInInventory(int index)
@@ -133,6 +137,8 @@ public class PlayerInventory : MonoBehaviour
     {
         if(slots[index].item == null) return;
         slots[index].Quantity--;
+
+        ItemCacheInInventory(slots[index].item.ID, -1);
 
         if (slots[index].Quantity <= 0)
         {
@@ -187,9 +193,9 @@ public class PlayerInventory : MonoBehaviour
         return true;
     }
 
-    public void ItemCreate(CompositionRecipeData data)
+    public async void ItemCreate(CompositionRecipeData data)
     {
-        var itemData = Factory.Instance.GetDataByID<ItemData>(data.ID);
+        var itemData = await AssetDataLoader.Instance.GetDataByID<ItemData>(data.ID);
         GameManager.player.itemData = itemData;
 
         for (int i = 0; i < data.recipe.Count; i++)
@@ -202,6 +208,39 @@ public class PlayerInventory : MonoBehaviour
         }
 
         Add();
+        OnChangeData?.Invoke();
+    }
+
+    public void RemoveItem(int[] itemIds, int[] counts)
+    {
+        if (itemIds.Length != counts.Length) return;
+
+        for (int i = 0; i < itemIds.Length; i++)
+        {
+            int remaining = counts[i]; // 남은 삭제 수량
+
+            ItemCacheInInventory(itemIds[i], -counts[i]);
+
+            if (remaining > 0)
+            {
+                for (int j = 0; j < slots.Count; j++)
+                {
+                    var slot = slots[j];
+                    if (slot.item != null && slot.item.ID == itemIds[i])
+                    {
+                        int removeAmount = Math.Min(slot.Quantity, remaining);
+                        slot.Quantity -= removeAmount;
+                        remaining -= removeAmount;
+
+                        if (slot.Quantity <= 0)
+                            slot.item = null;
+
+                        if (remaining <= 0) break; // 다 삭제했으면 종료
+                    }
+                }
+            }
+        }
+
         OnChangeData?.Invoke();
     }
 }

@@ -3,27 +3,30 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class BuildObj : MonoBehaviour
+public class BuildObj : MonoBehaviour, IDamageable
 {
-    public EntityModel model;
+    public Condition Health = new();
     public AnimationHandler animationHandler;
 
     [SerializeField]
     public BuildKey key;
 
-    public bool IsDead => model.health.CurValue <= 0;
+    public bool IsDead => Health.CurValue <= 0;
 
 
     public void Initialize()
     {
-        model = GetComponent<EntityModel>();
         animationHandler = GetComponent<AnimationHandler>();
-        model.health.OnChanged -= Health_OnChanged;
+        Health.OnChanged -= Health_OnChanged;
+        Health.Init();
 
-        model.health.Init();
+        Health.OnChanged += Health_OnChanged;
 
-        model.health.OnChanged += Health_OnChanged;
+    }
 
+    public void TakePhysicalDamage(int damage)
+    {
+        Health.Subtract(damage);
     }
 
     private void Health_OnChanged()

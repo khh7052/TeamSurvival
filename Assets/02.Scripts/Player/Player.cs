@@ -15,6 +15,7 @@ public class Player : MonoBehaviour, IDeathBehavior
     public Action addItem { get; set; }
     public PlayerInventory inventory;
     public AnimationHandler animationHandler;
+    public Interaction interaction;
 
     public Transform dropPosition;
 
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour, IDeathBehavior
         condition = GetComponent<PlayerCondition>();
         inventory = GetComponent<PlayerInventory>();
         animationHandler = GetComponent<AnimationHandler>();
+        interaction = GetComponent<Interaction>();
 
         GameManager.player = this;
     }

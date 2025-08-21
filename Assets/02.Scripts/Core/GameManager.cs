@@ -17,13 +17,19 @@ public class GameManager : Singleton<GameManager>, IInitializableAsync
     public async void InitializeAsync()
     {
         await WaitForManagersToInitialize(
-            Factory.Instance,
-            BuildingManager.Instance,
-            GatheringManager.Instance
+            UIManager.Instance
         );
         IsInitialized = true;
         Debug.Log("[GameManager] 모든 매니저 초기화 완료");
         GameStart();
+    }
+
+    public async Task WaitInitializedAsync()
+    {
+        while (!IsInitialized)
+        {
+            await Task.Yield();
+        }
     }
 
     private async Task WaitForManagersToInitialize(params IInitializableAsync[] managers)

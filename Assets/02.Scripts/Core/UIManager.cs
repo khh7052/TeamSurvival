@@ -2,14 +2,59 @@ using Constants;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
-public class UIManager : Singleton<UIManager>
+public class UIManager : Singleton<UIManager>, IInitializableAsync
 {
     Dictionary<string, BaseUI> uiInstances = new();
     private Transform mainCanvas;
     private Dictionary<string, Transform> canvasDictionary = new();
     private Dictionary<string, bool> uiEnableDict = new();
+
+    private Dictionary<string, GameObject> uiInstanceCacheDict = new();
+
+    public bool IsInitialized { get; private set; }
+
+    protected override void Initialize()
+    {
+        base.Initialize();
+        InitializeAsync();
+    }
+    public async void InitializeAsync()
+    {
+        var handles = Addressables.LoadAssetsAsync<GameObject>("UIInstance", obj =>
+        {
+            var ui = obj.GetComponent<BaseUI>();
+            if(ui != null)
+            {
+                var uiClassName = ui.GetType().Name;
+                uiInstanceCacheDict[uiClassName] = obj;
+                Debug.Log(uiClassName);
+            }
+        });
+
+        var canvasHandle = Addressables.LoadAssetsAsync<GameObject>("Canvas", obj =>
+        {
+            var canvas = obj.GetComponent<Canvas>();
+            if (canvas != null)
+            {
+                uiInstanceCacheDict["Canvas"] = obj;
+            }
+        });
+
+        await handles.Task;
+        await canvasHandle.Task;
+
+        foreach(var obj in uiInstanceCacheDict)
+        {
+            Debug.Log($"{obj.Key} : {obj.Value}");
+        }
+
+        IsInitialized = true;
+    }
 
     private T CreateUI<T>(Transform parent = null) where T : BaseUI
     {
@@ -33,10 +78,13 @@ public class UIManager : Singleton<UIManager>
             if (UIPrefabPath.paths.ContainsKey(className))
             {
                 Debug.Log(UIPrefabPath.paths[className]);
-                GameObject go = Instantiate(Resources.Load<GameObject>(UIPrefabPath.paths[className]), parent);
-                T t = go.GetComponent<T>();
-                AddUI<T>(t);
-                return t;
+                if (uiInstanceCacheDict.ContainsKey(className))
+                {
+                    GameObject go = Instantiate(uiInstanceCacheDict[className], parent); 
+                    T t = go.GetComponent<T>();
+                    AddUI<T>(t);
+                    return t;
+                }
             }
         }
         catch(Exception e)
@@ -46,8 +94,9 @@ public class UIManager : Singleton<UIManager>
         return default;
     } 
 
-    public T ShowUI<T>(bool isDrawMainCanvas = false) where T : BaseUI
+    public async Task<T> ShowUI<T>(bool isDrawMainCanvas = false) where T : BaseUI
     {
+        await GameManager.Instance.WaitInitializedAsync();
         string className = typeof(T).Name;
 
         // T UI is Already created, Show UI and return
@@ -150,9 +199,12 @@ public class UIManager : Singleton<UIManager>
 
     public Transform CreateCanvasTransform(string name, bool isMainCanvas = false)
     {
+        Debug.Log("캔버스 만들기 시도");
         if (canvasDictionary.ContainsKey(name)) return canvasDictionary[name];
+        Debug.Log($"{name} 캔버스 없음. 만들거임");
 
-        Transform go = Instantiate(Resources.Load<GameObject>(UIPrefabPath.GetPrefabPath(typeof(Canvas).Name))).transform;
+        Transform go = Instantiate(uiInstanceCacheDict["Canvas"]).transform;
+        Debug.Log($"{go.name} 만들었음!");
         go.name = name;
         canvasDictionary[name] = go;
         if (isMainCanvas)
@@ -161,4 +213,5 @@ public class UIManager : Singleton<UIManager>
         }
         return go;
     }
+
 }

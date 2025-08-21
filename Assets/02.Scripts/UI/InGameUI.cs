@@ -28,6 +28,12 @@ public class InGameUI : BaseUI
     [Header("Temperture")]
     [SerializeField] private TMP_Text tempertureText;
 
+    [Header("Building UI")]
+    [SerializeField] private BuildSlotUI[] buildSlotUI;
+
+    [SerializeField]
+    private TMP_Text promptText;
+
     EntityModel model;
 
     protected override async void OnEnable()
@@ -103,5 +109,18 @@ public class InGameUI : BaseUI
         }
 
         image.fillAmount = (max > 0f) ? Mathf.Clamp01(cur / max) : 0f;
+    }
+
+    public void SetPromptText(IInteractable target)
+    {
+        if (promptText == null || target == null) return;
+
+        promptText.text = target.GetPrompt(); // 아이템이 제공하는 이름/설명 표시
+        promptText.gameObject.SetActive(true);
+    }
+
+    public void EndPromptText()
+    {
+        promptText.gameObject.SetActive(false);
     }
 }

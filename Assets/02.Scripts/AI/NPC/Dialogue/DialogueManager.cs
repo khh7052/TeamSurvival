@@ -16,11 +16,11 @@ public class DialogueManager : Singleton<DialogueManager>
 
     public bool IsDialogueActive => currentDialogue != null;
 
-    protected override void Initialize()
+    protected override async void Initialize()
     {
         base.Initialize();
 
-        var dialogue = UIManager.Instance.ShowUI<DialogueUI>();
+        var dialogue = await UIManager.Instance.ShowUI<DialogueUI>();
         speakerText = dialogue.speakerText;
         dialogueText = dialogue.scriptText;
         UIManager.Instance.CloseUI<DialogueUI>();
@@ -52,7 +52,7 @@ public class DialogueManager : Singleton<DialogueManager>
         }
     }
 
-    public void StartDialogue(DialogueData dialogue, Action callback = null)
+    public async void StartDialogue(DialogueData dialogue, Action callback = null)
     {
         if (IsDialogueActive)
         {
@@ -60,7 +60,7 @@ public class DialogueManager : Singleton<DialogueManager>
             return;
         }
 
-        UIManager.Instance.ShowUI<DialogueUI>();
+        await UIManager.Instance.ShowUI<DialogueUI>();
         currentDialogue = dialogue;
         index = 0;
         ShowLine();

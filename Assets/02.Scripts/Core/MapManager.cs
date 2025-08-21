@@ -166,7 +166,7 @@ public class MapManager : Singleton<MapManager>
                     if (hit.collider.gameObject == groundMesh.gameObject)
                     {
                         // 랜덤한 오브젝트 선택
-                        var randData = GatheringManager.Instance.GetRandomObjectData<BaseScriptableObject>();
+                        var randData = AssetDataLoader.Instance.GetRandomAddress(DataType.Gathering);
 
                         // 생성 위치가 충돌 지점이라 아래로 넣어 울퉁붕퉁한 면 위에서 떠있는 느낌을 줄이기 위함
                         Vector3 spawnPos = hit.point + Vector3.down * spawnHeightOffset;
@@ -190,7 +190,7 @@ public class MapManager : Singleton<MapManager>
                         spawnPositions.Add(spawnPos);
 
                         // 생성 후 콜백으로 소환 위치에서 제거
-                        GameObject go = await Factory.Instance.CreateByAssetReferenceAsync(randData, (go) =>
+                        AssetDataLoader.Instance.InstantiateByAssetReference(randData, (go) =>
                         {
                             go.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
                         });

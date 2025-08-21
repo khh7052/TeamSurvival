@@ -10,8 +10,8 @@ public class ObjectPoolingManager : Singleton<ObjectPoolingManager>
     private Dictionary<GameObject, GameObject> instanceToPrefab = new();
     private bool _quitting;
 
-    private Dictionary<AssetReference, Queue<GameObject>> poolAssetRefDict = new();
-    private Dictionary<GameObject, AssetReference> instanceToAssetRef = new();
+    private Dictionary<string, Queue<GameObject>> poolAssetRefDict = new();
+    private Dictionary<GameObject, string> instanceToAssetRef = new();
 
     public bool IsInitialized { get; private set; }
 
@@ -63,29 +63,29 @@ public class ObjectPoolingManager : Singleton<ObjectPoolingManager>
 
     public GameObject Get(GameObject prefab, Vector3 position) => Get(prefab, position, Quaternion.identity);
 
-    public async Task<GameObject> GetAsync(AssetReference assetRef, Vector3 position, Quaternion rot)
+    public async Task<GameObject> GetAsync(string address, Vector3 position, Quaternion rot)
     {
-        if (assetRef == null) return null;
-        if (!poolAssetRefDict.ContainsKey(assetRef))
+        if (address == null) return null;
+        if (!poolAssetRefDict.ContainsKey(address))
         {
-            poolAssetRefDict[assetRef] = new();
+            poolAssetRefDict[address] = new();
         }
 
         GameObject instanceObject = null;
 
-        while (poolAssetRefDict[assetRef].Count > 0)
+        while (poolAssetRefDict[address].Count > 0)
         {
-            instanceObject = poolAssetRefDict[assetRef].Dequeue();
+            instanceObject = poolAssetRefDict[address].Dequeue();
             if (instanceObject) break;
         }
 
         if (instanceObject == null)
         {
-            var handle = Addressables.InstantiateAsync(assetRef, position, rot);
+            var handle = Addressables.InstantiateAsync(address, position, rot);
             instanceObject = await handle.Task;
 
             instanceObject.AddComponent<AutoReturnObject>();
-            instanceToAssetRef[instanceObject] = assetRef;
+            instanceToAssetRef[instanceObject] = address;
         }
 
         instanceObject.transform.SetPositionAndRotation(position, rot);
@@ -117,18 +117,18 @@ public class ObjectPoolingManager : Singleton<ObjectPoolingManager>
                 poolDictionary[prefab].Enqueue(instance);
             }
         }
-        else if(instanceToAssetRef.TryGetValue(instance, out AssetReference asset))
+        else if(instanceToAssetRef.TryGetValue(instance, out string adress))
         {
-            if (!poolAssetRefDict.ContainsKey(asset))
+            if (!poolAssetRefDict.ContainsKey(adress))
             {
-                poolAssetRefDict[asset] = new();
+                poolAssetRefDict[adress] = new();
             }
 
             // 중복 방지
-            if (!poolAssetRefDict[asset].Contains(instance))
+            if (!poolAssetRefDict[adress].Contains(instance))
             {
                 instance.SetActive(false);
-                poolAssetRefDict[asset].Enqueue(instance);
+                poolAssetRefDict[adress].Enqueue(instance);
             }
         }
         else
