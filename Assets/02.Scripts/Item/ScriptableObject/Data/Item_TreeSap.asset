@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90534c289604d904995d92823d142e91, type: 3}
-  m_Name: Item_Water
+  m_Name: Item_TreeSap
   m_EditorClassIdentifier: 
   ID: 22004
-  DisplayName: "\uBB3C"
+  DisplayName: "\uB098\uBB34\uC218\uC561"
   Description: "\uAC08\uC99D \uD68C\uBCF5"
   Icon: {fileID: 21300000, guid: 1f575caf8bf153845a9fd9b24fedebcf, type: 3}
   Prefab: {fileID: 0}
@@ -39,3 +39,4 @@ MonoBehaviour:
   weaponAttackDistance: 1
   toolGatherPower: 5
   toolDistance: 1
+  demolitionDamage: 10
