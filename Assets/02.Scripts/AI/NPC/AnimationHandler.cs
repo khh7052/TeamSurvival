@@ -3,7 +3,6 @@ using Constants;
 
 public class AnimationHandler : MonoBehaviour
 {
-    [SerializeField] private SoundData jumpSFX;
     private Animator animator;
 
     private void Awake()
@@ -39,6 +38,5 @@ public class AnimationHandler : MonoBehaviour
 
     public void OnJumpStart()
     {
-        AudioManager.Instance.PlaySFX(jumpSFX, transform.position);
     }
 }

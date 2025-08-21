@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayerMask;
     private EquipSystem equip;
 
+    [Header("Audio")]
+    [SerializeField] private SoundData jumpSFX;
+    [SerializeField] private SoundData hitSFX;
+
     [Header("Look")]
     public Transform cameraContainer;
     public float minXLook;
@@ -43,6 +47,7 @@ public class PlayerController : MonoBehaviour
         equip = GetComponent<EquipSystem>();
         anim = GetComponent<AnimationHandler>();
         model.OnDeathEvent += OnDeathEvent;
+        model.OnHitEvent += OnHit;
     }
 
     private void Start()
@@ -63,6 +68,11 @@ public class PlayerController : MonoBehaviour
         {
             CameraLook();
         }
+    }
+
+    private void OnHit()
+    {
+        AudioManager.Instance.PlaySFX(hitSFX, transform.position);
     }
 
     private void Move() //이동로직
@@ -86,6 +96,7 @@ public class PlayerController : MonoBehaviour
     private void Jump() //점프로직
     {
         rb.AddForce(Vector2.up * model.jumpPower.totalValue, ForceMode.Impulse);
+        AudioManager.Instance.PlaySFX(jumpSFX, transform.position);
         anim.PlayerJump();
     }
 

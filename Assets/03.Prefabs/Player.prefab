@@ -4665,6 +4665,7 @@ MonoBehaviour:
   starvationDps: 0.25
   dehydrationDps: 0.25
   mesh: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!114 &777261130677496077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4681,6 +4682,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 576
+  jumpSFX: {fileID: 11400000, guid: 1c99110102dab2848910c4a5c3072f7b, type: 2}
+  hitSFX: {fileID: 11400000, guid: d21e473d24c91a745aeaa66dfcd3b619, type: 2}
   cameraContainer: {fileID: 7808320851386004077}
   minXLook: -85
   maxXLook: 85
@@ -4688,6 +4691,7 @@ MonoBehaviour:
   canLook: 1
   jumpStaminaCost: 10
   buildMode: {fileID: 1683975416896729174}
+  condition: {fileID: 0}
 --- !u!114 &3850867666251352558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4887,7 +4891,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d2525766f81294399e9ecc6ab681ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSFX: {fileID: 11400000, guid: 1c99110102dab2848910c4a5c3072f7b, type: 2}
 --- !u!1 &6857895242329397200
 GameObject:
   m_ObjectHideFlags: 0
