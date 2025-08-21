@@ -4767,6 +4767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d2525766f81294399e9ecc6ab681ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpSFX: {fileID: 11400000, guid: 1c99110102dab2848910c4a5c3072f7b, type: 2}
 --- !u!1 &6857895242329397200
 GameObject:
   m_ObjectHideFlags: 0
