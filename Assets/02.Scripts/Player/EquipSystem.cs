@@ -141,6 +141,9 @@ public class EquipSystem : MonoBehaviour
     {
         currentItem = data;
 
+        viewSwing = null;
+        thirdSwing = null;
+
         if (viewInst != null) Destroy(viewInst);
         if (thirdPersonInst != null) Destroy(thirdPersonInst);
         if (currentItemInstance != null) Destroy(currentItemInstance);
@@ -214,6 +217,9 @@ public class EquipSystem : MonoBehaviour
     {
         currentItem = null;
 
+        viewSwing = null;
+        thirdSwing = null;
+
         if (viewInst != null) { Destroy(viewInst); viewInst = null; }
         if (thirdPersonInst != null) { Destroy(thirdPersonInst); thirdPersonInst = null; }
         if (currentItemInstance != null) { Destroy(currentItemInstance); currentItemInstance = null; }
@@ -266,8 +272,11 @@ public class EquipSystem : MonoBehaviour
             nextUseTime = Time.time + Mathf.Max(unarmedDelay, 0.3f);
         }
 
-        viewSwing?.Play();
-        thirdSwing?.Play(0.8f);
+        var vs = viewSwing;
+        if (vs != null) vs.Play();
+
+        var ts = thirdSwing;
+        if (ts != null) ts.Play(0.8f);
     }
 
     private void UseWeapon()
