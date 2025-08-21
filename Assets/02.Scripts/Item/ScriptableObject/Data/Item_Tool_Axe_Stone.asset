@@ -28,12 +28,13 @@ MonoBehaviour:
   canStack: 0
   maxStackAmount: 0
   consumables: []
-  isWeapon: 0
+  isWeapon: 1
   isTool: 1
-  weaponType: 0
+  weaponType: 1
   toolType: 1
   weaponDamage: 10
   weaponAttackDelay: 1
   weaponAttackDistance: 1
   toolGatherPower: 10
   toolDistance: 1
+  demolitionDamage: 10

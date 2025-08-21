@@ -5404,8 +5404,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  spawnMaxCount: 1
-  spawnMinCount: 5
+  spawnMaxCount: 5
+  spawnMinCount: 15
   spawnHeightOffset: 0.1
   minDistanceBetweenObjs: 5
   GatheringLayer:

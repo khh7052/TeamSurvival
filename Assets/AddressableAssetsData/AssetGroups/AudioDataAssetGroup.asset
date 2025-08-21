@@ -16,55 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: dda6da71d2a773840b0200d8d8603439
-  m_SerializeEntries:
-  - m_GUID: 8505d2f47cb6f2c4fa5f647b45440e8a
-    m_Address: KHH_Test
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - BGM
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bf91cdb0e07ef884c8cda3c926491262
-    m_Address: Grass
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - SFX
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fac2c77048bd20444ad3aadffc12c970
-    m_Address: Sand
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - SFX
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6df05f72cd604ce46a5edc02dee47009
-    m_Address: Gravel
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - SFX
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 38702b611119a30459943247ee3c6456
-    m_Address: AudioMixer
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Audio
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 85dc804b4c641f647b896e913ad98516
-    m_Address: AudioPlayer
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Audio
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 283132f1044826142b8106040d91413d
-    m_Address: TestEnvironment
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - BGM
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 740c36cd82fd3e1448c531869d8a3166
-    m_Address: Untagged
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - SFX
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}
   m_SchemaSet:

@@ -53,6 +53,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - CompositeRecipe
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 87d6954b27a855e4eb3a23f6398db40d
+    m_Address: Data_Craft_7
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CompositeRecipe
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8ed3bd6938c11147bec752f8c3fb82e
+    m_Address: Data_Craft_8
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CompositeRecipe
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}
   m_SchemaSet:
