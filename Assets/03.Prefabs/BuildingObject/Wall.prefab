@@ -109,6 +109,7 @@ MonoBehaviour:
     Mode: 10000
     Position: {x: 0, y: 0, z: 0}
     rot: {x: 0, y: 0, z: 0, w: 0}
+  mesh: {fileID: 2392269700099801787}
 --- !u!1 &3758407096261160348
 GameObject:
   m_ObjectHideFlags: 0
