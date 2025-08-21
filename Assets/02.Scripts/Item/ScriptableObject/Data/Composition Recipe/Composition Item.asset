@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Composition Item
   m_EditorClassIdentifier: 
   ID: 23003
-  DisplayName: "\uACE1\uAD2D\uC774"
+  DisplayName: "\uB098\uBB34 \uACE1\uAD2D\uC774"
   Description: "\uACE1\uAD2D\uC774\uB2E4"
-  Icon: {fileID: 21300000, guid: e5197f6e797ce5c40a9cb0efad1bb1c9, type: 3}
+  Icon: {fileID: 21300000, guid: bc67dad7572144a4e971fb54a9592722, type: 3}
   Prefab: {fileID: 0}
   AssetReference:
     m_AssetGUID: 
