@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1836158058}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427176, b: 0.5645241, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -14761,6 +14761,77 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 1
+--- !u!1 &1881130329
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1881130331}
+  - component: {fileID: 1881130330}
+  m_Layer: 0
+  m_Name: StartupConsumableDropper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1881130330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881130329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77b6a4540fb319849954cabd1ec46bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowedIds: f2550000f3550000f5550000f6550000f7550000
+  drops:
+  - itemId: 22002
+    amount: 20
+  - itemId: 22003
+    amount: 20
+  - itemId: 22005
+    amount: 20
+  - itemId: 22006
+    amount: 20
+  - itemId: 22007
+    amount: 20
+  dropAreas: []
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  dropHeight: 10
+  heightOffsetDown: 0.1
+  minDistanceBetweenDrops: 15
+  interactableLayerMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  interactableLayerName: Interactable
+  dropRadius: 100
+  maxTriesPerDrop: 60
+  backoffRatio: 0.75
+  waitForGameManager: 1
+--- !u!4 &1881130331
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881130329}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -24.1, y: 0, z: 30.2}
+  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1881231578
 GameObject:
   m_ObjectHideFlags: 0
@@ -17899,3 +17970,4 @@ SceneRoots:
   - {fileID: 1836158057}
   - {fileID: 63415390}
   - {fileID: 396403580}
+  - {fileID: 1881130331}
