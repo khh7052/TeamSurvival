@@ -22,7 +22,6 @@ public class HotObject : MonoBehaviour //근처에 가면 체온회복 class
         if(timer > healRate)
         {
             model.temperture.Add(0.01f);
-            Debug.Log("따뜻하다. 체온이 오른다");
             timer = 0f;
         }      
     }
@@ -33,8 +32,6 @@ public class HotObject : MonoBehaviour //근처에 가면 체온회복 class
 
         foreach (var hit in hits)
         {
-            Debug.Log($"{hit.name}이 범위 안에 있습니다.");
-
             var obj = hit.GetComponent<EntityModel>();
             if(obj != null )
             {

@@ -9,7 +9,7 @@ public class PlayerInventory : MonoBehaviour
 {
     public static PlayerInventory Instance { get; private set; }
 
-    private PlayerCondition condition;
+    private EntityModel condition;
 
     public List<ItemSlot> slots = new();
     public Action OnChangeData;
@@ -173,7 +173,7 @@ public class PlayerInventory : MonoBehaviour
             case ConsumableType.Health: condition.Heal(c.value); break;
             case ConsumableType.Hunger: condition.Eat(c.value); break;
             case ConsumableType.Thirst: condition.Drink(c.value); break;
-            case ConsumableType.Stamina: condition.RecoverStamina(c.value); break;
+            case ConsumableType.Stamina: condition.stamina.Add(c.value); break;
         }
     }
 

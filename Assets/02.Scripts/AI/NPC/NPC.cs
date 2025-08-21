@@ -161,7 +161,7 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
             yield return null;
         }
 
-        Destroy(gameObject); //테스트
+        gameObject.SetActive(false); //테스트
     }
 
     private void MoveSpeed_OnChanged()

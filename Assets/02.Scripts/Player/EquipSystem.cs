@@ -238,14 +238,14 @@ public class EquipSystem : MonoBehaviour
         {
             if (blockWhenNoStamina)
             {
-                if (debugLog) Debug.Log("[Equip] Blocked: not enough stamina", this);
+//                if (debugLog) Debug.Log("[Equip] Blocked: not enough stamina", this);
                 return;
             }
         }
 
         if (debugLog)
         {
-            Debug.Log("[Equip] Attack with " + (hasWeapon || hasTool ? currentItem.name : "(Unarmed)"), this);
+//            Debug.Log("[Equip] Attack with " + (hasWeapon || hasTool ? currentItem.name : "(Unarmed)"), this);
         }
 
         if (hasWeapon)
@@ -361,19 +361,19 @@ public class EquipSystem : MonoBehaviour
         {
             if (blockWhenNoStamina)
             {
-                if (debugLog) Debug.Log($"[Equip] Stamina need {cost}, have {cur} ¡æ blocked", this);
+//                if (debugLog) Debug.Log($"[Equip] Stamina need {cost}, have {cur} ¡æ blocked", this);
                 return false;
             }
             else
             {
                 if (cur > 0f) model.stamina.Subtract(cur);
-                if (debugLog) Debug.Log($"[Equip] Stamina partial consume {cur} (needed {cost})", this);
+//                if (debugLog) Debug.Log($"[Equip] Stamina partial consume {cur} (needed {cost})", this);
                 return true;
             }
         }
 
         model.stamina.Subtract(cost);
-        if (debugLog) Debug.Log($"[Equip] Stamina -{cost} ¡æ {model.stamina.CurValue:0.##}", this);
+//        if (debugLog) Debug.Log($"[Equip] Stamina -{cost} ¡æ {model.stamina.CurValue:0.##}", this);
         return true;
     }
 

@@ -44,7 +44,7 @@ public class ResourceNode : MonoBehaviour, IHarvestable
 
     private void Log(string msg)
     {
-        if (debugLog) Debug.Log("[Resource][" + resourceName + "] " + msg, this);
+//        if (debugLog) Debug.Log("[Resource][" + resourceName + "] " + msg, this);
     }
 
     private void Awake()

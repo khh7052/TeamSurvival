@@ -9,7 +9,7 @@ public class Player : MonoBehaviour, IDeathBehavior
     public EntityModel model;
     PlayerView view;
     public PlayerController controller;
-    public PlayerCondition condition;
+    public EntityModel condition;
     public EquipSystem equip;
     public ItemData itemData;
     public Action addItem { get; set; }
@@ -25,13 +25,17 @@ public class Player : MonoBehaviour, IDeathBehavior
         view = GetComponent<PlayerView>();
         controller = GetComponent<PlayerController>();
         equip = GetComponent<EquipSystem>();
-        view.Initialize();
-        condition = GetComponent<PlayerCondition>();
+        condition = GetComponent<EntityModel>();
         inventory = GetComponent<PlayerInventory>();
         animationHandler = GetComponent<AnimationHandler>();
         interaction = GetComponent<Interaction>();
 
         GameManager.player = this;
+    }
+
+    private void Start()
+    {
+        view.Initialize();
     }
 
     private void Update()
