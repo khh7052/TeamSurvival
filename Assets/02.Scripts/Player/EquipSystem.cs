@@ -39,6 +39,12 @@ public class EquipSystem : MonoBehaviour
 
     public void Equip(ItemData data)
     {
+        Debug.Log($"[Equip] data={data.name}, isTool={data.isTool}, toolType={data.toolType}");
+
+#if UNITY_EDITOR
+        Debug.Log($"[Equip] path={UnityEditor.AssetDatabase.GetAssetPath(data)}");
+#endif
+
         currentItem = data;
 
         if (viewInst != null) Destroy(viewInst);
@@ -133,6 +139,8 @@ public class EquipSystem : MonoBehaviour
     
     private void UseTool()
     {
+        Debug.Log($"[EquipSystem] UseTool -> tool={currentItem.toolType}, power={currentItem.toolGatherPower}");
+
         float dist = currentItem.toolDistance;
         RaycastHit hit;
 

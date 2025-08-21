@@ -107,6 +107,8 @@ public class ResourceNode : MonoBehaviour, IHarvestable
 
     public void GatherWithTool(ToolType tool, float power)
     {
+        Debug.Log($"[ResourceNode] GatherWithTool IN tool={tool}, power={power}");
+
         float m;
 
         if (tool == ToolType.None)

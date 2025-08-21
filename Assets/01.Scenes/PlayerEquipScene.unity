@@ -883,6 +883,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree
       objectReference: {fileID: 0}
+    - target: {fileID: 4338764972549693299, guid: 07318b79f372b2d45a5de361e560ae02, type: 3}
+      propertyPath: preferredTool
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338764972549693299, guid: 07318b79f372b2d45a5de361e560ae02, type: 3}
+      propertyPath: bareHandsMultiplier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338764972549693299, guid: 07318b79f372b2d45a5de361e560ae02, type: 3}
+      propertyPath: correctToolMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7291776847772915228, guid: 07318b79f372b2d45a5de361e560ae02, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.34
