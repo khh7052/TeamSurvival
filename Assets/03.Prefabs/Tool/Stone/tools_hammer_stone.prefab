@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5413547752035760482}
   - component: {fileID: 1619157470226876400}
   - component: {fileID: 8786716711918012186}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: tools_hammer_stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f9a271c46724542beae00d9be934e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 495c22f7de434bb42bb531cdd28aa737, type: 2}
 --- !u!65 &1619157470226876400
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 7495271532643499110}
   - component: {fileID: 6767121737635165256}
   - component: {fileID: 1708117634799165036}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: hammer_ouch
   m_TagString: Untagged
   m_Icon: {fileID: 0}

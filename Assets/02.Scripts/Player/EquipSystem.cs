@@ -53,6 +53,7 @@ public class EquipSystem : MonoBehaviour
 
     public void Equip(ItemData data)
     {
+        Debug.Log($"[Equip] item={(data ? data.name : "null")}");
         currentItem = data;
 
         if (viewInst != null) Destroy(viewInst);
@@ -131,7 +132,8 @@ public class EquipSystem : MonoBehaviour
         }
         else if (hasTool)
         {
-            UseTool();
+            if (currentItem.toolType == ToolType.Hammer) UseHammer();
+            else UseTool();
             nextUseTime = Time.time + 0.5f;
         }
         else if (allowUnarmedAttack)
@@ -198,6 +200,27 @@ public class EquipSystem : MonoBehaviour
             }
         }
     }
+
+    private void UseHammer()
+    {
+        float dist = currentItem.toolDistance;
+        if (Ray(out var hit, dist))
+        {
+            // 건축물만 맞게
+            var build = hit.collider.GetComponentInParent<BuildObj>();
+            if (build != null)
+            {
+                int dmg = Mathf.Max(currentItem.demolitionDamage, 1);
+                build.TakePhysicalDamage(dmg);
+                if (debugLog) Debug.Log($"[Equip] Hammer hit {build.name}, dmg={dmg}", this);
+                return;
+            }
+
+            // 망치는 자원 채집 X
+            if (debugLog) Debug.Log("[Equip] Hammer hit non-building → ignored", this);
+        }
+    }
+
 
     private bool TryConsumeStamina(float cost)
     {

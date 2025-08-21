@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1320107856665442342}
   - component: {fileID: 2656535254466930279}
   - component: {fileID: 2502269991129011602}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: tools_hammer_wood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 7918002943343789100}
   - component: {fileID: 4971756287222663101}
   - component: {fileID: 1083585883797548599}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: hammer_ouch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
