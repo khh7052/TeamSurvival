@@ -19,6 +19,9 @@ public class EquipSystem : MonoBehaviour
     public Transform handSlot;
     private GameObject viewInst;
 
+    [SerializeField] private bool spawnThirdPersonModel = true;
+    private GameObject thirdPersonInst;
+
     [Header("Stamina")]
     [SerializeField] private EntityModel model;              // stamina를 갖고 있는 모델
     [SerializeField] private float staminaCostWeapon = 10f;  // 무기 휘두를 때 소모
@@ -37,23 +40,30 @@ public class EquipSystem : MonoBehaviour
 
     public bool debugLog = true; //테스트용 디버그 온오프 가능
 
+    void SetLayerRecursively(GameObject go, int layer)
+    {
+        foreach (var t in go.GetComponentsInChildren<Transform>(true))
+            t.gameObject.layer = layer;
+    }
+    void DisablePhysics(GameObject go)
+    {
+        foreach (var c in go.GetComponentsInChildren<Collider>(true)) c.enabled = false;
+        foreach (var rb in go.GetComponentsInChildren<Rigidbody>(true)) Destroy(rb);
+    }
+
     public void Equip(ItemData data)
     {
-        Debug.Log($"[Equip] data={data.name}, isTool={data.isTool}, toolType={data.toolType}");
-
-#if UNITY_EDITOR
-        Debug.Log($"[Equip] path={UnityEditor.AssetDatabase.GetAssetPath(data)}");
-#endif
-
         currentItem = data;
 
         if (viewInst != null) Destroy(viewInst);
+        if (thirdPersonInst != null) Destroy(thirdPersonInst);
         if (currentItemInstance != null) Destroy(currentItemInstance);
 
         currentItemInstance = new GameObject();
         currentItemInstance.transform.SetParent(EquipTransform, false);
         currentItemInstance.transform.localPosition = Vector3.zero;
         currentItemInstance.transform.localRotation = Quaternion.identity;
+        currentItemInstance.transform.localScale = Vector3.one;
 
         EquippedWeaponType = currentItem.isWeapon ? currentItem.weaponType : WeaponType.None;
         EquippedToolType = currentItem.isTool ? currentItem.toolType : ToolType.None;
@@ -61,22 +71,30 @@ public class EquipSystem : MonoBehaviour
         viewInst = Instantiate(currentItem.Prefab, handSlot, false);
 
         int equipLayer = LayerMask.NameToLayer("Equipment");
-        foreach (Transform t in viewInst.GetComponentsInChildren<Transform>(true))
-            t.gameObject.layer = equipLayer;
+        if (equipLayer == -1) equipLayer = LayerMask.NameToLayer("Equip");
+        SetLayerRecursively(viewInst, equipLayer);
+        DisablePhysics(viewInst);
 
-        foreach (var c in viewInst.GetComponentsInChildren<Collider>(true)) c.enabled = false;
-        foreach (var rb in viewInst.GetComponentsInChildren<Rigidbody>(true)) Destroy(rb);
+        if (spawnThirdPersonModel)
+        {
+            thirdPersonInst = Instantiate(currentItem.Prefab, currentItemInstance.transform, false); // [NEW]
+            
+            int playerLayer = LayerMask.NameToLayer("Player");
+            SetLayerRecursively(thirdPersonInst, playerLayer);
+            DisablePhysics(thirdPersonInst);
+        }
     }
 
     public void UnEquip()
     {
         currentItem = null;
-        Destroy(currentItemInstance);
-        currentItemInstance = null;
+
+        if (viewInst != null) { Destroy(viewInst); viewInst = null; }
+        if (thirdPersonInst != null) { Destroy(thirdPersonInst); thirdPersonInst = null; }
+        if (currentItemInstance != null) { Destroy(currentItemInstance); currentItemInstance = null; }
+
         EquippedWeaponType = WeaponType.None;
         EquippedToolType = ToolType.None;
-
-        if (viewInst != null) Destroy(viewInst);
     }
 
     public void Attack()
