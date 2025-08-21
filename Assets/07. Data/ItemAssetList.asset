@@ -85,3 +85,7 @@ MonoBehaviour:
     assetAdress: Prefab_Gathering_Rock
     dataAdress: Data_Gathering_Rock
     dataType: 5
+  - ID: 50001
+    assetAdress: Prefab_Gathering_Rock
+    dataAdress: Data_Craft_1
+    dataType: 6
