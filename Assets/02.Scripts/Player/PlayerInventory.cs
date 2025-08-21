@@ -18,6 +18,8 @@ public class PlayerInventory : MonoBehaviour
 
     Dictionary<int, int> itemQuantityCache = new();
 
+    [SerializeField] private SoundData equipSFX;
+
     private void Awake()
     {
         GetComponent<Player>().addItem += Add;
@@ -52,6 +54,8 @@ public class PlayerInventory : MonoBehaviour
 
         ItemData data = GameManager.player.itemData;
         if (data == null) return;
+
+        AudioManager.Instance.PlaySFX(equipSFX, transform.position);
 
         if (data.canStack)
         {
