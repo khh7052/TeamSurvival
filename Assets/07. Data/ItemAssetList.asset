@@ -125,3 +125,19 @@ MonoBehaviour:
     assetAdress: 
     dataAdress: Data_Craft_8
     dataType: 6
+  - ID: 23005
+    assetAdress: Prefab_Equip_WoodSword
+    dataAdress: Data_Equip_WoodSword
+    dataType: 4
+  - ID: 23006
+    assetAdress: Prefab_Equip_StoneSwrod
+    dataAdress: Data_Equip_StoneSword
+    dataType: 4
+  - ID: 23007
+    assetAdress: Prefab_Equip_WoodHammer
+    dataAdress: Data_Equip_WoodHeamer
+    dataType: 4
+  - ID: 23008
+    assetAdress: Prefab_Equip_StoneHammer
+    dataAdress: Data_Equip_StoneHammer
+    dataType: 4
