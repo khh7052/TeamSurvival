@@ -16,7 +16,7 @@ MonoBehaviour:
   DisplayName: "\uB3CC \uB9DD\uCE58"
   Description: 
   Icon: {fileID: 21300000, guid: fc03cbe8f593ada46b73272867af5bcf, type: 3}
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 2548601495064136785, guid: 53ac67313411800448c63a4b6e455dbe, type: 3}
   AssetReference:
     m_AssetGUID: 42e9b7af145cf8341aae6a51854ffdcf
     m_SubObjectName: 
@@ -28,12 +28,13 @@ MonoBehaviour:
   canStack: 0
   maxStackAmount: 0
   consumables: []
-  isWeapon: 1
-  isTool: 0
+  isWeapon: 0
+  isTool: 1
   weaponType: 0
-  toolType: 0
+  toolType: 3
   weaponDamage: 10
   weaponAttackDelay: 1
   weaponAttackDistance: 1
   toolGatherPower: 5
   toolDistance: 1
+  demolitionDamage: 10
