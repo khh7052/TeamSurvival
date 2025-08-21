@@ -49,10 +49,10 @@ MonoBehaviour:
   resourceName: "\uB098\uBB34"
   maxDurability: 40
   kind: 0
-  preferredTool: 0
-  correctToolMultiplier: 1.5
+  preferredTool: 1
+  correctToolMultiplier: 1
   wrongToolMultiplier: 0
-  bareHandsMultiplier: 20
+  bareHandsMultiplier: 2
   respawn: 1
   respawnSeconds: 30
   yieldItem: {fileID: 11400000, guid: fb9a5bf0c6b46f74681aa51b42e9ef0c, type: 2}
