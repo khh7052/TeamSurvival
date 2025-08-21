@@ -2895,11 +2895,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
       propertyPath: health.maxValue
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6885103462339148826, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
       propertyPath: health.startValue
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 9183120507124538938, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
       propertyPath: slots.Array.data[0].item
