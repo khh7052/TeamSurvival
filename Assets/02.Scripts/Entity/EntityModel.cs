@@ -52,9 +52,12 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     [SerializeField] private float starvationDps = 0.25f;
     [SerializeField] private float dehydrationDps = 0.25f;
 
-    [Header("피격 시 처리 렌더러")]
+    [Header("피격 시 처리")]
     [SerializeField] MeshRenderer mesh;
     private Coroutine coroutine;
+    public Action OnDeathEvent { get; set; }
+    [SerializeField]
+    private AnimationHandler anim;
 
     private void Awake()
     {
@@ -69,6 +72,11 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         if (WeatherCycle.Instance != null)
             WeatherCycle.Instance.RegisterObserver(this);
         OnHitEvent += OnHit;
+        health.OnChanged += IsDeadCheck;
+        if(anim == null)
+        {
+            anim = GetComponent<AnimationHandler>();
+        }
     }
 
     private void OnDisable()
@@ -78,13 +86,16 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
 
     private void Update()
     {
-        ApplyPassiveValueCondition();
-        DamageByNeeds();
-
-        if (isApplyByWeather)
+        if (!isDie)
         {
-            UpdateTemperture();
-            DamageByTemperature();
+            ApplyPassiveValueCondition();
+            DamageByNeeds();
+
+            if (isApplyByWeather)
+            {
+                UpdateTemperture();
+                DamageByTemperature();
+            }
         }
     }
 
@@ -143,10 +154,13 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     public void Die()
     {
         //사망 로직
+        anim?.PlayDie();
+        OnDeathEvent?.Invoke();
     }
 
     public void TakePhysicalDamage(int damage)
     {
+        if (isDie) return;
         health.Subtract(damage);
         OnHitEvent?.Invoke();
     }
@@ -245,7 +259,8 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         {
             StopCoroutine(coroutine);
         }
-        coroutine = StartCoroutine(SetMeshColorAtDamage());
+        if(mesh != null) 
+            coroutine = StartCoroutine(SetMeshColorAtDamage());
     }
 
     private IEnumerator SetMeshColorAtDamage()
@@ -266,6 +281,16 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
 
         // 보정: 최종적으로 흰색 확정
         mesh.material.color = endColor;
+    }
+
+    private void IsDeadCheck()
+    {
+        if(health.CurValue <= 0)
+        {
+//             Debug.Log("죽었다");
+            isDie = true;
+            Die();
+        }
     }
 }
 

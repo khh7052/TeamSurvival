@@ -1,18 +1,28 @@
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
     [SerializeField] protected bool dontDestroyOnLoad = true;
-    private static bool IsApplicationQuit = false;
+
+    // 이 플래그가 모든 싱글톤의 종료 상태를 관리합니다.
+    public static bool IsApplicationQuit { get; private set; } = false;
+    public static bool IsDestroying { get; private set; } = false;
     public static T Instance
     {
         get
         {
-            if (IsApplicationQuit)
+            if (IsApplicationQuit || !SingletonRegistry.IsCanCreateSingleton || IsDestroying)
                 return null;
+
             if (instance == null)
             {
+                if (!SingletonRegistry.IsCanCreateSingleton)
+                {
+                    return null;
+                }
                 instance = FindObjectOfType<T>();
                 if (instance == null)
                 {
@@ -24,12 +34,25 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
+    protected virtual void OnDestroy()
+    {
+        IsDestroying = true; // 이 프레임에선 절대 Instance 생성 금지
+        if (instance == this) instance = null;
+        SingletonRegistry.Unregister(this);
+        IsDestroying = false;
+    }
+
     protected virtual void Awake()
     {
+        // 게임 시작 시, 플래그를 초기화
+        IsApplicationQuit = false;
+
         if (instance == null)
         {
             instance = this as T;
             Initialize();
+
+                SingletonRegistry.Register(this); //  등록
 
             if (dontDestroyOnLoad)
                 DontDestroyOnLoad(gameObject);
@@ -42,10 +65,17 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Initialize() { }
 
-    protected virtual void OnDestroy()
+    private void OnApplicationQuit()
     {
-        if (instance == this)
-            instance = null;
+        Debug.Log("종료!");
+        // 애플리케이션 종료 플래그를 true로 설정
         IsApplicationQuit = true;
     }
+
+    public void Release()
+    {
+        instance = null;
+        Destroy(gameObject);
+    }
+
 }
