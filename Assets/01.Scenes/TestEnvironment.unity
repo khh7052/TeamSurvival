@@ -2849,10 +2849,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 777261130677496077, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
-      propertyPath: buildMode
-      value: 
-      objectReference: {fileID: 1741775134}
     - target: {fileID: 6533984410461744423, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.7
@@ -2896,14 +2892,6 @@ PrefabInstance:
     - target: {fileID: 6771510593846623006, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 9183120507124538938, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
-      propertyPath: slots.Array.data[0].item
-      value: 
-      objectReference: {fileID: 11400000, guid: fb9a5bf0c6b46f74681aa51b42e9ef0c, type: 2}
-    - target: {fileID: 9183120507124538938, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
-      propertyPath: slots.Array.data[0].Quantity
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10286,18 +10274,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4126725253674900797, guid: 2c5e5f30336f6b14fae5b0df876ac51f, type: 3}
-      propertyPath: moveSpeed.baseValue
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4594068989153598977, guid: 2c5e5f30336f6b14fae5b0df876ac51f, type: 3}
-      propertyPath: interactEnabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4594068989153598977, guid: 2c5e5f30336f6b14fae5b0df876ac51f, type: 3}
-      propertyPath: targetLayerMask.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7167605842301248823, guid: 2c5e5f30336f6b14fae5b0df876ac51f, type: 3}
       propertyPath: m_Name
       value: Test NPC
@@ -13705,17 +13681,6 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 1
---- !u!114 &1741775134 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1683975416896729174, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
-  m_PrefabInstance: {fileID: 396359302}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4654c3775546104c84a6e3d4ba9b2ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1748970066
 PrefabInstance:
   m_ObjectHideFlags: 0

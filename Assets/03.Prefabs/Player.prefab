@@ -4509,6 +4509,7 @@ MonoBehaviour:
   itemData: {fileID: 0}
   inventory: {fileID: 0}
   animationHandler: {fileID: 0}
+  interaction: {fileID: 0}
   dropPosition: {fileID: 6306992753322779040}
 --- !u!114 &6885103462339148826
 MonoBehaviour:
@@ -4563,6 +4564,7 @@ MonoBehaviour:
     constValue: 0
   starvationDps: 0.25
   dehydrationDps: 0.25
+  mesh: {fileID: 0}
 --- !u!114 &777261130677496077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4585,7 +4587,7 @@ MonoBehaviour:
   lookSensitivity: 0.5
   canLook: 1
   jumpStaminaCost: 10
-  buildMode: {fileID: 0}
+  buildMode: {fileID: 1683975416896729174}
 --- !u!114 &3850867666251352558
 MonoBehaviour:
   m_ObjectHideFlags: 0
