@@ -1457,6 +1457,7 @@ MonoBehaviour:
   attackDelay: 2
   attackDamage: 1
   useGizmo: 1
+  yieldItem: {fileID: 11400000, guid: cab0540b41318ba499e16e2918039106, type: 2}
   nearestEnemyObject: {fileID: 0}
 --- !u!136 &1742403665351386983
 CapsuleCollider:
@@ -1522,6 +1523,7 @@ MonoBehaviour:
   warningTemp: 34
   dangerTemp: 32
   rayLength: 5
+  isDie: 0
   moveSpeed:
     baseValue: 0
     additionalValue: 0
@@ -1532,6 +1534,9 @@ MonoBehaviour:
     additionalValue: 0
     multipleValue: 1
     constValue: 0
+  starvationDps: 0.25
+  dehydrationDps: 0.25
+  mesh: {fileID: 0}
 --- !u!1 &5543172257509407119
 GameObject:
   m_ObjectHideFlags: 0

@@ -92,7 +92,13 @@ public class AnimalSpawnManager : Singleton<AnimalSpawnManager>
                     spawnPositions.Add(spawnPos);
 
                     GameObject prefab = animalPrefabs[Random.Range(0, animalPrefabs.Count)];
-                    Instantiate(prefab, spawnPos, Quaternion.identity);
+                    GameObject animalObj = Instantiate(prefab, spawnPos, Quaternion.identity);
+
+                    NPC animalScript = animalObj.GetComponent<NPC>();
+                    if (animalScript != null)
+                    {
+                        animalScript.SetHome(spawnPos);
+                    }
 
                     currentAnimalCount++;
                     Debug.Log($"현재 동물 소환 : {currentAnimalCount}"); 
