@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f4ec0b851e3d3c4384005101be8aa6d, type: 3}
+  m_Name: Eat_Player
+  m_EditorClassIdentifier: 
+  ID: 0
+  DisplayName: 
+  Description: 
+  Icon: {fileID: 0}
+  Prefab: {fileID: 0}
+  AssetReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  clips:
+  - {fileID: 8300000, guid: 4dd3709bc57e142658a6b53f15346ce6, type: 3}
+  - {fileID: 8300000, guid: 205be67afd3eb43a18e9e78c60a271f1, type: 3}
+  - {fileID: 8300000, guid: 4a05b5376c9ef43f4b35987fa28a8038, type: 3}
+  - {fileID: 8300000, guid: 09e22874557a04dd1834c6cc34e7afd7, type: 3}
+  volume: 1
+  soundType: 1

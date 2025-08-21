@@ -19,6 +19,7 @@ public class PlayerInventory : MonoBehaviour
     Dictionary<int, int> itemQuantityCache = new();
 
     [SerializeField] private SoundData equipSFX;
+    [SerializeField] private SoundData eatSFX;
 
     private void Awake()
     {
@@ -125,6 +126,8 @@ public class PlayerInventory : MonoBehaviour
     {
         if (slots[index].item == null) return;
         if (slots[index].item.type != ItemType.Consumable) return;
+
+        AudioManager.Instance.PlaySFX(eatSFX, transform.position);
 
         var consumables = slots[index].item.consumables;
         if (consumables != null)

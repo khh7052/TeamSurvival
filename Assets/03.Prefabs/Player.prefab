@@ -4745,6 +4745,7 @@ MonoBehaviour:
   - item: {fileID: 0}
     Quantity: 0
   equipSFX: {fileID: 11400000, guid: 482468577f7cffc4d9627856b077f725, type: 2}
+  eatSFX: {fileID: 11400000, guid: 6381ff23e7dbaf4459f69cd2df9bb6a5, type: 2}
 --- !u!114 &8566881413159209253
 MonoBehaviour:
   m_ObjectHideFlags: 0
