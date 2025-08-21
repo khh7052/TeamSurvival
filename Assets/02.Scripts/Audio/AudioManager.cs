@@ -93,6 +93,7 @@ public class AudioManager : Singleton<AudioManager>, IInitializableAsync
         if (soundData == null || soundData.clips.Length == 0) return;
 
         GameObject go = ObjectPoolingManager.Instance.Get(audioPlayerObject, pos);
+        if (go == null) return;
         AudioPlayer audioPlayer = go.GetComponent<AudioPlayer>();
         audioPlayer.PlaySFX(soundData);
     }
