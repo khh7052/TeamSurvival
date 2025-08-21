@@ -95602,7 +95602,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: OnFootstep
+    functionName: OnJumpStart
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

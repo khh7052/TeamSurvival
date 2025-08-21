@@ -4568,6 +4568,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 68db926c-318b-41d9-85e7-6db83210e552
     m_ActionName: Player/TryBuild[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 777261130677496077}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnSettingUIButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 900f8325-0b18-4cec-9272-4fba9cb88eb0
+    m_ActionName: Player/Setting[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -4635,6 +4651,7 @@ MonoBehaviour:
   warningTemp: 34
   dangerTemp: 32
   rayLength: 5
+  isDie: 0
   moveSpeed:
     baseValue: 5
     additionalValue: 0
@@ -4787,6 +4804,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4864
   handSlot: {fileID: 9210934534352783902}
+  EquipTransform: {fileID: 2685170793834150853}
+  spawnThirdPersonModel: 1
   model: {fileID: 6885103462339148826}
   staminaCostWeapon: 10
   staminaCostTool: 10
@@ -4797,7 +4816,6 @@ MonoBehaviour:
   unarmedStaminaCost: 4
   unarmedDamage: 1
   unarmedGatherPower: 1
-  EquipTransform: {fileID: 2685170793834150853}
   debugLog: 1
 --- !u!114 &1915174890719795521
 MonoBehaviour:
@@ -4869,6 +4887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d2525766f81294399e9ecc6ab681ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpSFX: {fileID: 11400000, guid: 1c99110102dab2848910c4a5c3072f7b, type: 2}
 --- !u!1 &6857895242329397200
 GameObject:
   m_ObjectHideFlags: 0
