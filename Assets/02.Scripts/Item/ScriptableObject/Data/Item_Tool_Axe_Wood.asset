@@ -28,9 +28,9 @@ MonoBehaviour:
   canStack: 0
   maxStackAmount: 0
   consumables: []
-  isWeapon: 1
+  isWeapon: 0
   isTool: 1
-  weaponType: 1
+  weaponType: 0
   toolType: 1
   weaponDamage: 10
   weaponAttackDelay: 1
