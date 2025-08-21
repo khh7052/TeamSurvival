@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-public class UIManager : Singleton<UIManager>, IInitializableAsync
+public class UIManager : Singleton<UIManager>, IInitializableAsync, ISingletonResetData
 {
     Dictionary<string, BaseUI> uiInstances = new();
     private Transform mainCanvas;
@@ -18,6 +18,34 @@ public class UIManager : Singleton<UIManager>, IInitializableAsync
 
     public bool IsInitialized { get; private set; }
     private readonly TaskCompletionSource<bool> _initializeTcs = new();
+
+    public void ResetData()
+    {
+        foreach (var ui in uiInstances.Values.ToList())
+        {
+            if (ui != null)
+            {
+                Addressables.ReleaseInstance(ui.gameObject);
+            }
+        }
+        foreach (var canvas in canvasDictionary.Values.ToList())
+        {
+            if (canvas != null)
+            {
+                Addressables.ReleaseInstance(canvas.gameObject);
+            }
+        }
+
+        uiInstances.Clear();
+        canvasDictionary.Clear();
+        uiEnableDict.Clear();
+        uiInstanceCacheDict.Clear();
+        mainCanvas = null;
+
+        IsInitialized = false;
+
+        Initialize();
+    }
 
     protected override void Initialize()
     {
@@ -128,22 +156,26 @@ public class UIManager : Singleton<UIManager>, IInitializableAsync
 
     public async Task<T> ShowUI<T>(bool isDrawMainCanvas = false) where T : BaseUI
     {
-        // UIManager의 초기화가 완료될 때까지 기다립니다.
         await WaitInitializedAsync();
-
-        // GameManager의 초기화 대기 로직은 GameManager에서 처리해야 합니다.
-        // 현재 코드에서는 UIManager의 초기화 대기만으로도 충분할 수 있습니다.
-        // await GameManager.Instance.WaitInitializedAsync();
 
         string className = typeof(T).Name;
 
         if (uiInstances.ContainsKey(className))
         {
-            uiInstances[className]?.ShowUI();
-            uiEnableDict[className] = true;
-            return uiInstances[className] as T;
+            if (uiInstances[className] == null)
+            {
+                uiInstances.Remove(className);
+                uiEnableDict.Remove(className);
+            }
+            else
+            {
+                uiInstances[className]?.ShowUI();
+                uiEnableDict[className] = true;
+                return uiInstances[className] as T;
+            }
         }
 
+        // 새로 생성
         T t = CreateUI<T>(isDrawMainCanvas ? FindMainCanvas() : CreateCanvasTransform(className, false));
         if (t != default)
         {
@@ -153,7 +185,7 @@ public class UIManager : Singleton<UIManager>, IInitializableAsync
             return t;
         }
 
-        Debug.LogError($"{className} UI create failue... ");
+        Debug.LogError($"{className} UI create failure...");
         return default;
     }
 
@@ -230,4 +262,5 @@ public class UIManager : Singleton<UIManager>, IInitializableAsync
         Debug.LogError("Canvas 프리팹을 찾을 수 없습니다.");
         return null;
     }
+
 }

@@ -2,6 +2,12 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
+public interface ISingletonResetData
+{
+    void ResetData();
+}
+
+
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
@@ -49,10 +55,17 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
         if (instance == null)
         {
-            instance = this as T;
-            Initialize();
-
-                SingletonRegistry.Register(this); //  등록
+            if (SingletonRegistry.IsCanCreateSingleton)
+            {
+                instance = this as T;
+                Initialize();
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+            SingletonRegistry.Register(this); //  등록
 
             if (dontDestroyOnLoad)
                 DontDestroyOnLoad(gameObject);

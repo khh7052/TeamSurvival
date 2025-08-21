@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : Singleton<GameManager>, IInitializableAsync
+public class GameManager : Singleton<GameManager>, ISingletonResetData
 {
     public bool IsInitialized { get; private set; } = false;
     public static Player player;
@@ -14,66 +14,14 @@ public class GameManager : Singleton<GameManager>, IInitializableAsync
     protected override void Awake()
     {
         base.Awake();
-        IsInitialized = false;
-        InitializeAsync();
+        IsInitialized = true;
         SingletonRegistry.IsCanCreateSingleton = true;
     }
 
-
-    public async void InitializeAsync()
+    public void ResetData()
     {
-        await WaitForManagersToInitialize(
-            UIManager.Instance
-        );
-        IsInitialized = true;
-        Debug.Log("[GameManager] 모든 매니저 초기화 완료");
-        GameStart();
-    }
+        IsInitialized = false;
 
-    public async Task WaitInitializedAsync()
-    {
-        while (!IsInitialized)
-        {
-            await Task.Yield();
-        }
-    }
-
-    private async Task WaitForManagersToInitialize(params IInitializableAsync[] managers)
-    {
-        // 모든 매니저가 IsInitialized == true가 될 때까지 대기
-        while (managers.Any(m => !m.IsInitialized))
-        {
-            await Task.Yield(); // 다음 프레임 대기
-        }
-
-    }
-
-    public void GameStart()
-    {
-
-        /* Test Area
-        UIManager.Instance.ShowUI<TestConditionUI>();
-        Factory.Instance.CreateByID<BaseScriptableObject>(0);
-
-        for(int i = 0; i < 10; i++)
-        {
-            await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(0);
-        }
-        for (int i = 0; i < 10; i++)
-        {
-            await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(1);
-        }
-        for (int i = 0; i < 10; i++)
-        {
-            await Factory.Instance.CreateByIDAsync<BaseScriptableObject>(2);
-        }
-
-        Debug.Log("Start Delay");
-        await Task.Delay(5000);
-
-        Debug.Log("End Delay");
-//        await test();
-        */
     }
 
 
@@ -96,9 +44,12 @@ public class GameManager : Singleton<GameManager>, IInitializableAsync
 
     public async void LoadScene(string sceneNamae)
     {
+        IsInitialized = false;
         await Task.Yield();
+
         SceneManager.LoadSceneAsync(sceneNamae).completed += (op) =>
         {
+            IsInitialized = true;
         };
     }
 

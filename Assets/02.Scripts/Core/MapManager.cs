@@ -8,7 +8,6 @@ using UnityEngine.Rendering;
 
 public class MapManager : Singleton<MapManager>
 {
-
     [Header ("Mesh")]
     [SerializeField]
     private MeshFilter groundMesh;
