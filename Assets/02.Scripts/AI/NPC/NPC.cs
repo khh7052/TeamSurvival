@@ -130,8 +130,7 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
         {
             foreach (var mat in renderer.materials)
             {
-                // 머티리얼이 투명도 지원하는지 확인
-                mat.SetFloat("_Mode", 2); // Fade 모드로 변경 (Standard Shader 기준)
+                mat.SetFloat("_Mode", 2); 
                 mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
                 mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
                 mat.SetInt("_ZWrite", 0);
