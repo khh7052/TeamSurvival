@@ -141,3 +141,7 @@ MonoBehaviour:
     assetAdress: Prefab_Equip_StoneHammer
     dataAdress: Data_Equip_StoneHammer
     dataType: 4
+  - ID: 22007
+    assetAdress: Prefab_Consume_YellowFlower
+    dataAdress: Data_Consume_YellowFlower
+    dataType: 3
