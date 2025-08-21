@@ -93,13 +93,10 @@ public class ObjectPoolingManager : Singleton<ObjectPoolingManager>
         return instanceObject;
     }
 
-    private void OnApplicationQuit()
-    {
-        _quitting = true;
-    }
+
     public void Return(GameObject instance)
     {
-        if (_quitting)
+        if (IsApplicationQuit)
         {
             return;
         }

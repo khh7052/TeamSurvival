@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -235,5 +237,39 @@ public class PlayerController : MonoBehaviour
         }
         // 장착 무기도 없애기
         equip.UnEquip();
+        GameManager.Instance.PlayerDead();
+        StartCoroutine(DeathCameraEffect(transform));
+    }
+
+    public IEnumerator DeathCameraEffect(Transform player, float riseHeight = 5f, float duration = 2f)
+    {
+        Transform cam = Camera.main.transform;
+        Vector3 startPos = cam.position;
+        Vector3 targetPos = player.position + Vector3.up * riseHeight;
+        int playerLayerMask = 1 << LayerMask.NameToLayer("Player");
+        Camera.main.cullingMask |= playerLayerMask; 
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+
+            // 카메라 위치 보간 (위로 상승)
+            cam.position = Vector3.Lerp(startPos, targetPos, t);
+
+            // 카메라가 항상 플레이어 바라보게
+            cam.LookAt(player.position);
+
+            yield return null;
+        }
+
+        // 마지막 위치/각도 보정
+        cam.position = targetPos;
+        cam.LookAt(player.position);
+
+        yield return new WaitForSeconds(1f);
+        
+        GameManager.Instance.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

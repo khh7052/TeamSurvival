@@ -29,6 +29,8 @@ public class WeatherCycle : MonoBehaviour
 
     private void Awake() => Instance = this; //Å×½ºÆ®
 
+    Transform player;
+
     public void RegisterObserver(IWeatherObserver observer)
     {
         if (!observers.Contains(observer))
@@ -53,6 +55,11 @@ public class WeatherCycle : MonoBehaviour
 
     private void Update()
     {
+        if(player == null)
+        {
+            player = GameManager.player.transform;
+        }
+        transform.position = player.position;
         timer += Time.deltaTime;
 
         if (timer >= changeInterval)

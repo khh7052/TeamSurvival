@@ -173,7 +173,7 @@ public class MapManager : Singleton<MapManager>
                         // 현재 소환되는 객체가 비동기 생성이라 생성 되기 전에 다음 위치를 계산할 수 있음. 따라서 리스트로 이를 먼저 관리
                         if (spawnPositions.Any(pos => Vector3.Distance(pos, spawnPos) < minDistanceBetweenObjs))
                         {
-                            Debug.Log("예약된 위치에 가까워서 소환 취소");
+//                            Debug.Log("예약된 위치에 가까워서 소환 취소");
                             continue;
                         }
                         
@@ -182,7 +182,7 @@ public class MapManager : Singleton<MapManager>
                         if (colliders.Length > 0)
                         {
                             // 이미 존재하면 스폰 건너뜀
-                            Debug.Log("가까워서 소환 못함");
+//                            Debug.Log("가까워서 소환 못함");
                             continue;
                         }
 

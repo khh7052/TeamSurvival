@@ -25,13 +25,17 @@ public class Player : MonoBehaviour, IDeathBehavior
         view = GetComponent<PlayerView>();
         controller = GetComponent<PlayerController>();
         equip = GetComponent<EquipSystem>();
-        view.Initialize();
         condition = GetComponent<EntityModel>();
         inventory = GetComponent<PlayerInventory>();
         animationHandler = GetComponent<AnimationHandler>();
         interaction = GetComponent<Interaction>();
 
         GameManager.player = this;
+    }
+
+    private void Start()
+    {
+        view.Initialize();
     }
 
     private void Update()

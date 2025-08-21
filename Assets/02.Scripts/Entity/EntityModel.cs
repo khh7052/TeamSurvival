@@ -287,7 +287,7 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     {
         if(health.CurValue <= 0)
         {
-            Debug.Log("ав╬З╢ы");
+//             Debug.Log("ав╬З╢ы");
             isDie = true;
             Die();
         }

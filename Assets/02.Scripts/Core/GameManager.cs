@@ -4,16 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>, IInitializableAsync
 {
-    public bool IsInitialized {  get; private set; }
+    public bool IsInitialized { get; private set; } = false;
     public static Player player;
-    private void Start()
-    {
-        InitializeAsync();
 
+    protected override void Awake()
+    {
+        base.Awake();
+        IsInitialized = false;
+        InitializeAsync();
+        SingletonRegistry.IsCanCreateSingleton = true;
     }
+
+
     public async void InitializeAsync()
     {
         await WaitForManagersToInitialize(
@@ -84,11 +90,15 @@ public class GameManager : Singleton<GameManager>, IInitializableAsync
     public void PlayerDead()
     {
 
+        SingletonRegistry.ReleaseAll();
     }
 
-    public void LoadScene(string sceneNamae)
+    public async void LoadScene(string sceneNamae)
     {
-
+        await Task.Yield();
+        SceneManager.LoadSceneAsync(sceneNamae).completed += (op) =>
+        {
+        };
     }
 
 }
