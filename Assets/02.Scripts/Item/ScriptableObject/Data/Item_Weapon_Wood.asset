@@ -16,7 +16,7 @@ MonoBehaviour:
   DisplayName: Weapon
   Description: 
   Icon: {fileID: 0}
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 3268385045109816315, guid: 43011ee26afac3e488f7cb12bda1c1c0, type: 3}
   AssetReference:
     m_AssetGUID: 42e9b7af145cf8341aae6a51854ffdcf
     m_SubObjectName: 
@@ -30,7 +30,7 @@ MonoBehaviour:
   consumables: []
   isWeapon: 1
   isTool: 0
-  weaponType: 0
+  weaponType: 1
   toolType: 0
   weaponDamage: 10
   weaponAttackDelay: 1

@@ -40,22 +40,26 @@ public class EquipSystem : MonoBehaviour
     public void Equip(ItemData data)
     {
         currentItem = data;
-        currentItemInstance = new GameObject();
-        currentItemInstance.transform.parent = EquipTransform;
-        currentItemInstance.transform.localPosition = Vector3.zero;
-        if (currentItem != null && currentItem.isWeapon)
-            EquippedWeaponType = currentItem.weaponType;
-        else
-            EquippedWeaponType = WeaponType.None;
-        
-        if (currentItem != null && currentItem.isTool)
-            EquippedToolType = currentItem.toolType;
-        else
-            EquippedToolType = ToolType.None;
 
         if (viewInst != null) Destroy(viewInst);
-        if (currentItem != null && currentItem.Prefab != null && handSlot != null)
-            viewInst = Instantiate(currentItem.Prefab, handSlot, false);
+        if (currentItemInstance != null) Destroy(currentItemInstance);
+
+        currentItemInstance = new GameObject();
+        currentItemInstance.transform.SetParent(EquipTransform, false);
+        currentItemInstance.transform.localPosition = Vector3.zero;
+        currentItemInstance.transform.localRotation = Quaternion.identity;
+
+        EquippedWeaponType = currentItem.isWeapon ? currentItem.weaponType : WeaponType.None;
+        EquippedToolType = currentItem.isTool ? currentItem.toolType : ToolType.None;
+
+        viewInst = Instantiate(currentItem.Prefab, handSlot, false);
+
+        int equipLayer = LayerMask.NameToLayer("Equipment");
+        foreach (Transform t in viewInst.GetComponentsInChildren<Transform>(true))
+            t.gameObject.layer = equipLayer;
+
+        foreach (var c in viewInst.GetComponentsInChildren<Collider>(true)) c.enabled = false;
+        foreach (var rb in viewInst.GetComponentsInChildren<Rigidbody>(true)) Destroy(rb);
     }
 
     public void UnEquip()

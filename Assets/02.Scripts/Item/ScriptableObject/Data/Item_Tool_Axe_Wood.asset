@@ -16,7 +16,7 @@ MonoBehaviour:
   DisplayName: Axe
   Description: 
   Icon: {fileID: 0}
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 3011911503896207754, guid: 22969159701f9764190c37b70bf48344, type: 3}
   AssetReference:
     m_AssetGUID: 6e8108d6b6dedb840a9afd5fc4cd7eb3
     m_SubObjectName: 

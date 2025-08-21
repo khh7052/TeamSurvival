@@ -16,7 +16,7 @@ MonoBehaviour:
   DisplayName: Weapon
   Description: 
   Icon: {fileID: 0}
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 7427978491886183917, guid: dfc1bd3ae9212d7458cacd5d65c8a43a, type: 3}
   AssetReference:
     m_AssetGUID: 42e9b7af145cf8341aae6a51854ffdcf
     m_SubObjectName: 
