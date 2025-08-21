@@ -91,6 +91,7 @@ public class GameManager : Singleton<GameManager>, IInitializableAsync
     {
 
         SingletonRegistry.ReleaseAll();
+        LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public async void LoadScene(string sceneNamae)

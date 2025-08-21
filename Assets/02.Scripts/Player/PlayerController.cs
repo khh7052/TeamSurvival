@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnHit()
     {
-        AudioManager.Instance.PlaySFX(hitSFX, transform.position);
+//        AudioManager.Instance.PlaySFX(hitSFX, transform.position);
     }
 
     private void Move() //이동로직
@@ -270,7 +270,6 @@ public class PlayerController : MonoBehaviour
         }
         // 장착 무기도 없애기
         equip.UnEquip();
-        GameManager.Instance.PlayerDead();
         StartCoroutine(DeathCameraEffect(transform));
     }
 
@@ -302,7 +301,7 @@ public class PlayerController : MonoBehaviour
         cam.LookAt(player.position);
 
         yield return new WaitForSeconds(1f);
-        
-        GameManager.Instance.LoadScene(SceneManager.GetActiveScene().name);
+
+        GameManager.Instance.PlayerDead();
     }
 }

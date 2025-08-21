@@ -21,6 +21,7 @@ public class PlayerInventory : MonoBehaviour
     private void Awake()
     {
         GetComponent<Player>().addItem += Add;
+        if (condition == null) condition =  GetComponent<EntityModel>();
     }
 
     private void ItemCacheInInventory(int id, int Quantity)
