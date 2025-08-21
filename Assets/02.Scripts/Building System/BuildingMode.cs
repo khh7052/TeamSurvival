@@ -173,7 +173,7 @@ public class BuildingMode : MonoBehaviour
 
         AssetDataLoader.Instance.InstantiateByAssetReference(buildObjData, (go) =>
         {
-            var obj = go.AddComponent<BuildObj>();
+            var obj = go.GetComponent<BuildObj>();
             obj.key = buildKey;
             obj.Initialize();
             obj.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
