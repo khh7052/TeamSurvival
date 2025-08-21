@@ -15,8 +15,8 @@ MonoBehaviour:
   ID: 23002
   DisplayName: Axe
   Description: 
-  Icon: {fileID: 0}
-  Prefab: {fileID: 8303092031916193816, guid: 7632d628feb43b5458726b726bc7478a, type: 3}
+  Icon: {fileID: 21300000, guid: ae926ea2a1940a746ac0f5018430d2d2, type: 3}
+  Prefab: {fileID: 0}
   AssetReference:
     m_AssetGUID: 6e8108d6b6dedb840a9afd5fc4cd7eb3
     m_SubObjectName: 
@@ -32,8 +32,8 @@ MonoBehaviour:
   isTool: 1
   weaponType: 0
   toolType: 1
-  weaponDamage: 10
+  weaponDamage: 20
   weaponAttackDelay: 1
   weaponAttackDistance: 1
-  toolGatherPower: 10
+  toolGatherPower: 5
   toolDistance: 1

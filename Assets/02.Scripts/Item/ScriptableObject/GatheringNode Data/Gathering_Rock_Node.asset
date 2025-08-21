@@ -15,7 +15,7 @@ MonoBehaviour:
   ID: 40002
   DisplayName: Rock
   Description: 
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 2bdcbd0086a4398468ad3dd2bb52ffe3, type: 3}
   Prefab: {fileID: 0}
   AssetReference:
     m_AssetGUID: 8a2a5581c28145749aced54006c3c0bc

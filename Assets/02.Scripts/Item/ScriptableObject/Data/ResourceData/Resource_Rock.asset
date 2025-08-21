@@ -15,7 +15,7 @@ MonoBehaviour:
   ID: 21002
   DisplayName: "\uB3CC"
   Description: "\uB3CC"
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 896c749beb6333646b1ec37e306340cd, type: 3}
   Prefab: {fileID: 0}
   AssetReference:
     m_AssetGUID: 6463e2d6e0d16a6468b6af6bec3984b2

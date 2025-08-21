@@ -63,13 +63,6 @@ public class BuildingMode : MonoBehaviour
 
     public void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            DestroyPrevObj();
-            isBuild = !isBuild;
-        }
-
         if (isBuild)
         {
             // 키 입력으로 건축 모듈 선택
@@ -110,17 +103,18 @@ public class BuildingMode : MonoBehaviour
 
                 }
             }
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                if (CanBuildAt(buildKey.Position, buildKey.rot, buildMode))
-                {
-                    CreateBuildObj(hit, buildMode);
-                }
-                else
-                {
-                    Debug.Log("건설 불가 위치!");
-                }
-            }
+        }
+    }
+
+    public void TryBuild()
+    {
+        if (CanBuildAt(buildKey.Position, buildKey.rot, buildMode))
+        {
+            CreateBuildObj(hit, buildMode);
+        }
+        else
+        {
+            Debug.Log("건설 불가 위치!");
         }
     }
 
@@ -140,7 +134,7 @@ public class BuildingMode : MonoBehaviour
         return Physics.Raycast(origin, dir, out hit, distance, buildMask, QueryTriggerInteraction.Collide);
     }
 
-    private void DestroyPrevObj()
+    public void DestroyPrevObj()
     {
         if (preViewObj != null)
         {
