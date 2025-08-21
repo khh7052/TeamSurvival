@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void ToggleCursor()
+    public void ToggleCursor()
     {
         bool toggle = Cursor.lockState == CursorLockMode.Locked;
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
@@ -226,13 +226,17 @@ public class PlayerController : MonoBehaviour
         if (callbackContext.phase == InputActionPhase.Started)
         {
             if (isEnable)
+            {
                 UIManager.Instance.CloseUI<SettingUI>();
+            }
             else
+            {
                 await UIManager.Instance.ShowUI<SettingUI>();
-
+            }
             ToggleCursor();
         }
     }
+
     public void OnBuildButton(InputAction.CallbackContext context)
     {
         if (IsDead) return;

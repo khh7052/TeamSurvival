@@ -49,7 +49,7 @@ public class SettingUI : BaseUI
     public void OnClose()
     {
         UIManager.Instance.CloseUI<SettingUI>();
-        Cursor.lockState = CursorLockMode.Locked;
+        GameManager.player.controller.ToggleCursor();
     }
 
 
