@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDeathBehavior
 {
     public EntityModel model;
     PlayerView view;
@@ -29,5 +29,12 @@ public class Player : MonoBehaviour
         animationHandler = GetComponent<AnimationHandler>();
 
         GameManager.player = this;
+
+
+    }
+
+    public void Die()
+    {
+        throw new NotImplementedException();
     }
 }

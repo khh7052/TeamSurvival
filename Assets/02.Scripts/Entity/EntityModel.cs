@@ -15,7 +15,6 @@ public interface IWeatherObserver
 }
 
 public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
-
 {
     [Header("상태관련")]
     public Condition health; //체력
@@ -25,12 +24,16 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     public Condition temperture; //체온
     public bool isApplyByWeather; //날씨에 체온이 영향을 받는가
 
+    public bool isDie = false;
+
     public float warningTemp = 34f; //경고
     public float dangerTemp = 32f; //위험 
     
     private float time = 0f;
     private float interval = 1f; //날씨에 대한 체온 영향 몇초에 한번 받을것인지
     [SerializeField] private float rayLength = 5f; //테스트용 삭제가능
+
+    
 
 
 
