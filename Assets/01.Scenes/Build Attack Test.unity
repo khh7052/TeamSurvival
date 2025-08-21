@@ -987,6 +987,7 @@ MonoBehaviour:
   attackDelay: 1
   attackDamage: 1
   useGizmo: 1
+  yieldItem: {fileID: 0}
   nearestEnemyObject: {fileID: 0}
 --- !u!195 &617371570
 NavMeshAgent:
@@ -1094,6 +1095,7 @@ MonoBehaviour:
   warningTemp: 34
   dangerTemp: 32
   rayLength: 5
+  isDie: 0
   moveSpeed:
     baseValue: 0
     additionalValue: 0
@@ -1104,6 +1106,9 @@ MonoBehaviour:
     additionalValue: 0
     multipleValue: 1
     constValue: 0
+  starvationDps: 0.25
+  dehydrationDps: 0.25
+  mesh: {fileID: 0}
 --- !u!1 &621172763
 GameObject:
   m_ObjectHideFlags: 0
@@ -2310,6 +2315,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestAnimalSpawn 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6357584293455799441, guid: 4a101cfd66736864bbce1f01a3cfd5ef, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2519,6 +2528,10 @@ PrefabInstance:
     - target: {fileID: 2155688403432268436, guid: 14e16022ff98cab44ac1e6173096bce9, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2260514193931000130, guid: 14e16022ff98cab44ac1e6173096bce9, type: 3}
+      propertyPath: health.passiveValue
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 2260514193931000130, guid: 14e16022ff98cab44ac1e6173096bce9, type: 3}
       propertyPath: moveSpeed.baseValue
@@ -2740,6 +2753,10 @@ PrefabInstance:
       propertyPath: homePoint
       value: 
       objectReference: {fileID: 191107253}
+    - target: {fileID: 8338966613746870487, guid: 14e16022ff98cab44ac1e6173096bce9, type: 3}
+      propertyPath: yieldItem
+      value: 
+      objectReference: {fileID: 11400000, guid: fb9a5bf0c6b46f74681aa51b42e9ef0c, type: 2}
     - target: {fileID: 8338966613746870487, guid: 14e16022ff98cab44ac1e6173096bce9, type: 3}
       propertyPath: playerObject
       value: 

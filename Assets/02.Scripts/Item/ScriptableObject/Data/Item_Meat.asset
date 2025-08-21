@@ -24,7 +24,7 @@ MonoBehaviour:
     m_EditorAssetChanged: 0
   description: 
   type: 2
-  dropPrefab: {fileID: 0}
+  dropPrefab: {fileID: 9072252662268677480, guid: a6542fa0556103e4e9b554444743bc53, type: 3}
   canStack: 1
   maxStackAmount: 10
   consumables:

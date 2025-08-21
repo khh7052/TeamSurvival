@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(NPCStateMachine))]
@@ -49,6 +50,9 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
 
     [Header("Debug")]
     [SerializeField] private bool useGizmo = true;
+
+    [Header("Drop Item")]
+    [SerializeField] private ItemData yieldItem;
 
     private float patrolDelay;
     private float lastPatrolTime;
@@ -114,8 +118,9 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
 
     public void Die()
     {
+        DropLoot();
         StartCoroutine(FadeOutAndDestroy());
-        WeatherCycle.Instance.RemoveObserver(entityModel);
+        WeatherCycle.Instance.RemoveObserver(entityModel);      
     }
 
     private IEnumerator FadeOutAndDestroy()
@@ -286,5 +291,25 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
         }
     }
 
+    private void DropLoot()
+    {
+        Debug.Log($"[DropLoot] yieldItem: {yieldItem?.name}, ID: {yieldItem?.ID}");
 
+        if (yieldItem == null) return;
+
+        Vector3 pos = transform.position + Random.insideUnitSphere * 0.3f;
+        if (pos.y < transform.position.y) pos.y = transform.position.y + 0.25f;
+
+        AssetDataLoader.Instance.InstantiateByID(yieldItem.ID, (go) =>
+        {
+            if (go == null)
+            {
+                Debug.LogError($"[DropLoot] Failed to instantiate item with ID: {yieldItem.ID}");
+                return;
+            }
+
+            go.transform.SetLocalPositionAndRotation(pos, transform.rotation);
+            Debug.Log($"[DropLoot] Dropped item: {go.name} at {pos}");
+        });
+    }
 }
