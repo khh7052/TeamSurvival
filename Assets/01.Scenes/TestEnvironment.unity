@@ -2849,10 +2849,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1683975416896729174, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
-      propertyPath: buildRecipe
+    - target: {fileID: 777261130677496077, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+      propertyPath: buildMode
       value: 
-      objectReference: {fileID: 11400000, guid: a82778da6cb075f47a3877cdac9d4792, type: 2}
+      objectReference: {fileID: 1741775134}
     - target: {fileID: 6533984410461744423, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.7
@@ -13640,6 +13640,17 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 1
+--- !u!114 &1741775134 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1683975416896729174, guid: 44c33400699a84e40bd7da357f69c088, type: 3}
+  m_PrefabInstance: {fileID: 396359302}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4654c3775546104c84a6e3d4ba9b2ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1748970066
 PrefabInstance:
   m_ObjectHideFlags: 0
