@@ -43,7 +43,6 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
             if(i < recipe.recipe.Count)
             {
                 var Item = await AssetDataLoader.Instance.GetDataByID<ItemData>(recipe.recipe[i].ItemID);
-                Debug.Log(Item.DisplayName);
                 sourceItemIcon[i].sprite = Item.Icon;
                 sourceItemCntText[i].text = recipe.recipe[i].ItemCount.ToString();
                 sourceItemIcon[i].SetActive(true);

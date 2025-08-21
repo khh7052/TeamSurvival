@@ -35,10 +35,10 @@ public class PlayerController : MonoBehaviour
     public Action OnBuildModeInput;
     public BuildingMode buildMode;
 
-    [SerializeField]
-    private EntityModel condition
-;
-    public bool IsDead => condition.health.CurValue <= 0;
+    //[SerializeField]
+    //private EntityModel condition;
+
+    public bool IsDead => model.health.CurValue <= 0;
 
     private void Awake()
     {

@@ -3832,7 +3832,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8055
+    m_Bits: 24439
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4609,7 +4609,7 @@ MonoBehaviour:
   inventory: {fileID: 0}
   animationHandler: {fileID: 0}
   interaction: {fileID: 0}
-  dropPosition: {fileID: 0}
+  dropPosition: {fileID: 6533984410461744423}
 --- !u!114 &6885103462339148826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4691,7 +4691,7 @@ MonoBehaviour:
   canLook: 1
   jumpStaminaCost: 10
   buildMode: {fileID: 1683975416896729174}
-  condition: {fileID: 0}
+  condition: {fileID: 6885103462339148826}
 --- !u!114 &3850867666251352558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4717,8 +4717,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots:
-  - item: {fileID: 0}
-    Quantity: 0
+  - item: {fileID: 11400000, guid: bf6514092f692ec40b06c8205482e44c, type: 2}
+    Quantity: 1
   - item: {fileID: 0}
     Quantity: 0
   - item: {fileID: 0}
@@ -4806,7 +4806,7 @@ MonoBehaviour:
   currentItemInstance: {fileID: 0}
   hitMask:
     serializedVersion: 2
-    m_Bits: 4864
+    m_Bits: 21248
   handSlot: {fileID: 9210934534352783902}
   EquipTransform: {fileID: 2685170793834150853}
   spawnThirdPersonModel: 1
