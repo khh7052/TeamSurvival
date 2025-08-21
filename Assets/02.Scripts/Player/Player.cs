@@ -29,12 +29,10 @@ public class Player : MonoBehaviour, IDeathBehavior
         animationHandler = GetComponent<AnimationHandler>();
 
         GameManager.player = this;
-
-
     }
 
     public void Die()
     {
-        throw new NotImplementedException();
+
     }
 }
