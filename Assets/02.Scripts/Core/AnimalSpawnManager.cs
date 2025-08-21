@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class AnimalSpawnManager : MonoBehaviour
+public class AnimalSpawnManager : Singleton<AnimalSpawnManager>
 {
     [Header("Spawn Point")]
     [SerializeField] private Transform spawnAreaParents;
@@ -23,6 +23,10 @@ public class AnimalSpawnManager : MonoBehaviour
 
     [Header("테스트용 Animal Prefab")]
     [SerializeField] private List<GameObject> animalPrefabs; //동물 프리팹
+
+    [Header("Maximum Animal Count")]
+    [SerializeField] private int maxAnimalCount = 10;
+    private int currentAnimalCount = 0; //동물이 죽은 시점에서도 current값을 빼주어야한다.
 
     private float respawnTime;
     private float lastSpawnTime;
@@ -68,6 +72,12 @@ public class AnimalSpawnManager : MonoBehaviour
             int spawnCount = Random.Range(minSpawnCount, maxSpawnCount);
             for(int i = 0; i < spawnCount; i++)
             {
+                if (currentAnimalCount >= maxAnimalCount)
+                {
+                    Debug.Log("동물 최대 스폰수 도달 return");
+                    return;
+                }
+
                 Vector3 randPos = GetRandomPoint(area.bounds);
                 if(Physics.Raycast(randPos + Vector3.up * 10f, Vector3.down, out RaycastHit hit, 50f, groundLayer))
                 {
@@ -83,6 +93,9 @@ public class AnimalSpawnManager : MonoBehaviour
 
                     GameObject prefab = animalPrefabs[Random.Range(0, animalPrefabs.Count)];
                     Instantiate(prefab, spawnPos, Quaternion.identity);
+
+                    currentAnimalCount++;
+                    Debug.Log($"현재 동물 소환 : {currentAnimalCount}"); 
                 }
             }
         }
