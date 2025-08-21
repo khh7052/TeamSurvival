@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57bfe93ea154bcf4f86ab1175063a58f, type: 3}
-  m_Name: Composition Item
+  m_Name: Composition Item 5
   m_EditorClassIdentifier: 
-  ID: 23003
-  DisplayName: "\uACE1\uAD2D\uC774"
-  Description: "\uACE1\uAD2D\uC774\uB2E4"
-  Icon: {fileID: 21300000, guid: e5197f6e797ce5c40a9cb0efad1bb1c9, type: 3}
+  ID: 23002
+  DisplayName: "\uB3CC\uB3C4\uB07C"
+  Description: "\uB3CC\uB3C4\uB07C\uB2E4"
+  Icon: {fileID: 21300000, guid: 04d81ffce55b6d54a885451ae12a69e1, type: 3}
   Prefab: {fileID: 0}
   AssetReference:
     m_AssetGUID: 
@@ -25,3 +25,5 @@ MonoBehaviour:
   recipe:
   - ItemID: 21001
     ItemCount: 1
+  - ItemID: 21002
+    ItemCount: 2
