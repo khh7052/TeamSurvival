@@ -131,6 +131,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemData
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 495c22f7de434bb42bb531cdd28aa737
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Hammer_Stone.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a4703d784bdf36439616e1d6835951a
+    m_Address: Assets/02.Scripts/Item/ScriptableObject/Data/Item_Hammer_Wood.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}
   m_SchemaSet:

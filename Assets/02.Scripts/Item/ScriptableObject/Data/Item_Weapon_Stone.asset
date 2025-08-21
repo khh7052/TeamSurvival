@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Item_Weapon_Stone
   m_EditorClassIdentifier: 
   ID: 23006
-  DisplayName: Weapon
+  DisplayName: "\uB3CC \uAC80"
   Description: 
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 04d81ffce55b6d54a885451ae12a69e1, type: 3}
   Prefab: {fileID: 0}
   AssetReference:
     m_AssetGUID: 42e9b7af145cf8341aae6a51854ffdcf

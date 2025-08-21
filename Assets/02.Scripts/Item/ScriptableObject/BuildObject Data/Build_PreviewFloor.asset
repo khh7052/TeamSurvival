@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 10011
   DisplayName: Floor
-  Icon: {fileID: 0}
+  Description: 
+  Icon: {fileID: 21300000, guid: c5159917194e1dc439ee96097a68d804, type: 3}
   Prefab: {fileID: 2057893157616160673, guid: 1250e5ac132423c4293a671146f867dd, type: 3}
   AssetReference:
     m_AssetGUID: 73b9f586633f54647a2ae4292b5d0b57

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 10002
   DisplayName: Wall
-  Icon: {fileID: 0}
+  Description: 
+  Icon: {fileID: 21300000, guid: d5eabe64348857a479fad8f65a5c9415, type: 3}
   Prefab: {fileID: 2057893157616160673, guid: 1250e5ac132423c4293a671146f867dd, type: 3}
   AssetReference:
     m_AssetGUID: c75231259a55fb942a6df3ec509de958
