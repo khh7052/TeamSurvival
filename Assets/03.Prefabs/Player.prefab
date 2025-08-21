@@ -4691,7 +4691,6 @@ MonoBehaviour:
   canLook: 1
   jumpStaminaCost: 10
   buildMode: {fileID: 1683975416896729174}
-  condition: {fileID: 6885103462339148826}
 --- !u!114 &3850867666251352558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4717,8 +4716,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots:
-  - item: {fileID: 11400000, guid: bf6514092f692ec40b06c8205482e44c, type: 2}
-    Quantity: 1
+  - item: {fileID: 0}
+    Quantity: 0
   - item: {fileID: 0}
     Quantity: 0
   - item: {fileID: 0}

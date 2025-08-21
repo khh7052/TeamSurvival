@@ -96,6 +96,13 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
         entityModel.health.OnChanged += Health_OnChanged;
 
         entityModel.moveSpeed.OnChangeValue += MoveSpeed_OnChanged;
+
+        if(homePoint == null)
+        {
+            GameObject go = new GameObject("Home");
+            go.transform.position = transform.position;
+            homePoint = go.transform;
+        }
     }
 
     private void Health_OnChanged()
