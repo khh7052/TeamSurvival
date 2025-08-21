@@ -132,7 +132,7 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
 
     public void Die()
     {
-        //사망 로직
+        //사망 로직 EntityModel에서 Player와 NPC의 죽음을 나누고싶었는데 일단 Interface로 NPC와 Player에 각각 했습니다. 방법을 아신다면 도와주시면 감사하겠습니다
     }
 
     public void TakePhysicalDamage(int damage)
