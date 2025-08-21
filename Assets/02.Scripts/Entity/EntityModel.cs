@@ -34,6 +34,8 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     [SerializeField] private float rayLength = 5f; //테스트용 삭제가능
     public Action OnHitEvent { get; set; }
 
+    public bool isDie = false;
+
 
     [Header("이동관련")]
     /*
