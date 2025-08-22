@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f4ec0b851e3d3c4384005101be8aa6d, type: 3}
-  m_Name: Hit_Wood
+  m_Name: Hit_Rock
   m_EditorClassIdentifier: 
   ID: 0
   DisplayName: 
