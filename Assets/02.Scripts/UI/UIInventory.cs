@@ -64,6 +64,7 @@ public class UIInventory : BaseUI
         inventory.OnChangeData += UpdateUI;
         Debug.Log("Enable");
         UpdateUI();
+        ClearSelectedItemWindow();
     }
 
     protected override void OnDisable()
@@ -188,6 +189,7 @@ public class UIInventory : BaseUI
     public void OnDropButton()
     {
         if (selectedItem?.item == null) return;
+        Debug.Log("DropButton´©¸§");
         inventory.ThrowItemInInventory(selectedItemIndex);
         if (slots[selectedItemIndex].quantity <= 0)
         {

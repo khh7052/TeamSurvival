@@ -38,11 +38,9 @@ public class ItemSlotUI : MonoBehaviour
     public void Set(ItemSlot targetSlot)
     {
         item = targetSlot.item;
-        Debug.Log($"Item : {item.DisplayName}");
         quantity = targetSlot.Quantity;
         if (icon != null)
         {
-            Debug.Log($"{item.Icon}");
             icon.sprite = item != null ? item.Icon : null;
             icon.enabled = (item != null && item.Icon != null);
         }

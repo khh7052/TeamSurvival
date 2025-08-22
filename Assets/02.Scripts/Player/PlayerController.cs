@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,6 +12,10 @@ public class PlayerController : MonoBehaviour
     public Vector2 curMovementInput;
     public LayerMask groundLayerMask;
     private EquipSystem equip;
+
+    [Header("Audio")]
+    [SerializeField] private SoundData jumpSFX;
+    [SerializeField] private SoundData hitSFX;
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -26,6 +32,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpStaminaCost = 10f;
 
     AnimationHandler anim;
+    public Action OnBuildModeInput;
+    public BuildingMode buildMode;
+
+    //[SerializeField]
+    //private EntityModel condition;
+
+    public bool IsDead => model.health.CurValue <= 0;
 
     private void Awake()
     {
@@ -33,6 +46,8 @@ public class PlayerController : MonoBehaviour
         model = GetComponent<EntityModel>();
         equip = GetComponent<EquipSystem>();
         anim = GetComponent<AnimationHandler>();
+        model.OnDeathEvent += OnDeathEvent;
+        model.OnHitEvent += OnHit;
     }
 
     private void Start()
@@ -42,15 +57,22 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (IsDead) return;
         Move();
     }
 
     private void LateUpdate()
     {
+        if(IsDead) return;
         if(canLook)
         {
             CameraLook();
         }
+    }
+
+    private void OnHit()
+    {
+        AudioManager.Instance.PlaySFX(hitSFX, transform.position);
     }
 
     private void Move() //이동로직
@@ -74,11 +96,13 @@ public class PlayerController : MonoBehaviour
     private void Jump() //점프로직
     {
         rb.AddForce(Vector2.up * model.jumpPower.totalValue, ForceMode.Impulse);
+        AudioManager.Instance.PlaySFX(jumpSFX, transform.position);
         anim.PlayerJump();
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (IsDead) return;
         if(context.phase == InputActionPhase.Performed)
         {
             curMovementInput = context.ReadValue<Vector2>();
@@ -93,12 +117,14 @@ public class PlayerController : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
+        if (IsDead) return;
         mouseDelta = context.ReadValue<Vector2>();
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started && IsGrounded())
+        if (IsDead) return;
+        if (context.phase == InputActionPhase.Started && IsGrounded())
         {
             if (model != null && model.stamina != null)
                 model.stamina.Subtract(jumpStaminaCost);
@@ -109,6 +135,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        if (IsDead) return;
         if (context.phase == InputActionPhase.Started && equip != null && canLook)
         {
             equip.Attack();
@@ -138,11 +165,12 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    public void OnInventoryButton(InputAction.CallbackContext callbackContext)
+    public async void OnInventoryButton(InputAction.CallbackContext callbackContext)
     {
+        if (IsDead) return;
         // 제작 켜져있을 땐 무시
         if (UIManager.Instance.IsEnableUI<CompositionUI>()) return;
-        if (UIManager.Instance.IsEnableUI<UIInventory>()) return;
+        if (UIManager.Instance.IsEnableUI<SettingUI>()) return;
 
         if (callbackContext.phase == InputActionPhase.Started)
         {
@@ -152,13 +180,13 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                UIManager.Instance.ShowUI<UIInventory>();
+                await UIManager.Instance.ShowUI<UIInventory>();
             }
             ToggleCursor();
         }
     }
 
-    void ToggleCursor()
+    public void ToggleCursor()
     {
         bool toggle = Cursor.lockState == CursorLockMode.Locked;
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
@@ -166,10 +194,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void OnCraftUIButton(InputAction.CallbackContext callbackContext)
+    public async void OnCraftUIButton(InputAction.CallbackContext callbackContext)
     {
+        if (IsDead) return;
         // 인벤토리 켜져있을 땐 무시
-        if (UIManager.Instance.IsEnableUI<CompositionUI>()) return;
+        if (UIManager.Instance.IsEnableUI<SettingUI>()) return;
         if (UIManager.Instance.IsEnableUI<UIInventory>()) return;
 
         if (callbackContext.phase == InputActionPhase.Started)
@@ -180,14 +209,13 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                UIManager.Instance.ShowUI<CompositionUI>();
+                await UIManager.Instance.ShowUI<CompositionUI>();
             }
             ToggleCursor();
         }
     }
 
-
-    public void OnSettingUIButton(InputAction.CallbackContext callbackContext)
+    public async void OnSettingUIButton(InputAction.CallbackContext callbackContext)
     {
         // 인벤토리 켜져있을 땐 무시
         bool isEnable = UIManager.Instance.IsEnableUI<SettingUI>();
@@ -198,11 +226,86 @@ public class PlayerController : MonoBehaviour
         if (callbackContext.phase == InputActionPhase.Started)
         {
             if (isEnable)
+            {
                 UIManager.Instance.CloseUI<SettingUI>();
+            }
             else
-                UIManager.Instance.ShowUI<SettingUI>();
+            {
+                await UIManager.Instance.ShowUI<SettingUI>();
+            }
             ToggleCursor();
         }
     }
 
+    public void OnBuildButton(InputAction.CallbackContext context)
+    {
+        if (IsDead) return;
+        if (context.phase == InputActionPhase.Started)
+        {
+            buildMode.DestroyPrevObj();
+            buildMode.isBuild = !buildMode.isBuild;
+        }
+    }
+
+    public void OnBuildTryButton(InputAction.CallbackContext context)
+    {
+        if (IsDead) return;
+        if (context.phase == InputActionPhase.Started)
+        {
+            if(buildMode.isBuild) 
+                buildMode.TryBuild();
+        }
+    }
+
+    public void OnDeathEvent()
+    {
+        // 일단 활성화되어있는 UI 닫기
+        if (UIManager.Instance.IsEnableUI<CompositionUI>())
+        {
+            UIManager.Instance.CloseUI<CompositionUI>();
+        }
+        if (UIManager.Instance.IsEnableUI<UIInventory>())
+        {
+            UIManager.Instance.CloseUI<UIInventory>();
+        }
+        if (UIManager.Instance.IsEnableUI<InGameUI>())
+        {
+            UIManager.Instance.CloseUI<InGameUI>();
+        }
+        // 장착 무기도 없애기
+        equip.UnEquip();
+        StartCoroutine(DeathCameraEffect(transform));
+    }
+
+    public IEnumerator DeathCameraEffect(Transform player, float riseHeight = 5f, float duration = 2f)
+    {
+        Transform cam = Camera.main.transform;
+        Vector3 startPos = cam.position;
+        Vector3 targetPos = player.position + Vector3.up * riseHeight;
+        int playerLayerMask = 1 << LayerMask.NameToLayer("Player");
+        Camera.main.cullingMask |= playerLayerMask; 
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+
+            // 카메라 위치 보간 (위로 상승)
+            cam.position = Vector3.Lerp(startPos, targetPos, t);
+
+            // 카메라가 항상 플레이어 바라보게
+            cam.LookAt(player.position);
+
+            yield return null;
+        }
+
+        // 마지막 위치/각도 보정
+        cam.position = targetPos;
+        cam.LookAt(player.position);
+
+        yield return new WaitForSeconds(1f);
+
+        GameManager.Instance.PlayerDead();
+    }
 }

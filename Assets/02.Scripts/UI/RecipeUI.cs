@@ -28,7 +28,7 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
     public bool isCreatable;
     private Image LayerImage;
 
-    public void Initialize(CompositionRecipeData recipe, int index, CompositionUI origin)
+    public async void Initialize(CompositionRecipeData recipe, int index, CompositionUI origin)
     {
         this.recipe = recipe;
         this.index = index;
@@ -42,8 +42,7 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
         {
             if(i < recipe.recipe.Count)
             {
-                var Item = Factory.Instance.GetDataByID<ItemData>(recipe.recipe[i].ItemID);
-                Debug.Log(Item.DisplayName);
+                var Item = await AssetDataLoader.Instance.GetDataByID<ItemData>(recipe.recipe[i].ItemID);
                 sourceItemIcon[i].sprite = Item.Icon;
                 sourceItemCntText[i].text = recipe.recipe[i].ItemCount.ToString();
                 sourceItemIcon[i].SetActive(true);
@@ -65,7 +64,7 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
 
     public void CheckCreatableSlot()
     {
-        var datas = GetRecipeData();
+        var datas = recipe.GetRecipeData();
         if(GameManager.player.inventory.IsHasItem(datas.Item1, datas.Item2))
         {
             LayerImage.color = Color.white;
@@ -78,18 +77,4 @@ public class RecipeUI : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private (int[], int[]) GetRecipeData()
-    {
-        int[] datas = new int[recipe.recipe.Count];
-
-        int[] coutns = new int[recipe.recipe.Count];
-
-        for(int i = 0; i < datas.Length; i++)
-        {
-            datas[i] = recipe.recipe[i].ItemID;
-            coutns[i] = recipe.recipe[i].ItemCount;
-        }
-
-        return (datas, coutns);
-    }
 }

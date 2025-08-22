@@ -4,7 +4,7 @@ using UnityEngine;
 using Constants;
 
 [CreateAssetMenu(fileName = "SoundData", menuName = "Data/SoundData")]
-public class SoundData : ScriptableObject
+public class SoundData : BaseScriptableObject
 {
     public AudioClip[] clips;
     public float volume = 1f;

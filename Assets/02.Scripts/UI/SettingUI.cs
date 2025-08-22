@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Constants;
+using UnityEngine.AddressableAssets;
 
 public class SettingUI : BaseUI
 {
     [SerializeField] private Transform volumeSliderParent;
+    [SerializeField] private AssetReference volumeSliderRef;
 
     protected override void Awake()
     {
@@ -14,9 +16,12 @@ public class SettingUI : BaseUI
         OnReset();
     }
 
-    void CreateVolumeSliders()
+    async void CreateVolumeSliders()
     {
-        VolumeSlider volumeSlider = Resources.Load<VolumeSlider>("UI/VolumeSlider");
+        var handle = Addressables.LoadAssetAsync<GameObject>(volumeSliderRef);
+        await handle.Task;
+        VolumeSlider volumeSlider = handle.Result.GetComponent<VolumeSlider>();
+
         if (volumeSlider == null)
         {
             Debug.LogError("VolumeSlider prefab not found.");
@@ -44,7 +49,7 @@ public class SettingUI : BaseUI
     public void OnClose()
     {
         UIManager.Instance.CloseUI<SettingUI>();
-        Cursor.lockState = CursorLockMode.Locked;
+        GameManager.player.controller.ToggleCursor();
     }
 
 

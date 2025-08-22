@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class PlayerInventory : MonoBehaviour
 {
     public static PlayerInventory Instance { get; private set; }
 
-    private PlayerCondition condition;
+    private EntityModel condition;
 
     public List<ItemSlot> slots = new();
     public Action OnChangeData;
@@ -17,29 +18,36 @@ public class PlayerInventory : MonoBehaviour
 
     Dictionary<int, int> itemQuantityCache = new();
 
+    [SerializeField] private SoundData equipSFX;
+    [SerializeField] private SoundData eatSFX;
+
     private void Awake()
     {
         GetComponent<Player>().addItem += Add;
+        if (condition == null) condition =  GetComponent<EntityModel>();
     }
 
     private void ItemCacheInInventory(int id, int Quantity)
     {
         if (itemQuantityCache.ContainsKey(id))
         {
-            // 있으면 증가
+            // 있으면 증감
             itemQuantityCache[id] += Quantity;
+            // 0 이하일 경우 삭제
+            if (itemQuantityCache[id] <= 0)
+            {
+                itemQuantityCache.Remove(id);
+            }
         }
         else
         {
             // 없으면 해당 값 부여
-            itemQuantityCache[id] = Quantity;
+            if(Quantity > 0)
+            {
+                itemQuantityCache[id] = Quantity;
+            }
         }
 
-        // 0 이하일 경우 삭제
-        if (itemQuantityCache[id] <= 0)
-        {
-            itemQuantityCache.Remove(id);
-        }
     }
 
     // 아이템 추가
@@ -47,6 +55,8 @@ public class PlayerInventory : MonoBehaviour
 
         ItemData data = GameManager.player.itemData;
         if (data == null) return;
+
+        AudioManager.Instance.PlaySFX(equipSFX, transform.position);
 
         if (data.canStack)
         {
@@ -98,16 +108,28 @@ public class PlayerInventory : MonoBehaviour
 
     public void ThrowItem(ItemData data)
     {
-        if (data?.dropPrefab == null || GameManager.player.dropPosition == null) return;
-        Instantiate(
-            data.dropPrefab,
-            GameManager.player.dropPosition.position,
-            Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360f)
-        );
+        // if (data?.ID == null || GameManager.player.dropPosition == null) return;
+        if (data?.ID == null) Debug.Log("ID가 null입니다.");
+        if (GameManager.player.dropPosition == null) Debug.Log("droppositon이 null");
+
+
+        Debug.Log("ThrowItem실행");
+        var equipment = GameManager.player.GetComponent<EquipSystem>();
+        if(equipment != null && equipment.currentItem == data)
+        {
+            equipment.UnEquip();
+            Debug.Log("UnEquip실행111");
+        }
+        AssetDataLoader.Instance.InstantiateByID(data.ID, (go) =>
+        {
+            go.transform.position = GameManager.player.dropPosition.position;
+            go.transform.rotation = Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360f);
+        });
     }
 
     public void ThrowItemInInventory(int index)
     {
+        Debug.Log("ThrowItemInInventory작동");
         ThrowItem(slots[index].item);
         RemoveIndexItem(index);
     }
@@ -116,6 +138,8 @@ public class PlayerInventory : MonoBehaviour
     {
         if (slots[index].item == null) return;
         if (slots[index].item.type != ItemType.Consumable) return;
+
+        AudioManager.Instance.PlaySFX(eatSFX, transform.position);
 
         var consumables = slots[index].item.consumables;
         if (consumables != null)
@@ -133,6 +157,8 @@ public class PlayerInventory : MonoBehaviour
     {
         if(slots[index].item == null) return;
         slots[index].Quantity--;
+
+        ItemCacheInInventory(slots[index].item.ID, -1);
 
         if (slots[index].Quantity <= 0)
         {
@@ -167,7 +193,7 @@ public class PlayerInventory : MonoBehaviour
             case ConsumableType.Health: condition.Heal(c.value); break;
             case ConsumableType.Hunger: condition.Eat(c.value); break;
             case ConsumableType.Thirst: condition.Drink(c.value); break;
-            case ConsumableType.Stamina: condition.RecoverStamina(c.value); break;
+            case ConsumableType.Stamina: condition.stamina.Add(c.value); break;
         }
     }
 
@@ -187,9 +213,9 @@ public class PlayerInventory : MonoBehaviour
         return true;
     }
 
-    public void ItemCreate(CompositionRecipeData data)
+    public async void ItemCreate(CompositionRecipeData data)
     {
-        var itemData = Factory.Instance.GetDataByID<ItemData>(data.ID);
+        var itemData = await AssetDataLoader.Instance.GetDataByID<ItemData>(data.ID);
         GameManager.player.itemData = itemData;
 
         for (int i = 0; i < data.recipe.Count; i++)
@@ -202,6 +228,39 @@ public class PlayerInventory : MonoBehaviour
         }
 
         Add();
+        OnChangeData?.Invoke();
+    }
+
+    public void RemoveItem(int[] itemIds, int[] counts)
+    {
+        if (itemIds.Length != counts.Length) return;
+
+        for (int i = 0; i < itemIds.Length; i++)
+        {
+            int remaining = counts[i]; // 남은 삭제 수량
+
+            ItemCacheInInventory(itemIds[i], -counts[i]);
+
+            if (remaining > 0)
+            {
+                for (int j = 0; j < slots.Count; j++)
+                {
+                    var slot = slots[j];
+                    if (slot.item != null && slot.item.ID == itemIds[i])
+                    {
+                        int removeAmount = Math.Min(slot.Quantity, remaining);
+                        slot.Quantity -= removeAmount;
+                        remaining -= removeAmount;
+
+                        if (slot.Quantity <= 0)
+                            slot.item = null;
+
+                        if (remaining <= 0) break; // 다 삭제했으면 종료
+                    }
+                }
+            }
+        }
+
         OnChangeData?.Invoke();
     }
 }

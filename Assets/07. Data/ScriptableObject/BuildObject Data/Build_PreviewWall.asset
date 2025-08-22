@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c279dab2cc2f86b4a9c393cf7ff8daf0, type: 3}
+  m_Name: Build_PreviewWall
+  m_EditorClassIdentifier: 
+  ID: 10012
+  DisplayName: Wall
+  Description: 
+  Icon: {fileID: 21300000, guid: d5eabe64348857a479fad8f65a5c9415, type: 3}
+  Prefab: {fileID: 2057893157616160673, guid: 1250e5ac132423c4293a671146f867dd, type: 3}
+  AssetReference:
+    m_AssetGUID: f0acd93775e628d4cb42f862d32ba2fd
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

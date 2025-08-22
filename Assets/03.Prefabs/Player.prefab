@@ -2542,6 +2542,37 @@ Transform:
   - {fileID: 4495621449520093267}
   m_Father: {fileID: 145866270612101980}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4306636883719835949
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9210934534352783902}
+  m_Layer: 7
+  m_Name: HandSlot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9210934534352783902
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4306636883719835949}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.275, y: -0.162, z: 0.34}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8031511763355700447}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4310418220711075806
 GameObject:
   m_ObjectHideFlags: 0
@@ -2641,7 +2672,7 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.26453483, y: -0.0643382, z: -0.00007355213}
     m_Extent: {x: 0.33124912, y: 0.27240586, z: 0.80939645}
   m_DirtyAABB: 0
---- !u!1 &4382788110008962570
+--- !u!1 &4437012969515569661
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2649,29 +2680,82 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6306992753322779040}
-  m_Layer: 0
-  m_Name: HandSlot
+  - component: {fileID: 8031511763355700447}
+  - component: {fileID: 5078875344100106812}
+  m_Layer: 7
+  m_Name: EquipCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6306992753322779040
+--- !u!4 &8031511763355700447
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4382788110008962570}
+  m_GameObject: {fileID: 4437012969515569661}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.442, y: 0.023000002, z: 0.865}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6533984410461744423}
+  m_Children:
+  - {fileID: 9210934534352783902}
+  m_Father: {fileID: 7808320851386004077}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &5078875344100106812
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4437012969515569661}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 3
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!1 &4516230044162266876
 GameObject:
   m_ObjectHideFlags: 0
@@ -3748,7 +3832,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8055
+    m_Bits: 24439
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4286,7 +4370,6 @@ Transform:
   - {fileID: 7808320851386004077}
   - {fileID: 6226742916366652202}
   - {fileID: 8356643076925191470}
-  - {fileID: 6306992753322779040}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1471290149581795858
@@ -4453,6 +4536,54 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ca327124-347c-45db-b1bc-689a8072e046
     m_ActionName: Player/Craft[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 777261130677496077}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnBuildButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 47106a98-962c-4f22-879d-77084ef0aa23
+    m_ActionName: Player/BuildMode[/Keyboard/b]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 777261130677496077}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnBuildTryButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 68db926c-318b-41d9-85e7-6db83210e552
+    m_ActionName: Player/TryBuild[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 777261130677496077}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnSettingUIButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 900f8325-0b18-4cec-9272-4fba9cb88eb0
+    m_ActionName: Player/Setting[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -4477,7 +4608,8 @@ MonoBehaviour:
   itemData: {fileID: 0}
   inventory: {fileID: 0}
   animationHandler: {fileID: 0}
-  dropPosition: {fileID: 6306992753322779040}
+  interaction: {fileID: 0}
+  dropPosition: {fileID: 6533984410461744423}
 --- !u!114 &6885103462339148826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4494,12 +4626,12 @@ MonoBehaviour:
     curValue: 0
     startValue: 100
     maxValue: 100
-    passiveValue: 5
+    passiveValue: 2
   hunger:
     curValue: 0
     startValue: 100
     maxValue: 100
-    passiveValue: 3
+    passiveValue: 1
   thirst:
     curValue: 0
     startValue: 100
@@ -4519,6 +4651,7 @@ MonoBehaviour:
   warningTemp: 34
   dangerTemp: 32
   rayLength: 5
+  isDie: 0
   moveSpeed:
     baseValue: 5
     additionalValue: 0
@@ -4529,6 +4662,11 @@ MonoBehaviour:
     additionalValue: 0
     multipleValue: 1
     constValue: 0
+  starvationDps: 0.25
+  dehydrationDps: 0.25
+  mesh: {fileID: 0}
+  skinMesh: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!114 &777261130677496077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4545,12 +4683,15 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 576
+  jumpSFX: {fileID: 11400000, guid: 1c99110102dab2848910c4a5c3072f7b, type: 2}
+  hitSFX: {fileID: 11400000, guid: d21e473d24c91a745aeaa66dfcd3b619, type: 2}
   cameraContainer: {fileID: 7808320851386004077}
   minXLook: -85
   maxXLook: 85
   lookSensitivity: 0.5
   canLook: 1
   jumpStaminaCost: 10
+  buildMode: {fileID: 1683975416896729174}
 --- !u!114 &3850867666251352558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4576,6 +4717,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots:
+  - item: {fileID: 11400000, guid: 4a4703d784bdf36439616e1d6835951a, type: 2}
+    Quantity: 1
   - item: {fileID: 0}
     Quantity: 0
   - item: {fileID: 0}
@@ -4602,8 +4745,8 @@ MonoBehaviour:
     Quantity: 0
   - item: {fileID: 0}
     Quantity: 0
-  - item: {fileID: 0}
-    Quantity: 0
+  equipSFX: {fileID: 11400000, guid: 482468577f7cffc4d9627856b077f725, type: 2}
+  eatSFX: {fileID: 11400000, guid: 6381ff23e7dbaf4459f69cd2df9bb6a5, type: 2}
 --- !u!114 &8566881413159209253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4648,6 +4791,7 @@ MonoBehaviour:
   invisibleLayer:
   - {fileID: 3557723576270362355}
   - {fileID: 8038968992211998914}
+  buildRecipe: {fileID: 11400000, guid: a82778da6cb075f47a3877cdac9d4792, type: 2}
 --- !u!114 &5900856902477478118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4664,8 +4808,10 @@ MonoBehaviour:
   currentItemInstance: {fileID: 0}
   hitMask:
     serializedVersion: 2
-    m_Bits: 4864
-  handSlot: {fileID: 6306992753322779040}
+    m_Bits: 23296
+  handSlot: {fileID: 9210934534352783902}
+  EquipTransform: {fileID: 2685170793834150853}
+  spawnThirdPersonModel: 1
   model: {fileID: 6885103462339148826}
   staminaCostWeapon: 10
   staminaCostTool: 10
@@ -4676,7 +4822,6 @@ MonoBehaviour:
   unarmedStaminaCost: 4
   unarmedDamage: 1
   unarmedGatherPower: 1
-  EquipTransform: {fileID: 2685170793834150853}
   debugLog: 1
 --- !u!114 &1915174890719795521
 MonoBehaviour:
@@ -5172,6 +5317,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7494626220479800737}
+  - {fileID: 8031511763355700447}
   m_Father: {fileID: 6533984410461744423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7489392545395705602

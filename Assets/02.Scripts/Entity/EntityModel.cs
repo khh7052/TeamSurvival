@@ -6,7 +6,8 @@ using UnityEngine;
 
 public interface IDamageable //피해받을수 있는지
 {
-    void TakePhysicalDamage(int damage);
+    void TakePhysicalDamage(int damage, GameObject go = null);
+    Action OnHitEvent {  get; }
 }
 
 public interface IWeatherObserver
@@ -31,7 +32,10 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     private float time = 0f;
     private float interval = 1f; //날씨에 대한 체온 영향 몇초에 한번 받을것인지
     [SerializeField] private float rayLength = 5f; //테스트용 삭제가능
+    public Action OnHitEvent { get; set; }
+    public Action<GameObject> OnHitEventWithgo {  get; set; }
 
+    public bool isDie = false;
 
 
     [Header("이동관련")]
@@ -45,6 +49,17 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
 
     private WeatherType currentWeather;
 
+    [Header("결핍 데미지")]
+    [SerializeField] private float starvationDps = 0.25f;
+    [SerializeField] private float dehydrationDps = 0.25f;
+
+    [Header("피격 시 처리")]
+    [SerializeField] MeshRenderer mesh;
+    [SerializeField] SkinnedMeshRenderer skinMesh;
+    private Coroutine coroutine;
+    public Action OnDeathEvent { get; set; }
+    [SerializeField]
+    private AnimationHandler anim;
 
     private void Awake()
     {
@@ -54,18 +69,36 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         }
     }
 
-    private void Start()
+    private void OnEnable()
     {
         if (WeatherCycle.Instance != null)
             WeatherCycle.Instance.RegisterObserver(this);
+        OnHitEvent += OnHit;
+        health.OnChanged += IsDeadCheck;
+        if(anim == null)
+        {
+            anim = GetComponent<AnimationHandler>();
+        }
+    }
+
+    private void OnDisable()
+    {
+        OnHitEvent -= OnHit;
     }
 
     private void Update()
     {
-        ApplyPassiveValueCondition();
+        if (!isDie)
+        {
+            ApplyPassiveValueCondition();
+            DamageByNeeds();
 
-        UpdateTemperture();
-        DamageByTemperature();
+            if (isApplyByWeather)
+            {
+                UpdateTemperture();
+                DamageByTemperature();
+            }
+        }
     }
 
     public IEnumerable<Condition> AllConditions //EntityModel의 Condition순회 프로퍼티
@@ -87,8 +120,22 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
             stamina.Add(stamina.PassiveValue * Time.deltaTime);
         if (thirst.PassiveValue != 0)
             thirst.Subtract(thirst.PassiveValue * Time.deltaTime);
-        if (health.PassiveValue != 0)
-            health.Add(health.PassiveValue * Time.deltaTime);       
+
+        //배고픔, 수분 0일 때 체력 재생 금지
+        bool isDeprived = (hunger.CurValue <= 0f) || (thirst.CurValue <= 0f);
+        if (!isDeprived && health.PassiveValue != 0)
+            health.Add(health.PassiveValue * Time.deltaTime);
+    }
+
+    private void DamageByNeeds()
+    {
+        float dps = 0f;
+
+        if (hunger.CurValue <= 0f) dps += starvationDps;
+        if (thirst.CurValue <= 0f) dps += dehydrationDps;
+
+        if (dps > 0f && health.CurValue > 0f)
+            health.Subtract(dps * Time.deltaTime);
     }
 
     public void Heal(float amount)
@@ -109,11 +156,17 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     public void Die()
     {
         //사망 로직
+        anim?.PlayDie();
+        OnDeathEvent?.Invoke();
     }
 
-    public void TakePhysicalDamage(int damage)
+    public void TakePhysicalDamage(int damage, GameObject go = null)
     {
+        if (isDie) return;
         health.Subtract(damage);
+        OnHitEvent?.Invoke();
+        if(go  != null)
+            OnHitEventWithgo(go);
     }
 
     public void OnWeatherChanged(WeatherType newWeather) //날씨 바뀔때 호출되는 함수(옵저버)
@@ -201,6 +254,49 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         Debug.DrawRay(ray, Vector3.up * rayLength, isHit ? Color.green : Color.red);
 
         return isHit;
+    }
+
+
+    public void OnHit()
+    {
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+        if(mesh != null) 
+            coroutine = StartCoroutine(SetMeshColorAtDamage(mesh));
+        else if(skinMesh != null) 
+            coroutine = StartCoroutine(SetMeshColorAtDamage(skinMesh));
+    }
+
+    private IEnumerator SetMeshColorAtDamage(Renderer renderer)
+    {
+        Color startColor = Color.red;       // 시작 색 (빨강)
+        Color endColor = Color.white;       // 최종 색 (하양)
+        float duration = 1.0f;              // 효과 지속 시간 (1초)
+        float elapsed = 0f;
+
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration; // 0 → 1 로 증가
+            renderer.material.color = Color.Lerp(startColor, endColor, t);
+            yield return null;
+        }
+
+        // 보정: 최종적으로 흰색 확정
+        renderer.material.color = endColor;
+    }
+
+    private void IsDeadCheck()
+    {
+        if(health.CurValue <= 0)
+        {
+//             Debug.Log("죽었다");
+            isDie = true;
+            Die();
+        }
     }
 }
 

@@ -30,6 +30,11 @@ public class ResourceNode : MonoBehaviour, IHarvestable
     public ItemData yieldItem;
     public int dropOnDeplete = 3;
 
+    [Tooltip("기본 드랍 외에 하나 더 떨어뜨리고 싶을 때 사용")]
+    public ItemData extraYieldItem;
+    public int extraDropOnDeplete = 1;
+    [Range(0f, 1f)] public float extraDropChance = 1f;
+
     [Header("Debug")]
     public bool debugLog = true; //테스트용 디버그 온오프 가능
 
@@ -44,7 +49,7 @@ public class ResourceNode : MonoBehaviour, IHarvestable
 
     private void Log(string msg)
     {
-        if (debugLog) Debug.Log("[Resource][" + resourceName + "] " + msg, this);
+//        if (debugLog) Debug.Log("[Resource][" + resourceName + "] " + msg, this);
     }
 
     private void Awake()
@@ -107,6 +112,8 @@ public class ResourceNode : MonoBehaviour, IHarvestable
 
     public void GatherWithTool(ToolType tool, float power)
     {
+        Debug.Log($"[ResourceNode] GatherWithTool IN tool={tool}, power={power}");
+
         float m;
 
         if (tool == ToolType.None)
@@ -138,23 +145,41 @@ public class ResourceNode : MonoBehaviour, IHarvestable
         }
     }
 
-    private async void SpawnDrops()
+    private void SpawnDrops()
     {
-        if (yieldItem == null) return;
-        
-        //GameObject prefab = yieldItem.dropPrefab;
-        //if (prefab == null) return;
-
-        for (int i = 0; i < dropOnDeplete; i++)
+        // 기본 드랍
+        if (yieldItem != null)
         {
-            Vector3 pos = transform.position + Random.insideUnitSphere * 0.3f;
-            if (pos.y < transform.position.y) pos.y = transform.position.y + 0.2f;
-//            Instantiate(prefab, pos, Quaternion.identity);
-
-            await Factory.Instance.CreateByIDAsync<ItemData>(yieldItem.ID, (go) =>
+            for (int i = 0; i < dropOnDeplete; i++)
             {
-                go.transform.SetLocalPositionAndRotation(pos, transform.rotation);
-            });
+                Vector3 pos = transform.position + Random.insideUnitSphere * 0.3f;
+                if (pos.y < transform.position.y) pos.y = transform.position.y + 0.2f;
+
+                AssetDataLoader.Instance.InstantiateByID(yieldItem.ID, go =>
+                {
+                    if (go == null) return;
+                    go.transform.SetPositionAndRotation(pos, transform.rotation);
+                });
+            }
+        }
+
+        // 추가 드랍 (있을 때만)
+        if (extraYieldItem != null && extraDropOnDeplete > 0 && extraDropChance > 0f)
+        {
+            for (int i = 0; i < extraDropOnDeplete; i++)
+            {
+                if (Random.value > extraDropChance) continue;
+
+                Vector3 pos = transform.position + Random.insideUnitSphere * 0.35f; // 살짝 다른 반경
+                if (pos.y < transform.position.y) pos.y = transform.position.y + 0.2f;
+
+                AssetDataLoader.Instance.InstantiateByID(extraYieldItem.ID, go =>
+                {
+                    if (go == null) return;
+                    go.transform.SetPositionAndRotation(pos, transform.rotation);
+                });
+            }
         }
     }
+
 }

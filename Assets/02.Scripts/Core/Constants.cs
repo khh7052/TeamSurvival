@@ -34,12 +34,7 @@ namespace Constants
         };
 
         public static string GetExposedVolumeName(VolumeType volumeType)
-        {
-            return volumeNameDictionary[volumeType];
-        }
-
-        public static string BGMPath = "Audio/BGM/";
-        public static string FootstepPath = "Audio/SFX/Footstep/";
+            => volumeNameDictionary[volumeType];
     }
 
 
@@ -107,7 +102,7 @@ namespace Constants
             { "CompositionUI", "UI/CompositionUI" },
             { "InGameUI", "UI/InGameUI" },
             { "DialogueUI", "UI/DialogueUI" },
-            { "SettingUI", "UI/SettingUI" }
+            { "SettingUI", "UI/SettingUI" },
         };
         public static string GetPrefabPath(string prefabName)
         {

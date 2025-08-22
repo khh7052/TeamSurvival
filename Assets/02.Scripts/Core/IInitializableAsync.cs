@@ -7,4 +7,5 @@ public interface IInitializableAsync
 {
     bool IsInitialized { get; }
     void InitializeAsync();
+
 }
