@@ -6,7 +6,7 @@ using UnityEngine;
 
 public interface IDamageable //피해받을수 있는지
 {
-    void TakePhysicalDamage(int damage);
+    void TakePhysicalDamage(int damage, GameObject go = null);
     Action OnHitEvent {  get; }
 }
 
@@ -33,6 +33,7 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
     private float interval = 1f; //날씨에 대한 체온 영향 몇초에 한번 받을것인지
     [SerializeField] private float rayLength = 5f; //테스트용 삭제가능
     public Action OnHitEvent { get; set; }
+    public Action<GameObject> OnHitEventWithgo {  get; set; }
 
     public bool isDie = false;
 
@@ -54,6 +55,7 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
 
     [Header("피격 시 처리")]
     [SerializeField] MeshRenderer mesh;
+    [SerializeField] SkinnedMeshRenderer skinMesh;
     private Coroutine coroutine;
     public Action OnDeathEvent { get; set; }
     [SerializeField]
@@ -158,11 +160,13 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         OnDeathEvent?.Invoke();
     }
 
-    public void TakePhysicalDamage(int damage)
+    public void TakePhysicalDamage(int damage, GameObject go = null)
     {
         if (isDie) return;
         health.Subtract(damage);
         OnHitEvent?.Invoke();
+        if(go  != null)
+            OnHitEventWithgo(go);
     }
 
     public void OnWeatherChanged(WeatherType newWeather) //날씨 바뀔때 호출되는 함수(옵저버)
@@ -260,10 +264,12 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
             StopCoroutine(coroutine);
         }
         if(mesh != null) 
-            coroutine = StartCoroutine(SetMeshColorAtDamage());
+            coroutine = StartCoroutine(SetMeshColorAtDamage(mesh));
+        else if(skinMesh != null) 
+            coroutine = StartCoroutine(SetMeshColorAtDamage(skinMesh));
     }
 
-    private IEnumerator SetMeshColorAtDamage()
+    private IEnumerator SetMeshColorAtDamage(Renderer renderer)
     {
         Color startColor = Color.red;       // 시작 색 (빨강)
         Color endColor = Color.white;       // 최종 색 (하양)
@@ -275,12 +281,12 @@ public class EntityModel : MonoBehaviour, IDamageable, IWeatherObserver
         {
             elapsed += Time.deltaTime;
             float t = elapsed / duration; // 0 → 1 로 증가
-            mesh.material.color = Color.Lerp(startColor, endColor, t);
+            renderer.material.color = Color.Lerp(startColor, endColor, t);
             yield return null;
         }
 
         // 보정: 최종적으로 흰색 확정
-        mesh.material.color = endColor;
+        renderer.material.color = endColor;
     }
 
     private void IsDeadCheck()

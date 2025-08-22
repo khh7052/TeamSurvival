@@ -448,7 +448,7 @@ MonoBehaviour:
   detectDistance: 10
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 128
   updateInterval: 0.5
   playerObject: {fileID: 0}
   minFleeDistance: 5
@@ -523,6 +523,7 @@ MonoBehaviour:
   starvationDps: 0.25
   dehydrationDps: 0.25
   mesh: {fileID: 0}
+  skinMesh: {fileID: 1724754043403535541}
   anim: {fileID: 0}
 --- !u!65 &3644704582592984884
 BoxCollider:

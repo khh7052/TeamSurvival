@@ -2,9 +2,11 @@ using Constants;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
+using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(NPCStateMachine))]
@@ -16,6 +18,8 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
     [SerializeField] private string npcName;
     [SerializeField] private string interactPrompt = "대화하기 E";
     [SerializeField] private DialogueData dialogueData;
+    [SerializeField] private DialogueData adversarialDialogueData; // 적대적 상황일 때의 다이얼로그
+    private bool isAdversarial = false;
     private NPCView npcView;
 
     [Header("Stats")]
@@ -92,7 +96,7 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
         stateMachine = GetComponent<NPCStateMachine>();
         animationHandler = GetComponentInChildren<AnimationHandler>();
         entityModel = GetComponent<EntityModel>();
-
+        entityModel.OnHitEventWithgo += OnHit;
         stateMachine.Initialize(this);
         entityModel.health.OnChanged += Health_OnChanged;
 
@@ -129,6 +133,7 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
 
     public void Die()
     {
+        entityModel.OnHitEventWithgo -= OnHit;
         DropLoot();
         StartCoroutine(FadeOutAndDestroy());
         WeatherCycle.Instance.RemoveObserver(entityModel);      
@@ -228,7 +233,7 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
         {
             Debug.Log($"{npcName}이(가) {nearestEnemyObject?.name}을(를) 공격합니다.");
             AnimationHandler?.PlayAttack();
-            damageable.TakePhysicalDamage(attackDamage);
+            damageable.TakePhysicalDamage(attackDamage, gameObject);
         }
     }
 
@@ -275,10 +280,22 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
     public void OnInteract()
     {
         if (!interactEnabled) return;
-        DialogueManager.Instance.StartDialogue(dialogueData);
+        if (!isAdversarial)
+        {
+            DialogueManager.Instance.StartDialogue(dialogueData);
+        }
+        else
+        {
+            DialogueManager.Instance.StartDialogue(adversarialDialogueData);
+        }
     }
 
-    public string GetPrompt() => interactPrompt;
+    public string GetPrompt()
+    {
+        if (!interactEnabled) return "";
+        
+        return interactPrompt;
+    }
 
     private void OnDrawGizmos()
     {
@@ -339,6 +356,20 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
             Destroy(homePointObj);
             homePointObj = null;
             homePoint = null;
+        }
+    }
+
+    public void OnHit(GameObject attacker)
+    {
+        // 공격 받을 시 해당 레이어 공격 대상 추가
+        int attackerLayer = attacker.gameObject.layer; 
+        int attackerMask = 1 << attackerLayer;        
+
+        targetLayerMask |= attackerMask;
+        if (attacker.layer == LayerMask.NameToLayer("Player"))
+        {
+            interactEnabled = false;
+            isAdversarial = true;
         }
     }
 }

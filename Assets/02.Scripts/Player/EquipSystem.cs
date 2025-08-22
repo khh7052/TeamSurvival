@@ -292,7 +292,7 @@ public class EquipSystem : MonoBehaviour
             IDamageable dmg = hit.collider.GetComponentInParent<IDamageable>();
             if (dmg != null)
             {
-                dmg.TakePhysicalDamage(currentItem.weaponDamage);
+                dmg.TakePhysicalDamage(currentItem.weaponDamage, gameObject);
             }
         }
     }
@@ -329,7 +329,7 @@ public class EquipSystem : MonoBehaviour
             if (unarmedDamage > 0)
             {
                 var dmg = hit.collider.GetComponentInParent<IDamageable>();
-                if (dmg != null) dmg.TakePhysicalDamage(unarmedDamage);
+                if (dmg != null) dmg.TakePhysicalDamage(unarmedDamage, gameObject);
             }
 
             var node = hit.collider.GetComponentInParent<ResourceNode>();

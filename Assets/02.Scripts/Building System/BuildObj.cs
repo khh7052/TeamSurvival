@@ -29,7 +29,7 @@ public class BuildObj : MonoBehaviour, IDamageable
 
     }
 
-    public void TakePhysicalDamage(int damage)
+    public void TakePhysicalDamage(int damage, GameObject go = null)
     {
         Health.Subtract(damage);
         OnHitEvent?.Invoke();
