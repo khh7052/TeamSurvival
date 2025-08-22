@@ -1452,6 +1452,7 @@ MonoBehaviour:
   patrolMaxDistance: 10
   patrolMinDelay: 2
   patrolMaxDelay: 4
+  attackSFX: {fileID: 11400000, guid: 908db0fed9a74704dae39ac82b0e0b9a, type: 2}
   attackEnabled: 1
   attackDistance: 5
   attackDelay: 2
@@ -1537,6 +1538,7 @@ MonoBehaviour:
   starvationDps: 0.25
   dehydrationDps: 0.25
   mesh: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!1 &5543172257509407119
 GameObject:
   m_ObjectHideFlags: 0

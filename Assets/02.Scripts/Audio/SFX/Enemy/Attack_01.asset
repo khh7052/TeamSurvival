@@ -10,19 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f4ec0b851e3d3c4384005101be8aa6d, type: 3}
-  m_Name: Eat_Player
+  m_Name: Attack_01
   m_EditorClassIdentifier: 
-  ID: 0
-  DisplayName: 
-  Description: 
-  Icon: {fileID: 0}
-  Prefab: {fileID: 0}
-  AssetReference:
-    m_AssetGUID: 
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   clips:
-  - {fileID: 8300000, guid: ff0c4c4277cb25b47a58c21e1aca7b03, type: 3}
+  - {fileID: 8300000, guid: 1f53a5fc6bd934e46a5d8cfa8fd27b64, type: 3}
+  - {fileID: 8300000, guid: e82879725b40ce444bca27d19a75f42c, type: 3}
+  - {fileID: 8300000, guid: 2b019c6187fca1e48b47e28c891dc66c, type: 3}
+  - {fileID: 8300000, guid: b883c27c88428884fb3a10dcc42b8b47, type: 3}
   volume: 1
   soundType: 1
