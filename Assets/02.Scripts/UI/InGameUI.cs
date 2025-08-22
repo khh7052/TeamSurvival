@@ -28,8 +28,6 @@ public class InGameUI : BaseUI
     [Header("Temperture")]
     [SerializeField] private TMP_Text tempertureText;
 
-    [Header("Building UI")]
-    [SerializeField] private BuildSlotUI[] buildSlotUI;
 
     [Header("DamageIndicator")]
     [SerializeField] private Image dmgIndicator;
