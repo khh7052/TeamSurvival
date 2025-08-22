@@ -50,6 +50,7 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
     [SerializeField] private float patrolMaxDelay = 10f;
 
     [Header("Attack")]
+    [SerializeField] private SoundData attackSFX;
     [SerializeField] private bool attackEnabled = true;
     [SerializeField] private float attackDistance = 5f;
     [SerializeField] private float attackDelay = 1f;
@@ -224,6 +225,7 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
         if (nearestEnemyObject == null) return;
         if (Time.time < lastAttackTime + attackDelay) return;
 
+        AudioManager.Instance.PlaySFX(attackSFX, transform.position);
         lastAttackTime = Time.time;
         IDamageable damageable = nearestEnemyObject.GetComponentInParent<IDamageable>();
 
