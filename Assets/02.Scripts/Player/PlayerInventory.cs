@@ -108,7 +108,18 @@ public class PlayerInventory : MonoBehaviour
 
     public void ThrowItem(ItemData data)
     {
-        if (data?.ID == null || GameManager.player.dropPosition == null) return;
+        // if (data?.ID == null || GameManager.player.dropPosition == null) return;
+        if (data?.ID == null) Debug.Log("ID가 null입니다.");
+        if (GameManager.player.dropPosition == null) Debug.Log("droppositon이 null");
+
+
+        Debug.Log("ThrowItem실행");
+        var equipment = GameManager.player.GetComponent<EquipSystem>();
+        if(equipment != null && equipment.currentItem == data)
+        {
+            equipment.UnEquip();
+            Debug.Log("UnEquip실행111");
+        }
         AssetDataLoader.Instance.InstantiateByID(data.ID, (go) =>
         {
             go.transform.position = GameManager.player.dropPosition.position;
@@ -118,6 +129,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void ThrowItemInInventory(int index)
     {
+        Debug.Log("ThrowItemInInventory작동");
         ThrowItem(slots[index].item);
         RemoveIndexItem(index);
     }
