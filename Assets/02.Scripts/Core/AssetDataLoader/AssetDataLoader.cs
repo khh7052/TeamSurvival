@@ -2,15 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class AssetDataLoader : Singleton<AssetDataLoader>
+public class AssetDataLoader : Singleton<AssetDataLoader>, ISingletonResetData
 {
     public AssetReferenceData data;
     protected Dictionary<int, string> prefabAddressDict = new();
     protected Dictionary<int, string> dataAddressDict = new();
+    Dictionary<string, AsyncOperationHandle> loadedHandles = new();
 
     protected override void Initialize()
     {
@@ -22,6 +25,15 @@ public class AssetDataLoader : Singleton<AssetDataLoader>
             prefabAddressDict[d.ID] = d.assetAdress;
             dataAddressDict[d.ID] = d.dataAdress;
         }
+    }
+    public void ResetData()
+    {
+        foreach(var pref in loadedHandles)
+        {
+            Addressables.Release(pref);
+        }
+
+        loadedHandles.Clear();
     }
 
     public async void InstantiateByID(int id, Action<GameObject> callback = null)
@@ -40,17 +52,38 @@ public class AssetDataLoader : Singleton<AssetDataLoader>
         if (!prefabAddressDict.ContainsKey(id)) return null;
         if (prefabAddressDict[id] == null) return null;
 
-        GameObject go = await ObjectPoolingManager.Instance.GetAsync(prefabAddressDict[id], Vector3.zero, Quaternion.identity);
+        var handle = Addressables.LoadAssetAsync<GameObject>(prefabAddressDict[id]);
+        await handle.Task;
+
+        GameObject go = ObjectPoolingManager.Instance.Get(handle.Result, default(Vector3), default(Quaternion));
+        
+        // Addressable 핸들을 저장
+        if (!loadedHandles.ContainsKey(prefabAddressDict[id]))
+        {
+            loadedHandles[prefabAddressDict[id]] = handle;
+        }
+
         if(go != null)
             callback?.Invoke(go);
         return go;
     }
 
-    private async Task<GameObject> CreateByAddress(string adress, Action<GameObject> callback = null)
+    private async Task<GameObject> CreateByAddress(string address, Action<GameObject> callback = null)
     {
-        if(adress == null || adress.Equals("")) return null;
+        // 데이터가 없으면 null 리턴
+        if(address == null || address.Equals("")) return null;
 
-        GameObject go = await ObjectPoolingManager.Instance.GetAsync(adress, Vector3.zero, Quaternion.identity);
+        // Addressables로 데이터 로딩
+        var handle = Addressables.LoadAssetAsync<GameObject>(address);
+        await handle.Task;
+        GameObject go = ObjectPoolingManager.Instance.Get(handle.Result, default(Vector3), default(Quaternion));
+
+        // Addressable 핸들을 저장
+        if (!loadedHandles.ContainsKey(address))
+        {
+            loadedHandles[address] = handle;
+        }
+
         if (go != null)
             callback?.Invoke(go);
         return go;
@@ -87,6 +120,11 @@ public class AssetDataLoader : Singleton<AssetDataLoader>
         var t = Addressables.LoadAssetAsync<T>(dataAddressDict[id]);
         await t.Task;
 
+        if (!loadedHandles.ContainsKey(id.ToString()))
+        {
+            loadedHandles[id.ToString()] = t;
+        }
+
         T result = t.Result;
         return result;
     }
@@ -98,17 +136,23 @@ public class AssetDataLoader : Singleton<AssetDataLoader>
 
         var filtered = data.data
             .Where(d => d.dataType == type && !string.IsNullOrEmpty(d.dataAdress))
-            .Select(d => d.dataAdress)
             .ToArray();
 
         if (filtered.Length == 0)
             return Array.Empty<T>();
 
-        // 모든 로드 Task를 동시에 실행
-        var tasks = filtered.Select(addr => Addressables.LoadAssetAsync<T>(addr).Task).ToArray();
-        var results = await Task.WhenAll(tasks); // 모든 Task가 끝날 때까지 대기
+        List<T> results = new();
+        foreach (var d in filtered)
+        {
+            var handle = Addressables.LoadAssetAsync<T>(d.dataAdress);
+            await handle.Task;
+            results.Add(handle.Result);
 
-        return results;
+            loadedHandles[d.ID.ToString()] = handle; // ID → Handle 저장
+        }
+
+        return results.ToArray();
     }
+
 }
 
