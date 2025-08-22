@@ -23,6 +23,6 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   clips:
-  - {fileID: 8300000, guid: 3c993cea4ebd47f49a85c5244872d217, type: 3}
-  volume: 1
+  - {fileID: 8300000, guid: da9ce61c2925dc540af7bff2fecf43b5, type: 3}
+  volume: 0.4
   soundType: 1
