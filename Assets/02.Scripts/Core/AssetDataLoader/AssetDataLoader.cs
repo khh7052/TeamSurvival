@@ -28,9 +28,9 @@ public class AssetDataLoader : Singleton<AssetDataLoader>, ISingletonResetData
     }
     public void ResetData()
     {
-        foreach(var pref in loadedHandles)
+        foreach(var handle in loadedHandles)
         {
-            Addressables.Release(pref);
+            Addressables.Release(handle);
         }
 
         loadedHandles.Clear();
@@ -148,7 +148,8 @@ public class AssetDataLoader : Singleton<AssetDataLoader>, ISingletonResetData
             await handle.Task;
             results.Add(handle.Result);
 
-            loadedHandles[d.ID.ToString()] = handle; // ID → Handle 저장
+            if (!loadedHandles.ContainsKey(handle.ToString())) 
+                loadedHandles[d.ID.ToString()] = handle; // ID → Handle 저장
         }
 
         return results.ToArray();

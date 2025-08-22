@@ -34,6 +34,7 @@ MonoBehaviour:
   toolType: 0
   weaponDamage: 15
   weaponAttackDelay: 1
-  weaponAttackDistance: 1
+  weaponAttackDistance: 2
   toolGatherPower: 5
   toolDistance: 1
+  demolitionDamage: 10
