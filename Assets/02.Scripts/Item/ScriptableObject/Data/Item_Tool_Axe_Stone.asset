@@ -37,3 +37,4 @@ MonoBehaviour:
   weaponAttackDistance: 1
   toolGatherPower: 10
   toolDistance: 1
+  demolitionDamage: 10

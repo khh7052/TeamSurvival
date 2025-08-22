@@ -18,9 +18,13 @@ public class PlayerInventory : MonoBehaviour
 
     Dictionary<int, int> itemQuantityCache = new();
 
+    [SerializeField] private SoundData equipSFX;
+    [SerializeField] private SoundData eatSFX;
+
     private void Awake()
     {
         GetComponent<Player>().addItem += Add;
+        if (condition == null) condition =  GetComponent<EntityModel>();
     }
 
     private void ItemCacheInInventory(int id, int Quantity)
@@ -51,6 +55,8 @@ public class PlayerInventory : MonoBehaviour
 
         ItemData data = GameManager.player.itemData;
         if (data == null) return;
+
+        AudioManager.Instance.PlaySFX(equipSFX, transform.position);
 
         if (data.canStack)
         {
@@ -132,6 +138,8 @@ public class PlayerInventory : MonoBehaviour
     {
         if (slots[index].item == null) return;
         if (slots[index].item.type != ItemType.Consumable) return;
+
+        AudioManager.Instance.PlaySFX(eatSFX, transform.position);
 
         var consumables = slots[index].item.consumables;
         if (consumables != null)

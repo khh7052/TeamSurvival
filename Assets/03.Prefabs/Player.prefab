@@ -3832,7 +3832,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8055
+    m_Bits: 24439
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4568,6 +4568,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 68db926c-318b-41d9-85e7-6db83210e552
     m_ActionName: Player/TryBuild[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 777261130677496077}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnSettingUIButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 900f8325-0b18-4cec-9272-4fba9cb88eb0
+    m_ActionName: Player/Setting[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -4593,7 +4609,7 @@ MonoBehaviour:
   inventory: {fileID: 0}
   animationHandler: {fileID: 0}
   interaction: {fileID: 0}
-  dropPosition: {fileID: 0}
+  dropPosition: {fileID: 6533984410461744423}
 --- !u!114 &6885103462339148826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4635,6 +4651,7 @@ MonoBehaviour:
   warningTemp: 34
   dangerTemp: 32
   rayLength: 5
+  isDie: 0
   moveSpeed:
     baseValue: 5
     additionalValue: 0
@@ -4648,6 +4665,7 @@ MonoBehaviour:
   starvationDps: 0.25
   dehydrationDps: 0.25
   mesh: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!114 &777261130677496077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4664,6 +4682,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 576
+  jumpSFX: {fileID: 11400000, guid: 1c99110102dab2848910c4a5c3072f7b, type: 2}
+  hitSFX: {fileID: 11400000, guid: d21e473d24c91a745aeaa66dfcd3b619, type: 2}
   cameraContainer: {fileID: 7808320851386004077}
   minXLook: -85
   maxXLook: 85
@@ -4724,6 +4744,8 @@ MonoBehaviour:
     Quantity: 0
   - item: {fileID: 0}
     Quantity: 0
+  equipSFX: {fileID: 11400000, guid: 482468577f7cffc4d9627856b077f725, type: 2}
+  eatSFX: {fileID: 11400000, guid: 6381ff23e7dbaf4459f69cd2df9bb6a5, type: 2}
 --- !u!114 &8566881413159209253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4785,8 +4807,11 @@ MonoBehaviour:
   currentItemInstance: {fileID: 0}
   hitMask:
     serializedVersion: 2
-    m_Bits: 4864
+    m_Bits: 21248
+  equipSFX: {fileID: 11400000, guid: 482468577f7cffc4d9627856b077f725, type: 2}
   handSlot: {fileID: 9210934534352783902}
+  EquipTransform: {fileID: 2685170793834150853}
+  spawnThirdPersonModel: 1
   model: {fileID: 6885103462339148826}
   staminaCostWeapon: 10
   staminaCostTool: 10
@@ -4797,7 +4822,6 @@ MonoBehaviour:
   unarmedStaminaCost: 4
   unarmedDamage: 1
   unarmedGatherPower: 1
-  EquipTransform: {fileID: 2685170793834150853}
   debugLog: 1
 --- !u!114 &1915174890719795521
 MonoBehaviour:

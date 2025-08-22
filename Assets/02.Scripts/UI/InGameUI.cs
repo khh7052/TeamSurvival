@@ -58,13 +58,16 @@ public class InGameUI : BaseUI
     protected override void OnDisable()
     {
         base.OnDisable(); 
-        foreach (var c in model.AllConditions)
+        if(model != null)
         {
-            c.OnChanged -= OnChangeStatuses;
+            foreach (var c in model.AllConditions)
+            {
+                c.OnChanged -= OnChangeStatuses;
+            }
+            model.OnHitEvent -= OnDamageEvent;
+            model.moveSpeed.OnChangeValue -= OnChangeStatuses;
+            model.jumpPower.OnChangeValue -= OnChangeStatuses;
         }
-        model.OnHitEvent -= OnDamageEvent;
-        model.moveSpeed.OnChangeValue -= OnChangeStatuses;
-        model.jumpPower.OnChangeValue -= OnChangeStatuses;
     }
 
     public void OnChangeStatuses()

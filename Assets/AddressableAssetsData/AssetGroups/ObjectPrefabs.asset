@@ -101,6 +101,46 @@ MonoBehaviour:
     m_SerializedLabels:
     - Item
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7c78041cedae0f74394e89fbdf149c28
+    m_Address: Prefab_Equip_WoodHammer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e3632caaae300884bb1a57bb91527f9d
+    m_Address: Prefab_Equip_StonePickaxe
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bc6d9ac3e43ff6f49b85739df2a5b364
+    m_Address: Prefab_Equip_StoneSword
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c69f7e3252372564bace4b75454d4de3
+    m_Address: Prefab_Equip_StoneAxe
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e762374d4a7d34d42a6e6cf17b0c498a
+    m_Address: Prefab_Equip_StoneHammer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 43c1756b2483b29459c1e234faebbbb1
+    m_Address: Prefab_Equip_WoodAxe
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9a6fc8d0c9ed799428df96eb7a4f6032
+    m_Address: Prefab_Equip_WoodSword
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ff0ea22ca4682f1488435e6fa17a0653
+    m_Address: Prefab_Equip_WoodPickaxe
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}
   m_SchemaSet:

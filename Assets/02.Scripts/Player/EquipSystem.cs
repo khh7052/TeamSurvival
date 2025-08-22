@@ -17,6 +17,7 @@ public class EquipSystem : MonoBehaviour
     private float nextUseTime = 0f;
 
     [Header("Slots")]
+    [SerializeField] private SoundData equipSFX;
     public Transform handSlot;
     public Transform EquipTransform;
 
@@ -139,7 +140,11 @@ public class EquipSystem : MonoBehaviour
 
     public void Equip(ItemData data)
     {
+        AudioManager.Instance.PlaySFX(equipSFX, transform.position);
         currentItem = data;
+
+        viewSwing = null;
+        thirdSwing = null;
 
         if (viewInst != null) Destroy(viewInst);
         if (thirdPersonInst != null) Destroy(thirdPersonInst);
@@ -213,7 +218,11 @@ public class EquipSystem : MonoBehaviour
     public void UnEquip()
     {
         Debug.Log("UnEquip½ÇÇà");
+        AudioManager.Instance.PlaySFX(equipSFX, transform.position);
         currentItem = null;
+
+        viewSwing = null;
+        thirdSwing = null;
 
         if (viewInst != null) { Destroy(viewInst); viewInst = null; }
         if (thirdPersonInst != null) { Destroy(thirdPersonInst); thirdPersonInst = null; }
@@ -267,8 +276,11 @@ public class EquipSystem : MonoBehaviour
             nextUseTime = Time.time + Mathf.Max(unarmedDelay, 0.3f);
         }
 
-        viewSwing?.Play();
-        thirdSwing?.Play(0.8f);
+        var vs = viewSwing;
+        if (vs != null) vs.Play();
+
+        var ts = thirdSwing;
+        if (ts != null) ts.Play(0.8f);
     }
 
     private void UseWeapon()

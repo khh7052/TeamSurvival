@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayerMask;
     private EquipSystem equip;
 
+    [Header("Audio")]
+    [SerializeField] private SoundData jumpSFX;
+    [SerializeField] private SoundData hitSFX;
+
     [Header("Look")]
     public Transform cameraContainer;
     public float minXLook;
@@ -43,6 +47,7 @@ public class PlayerController : MonoBehaviour
         equip = GetComponent<EquipSystem>();
         anim = GetComponent<AnimationHandler>();
         model.OnDeathEvent += OnDeathEvent;
+        model.OnHitEvent += OnHit;
     }
 
     private void Start()
@@ -63,6 +68,11 @@ public class PlayerController : MonoBehaviour
         {
             CameraLook();
         }
+    }
+
+    private void OnHit()
+    {
+        AudioManager.Instance.PlaySFX(hitSFX, transform.position);
     }
 
     private void Move() //이동로직
@@ -86,6 +96,7 @@ public class PlayerController : MonoBehaviour
     private void Jump() //점프로직
     {
         rb.AddForce(Vector2.up * model.jumpPower.totalValue, ForceMode.Impulse);
+        AudioManager.Instance.PlaySFX(jumpSFX, transform.position);
         anim.PlayerJump();
     }
 
@@ -159,6 +170,8 @@ public class PlayerController : MonoBehaviour
         if (IsDead) return;
         // 제작 켜져있을 땐 무시
         if (UIManager.Instance.IsEnableUI<CompositionUI>()) return;
+        if (UIManager.Instance.IsEnableUI<SettingUI>()) return;
+
         if (callbackContext.phase == InputActionPhase.Started)
         {
             if (UIManager.Instance.IsEnableUI<UIInventory>())
@@ -173,7 +186,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void ToggleCursor()
+    public void ToggleCursor()
     {
         bool toggle = Cursor.lockState == CursorLockMode.Locked;
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
@@ -185,7 +198,9 @@ public class PlayerController : MonoBehaviour
     {
         if (IsDead) return;
         // 인벤토리 켜져있을 땐 무시
+        if (UIManager.Instance.IsEnableUI<SettingUI>()) return;
         if (UIManager.Instance.IsEnableUI<UIInventory>()) return;
+
         if (callbackContext.phase == InputActionPhase.Started)
         {
             if (UIManager.Instance.IsEnableUI<CompositionUI>())
@@ -195,6 +210,28 @@ public class PlayerController : MonoBehaviour
             else
             {
                 await UIManager.Instance.ShowUI<CompositionUI>();
+            }
+            ToggleCursor();
+        }
+    }
+
+    public async void OnSettingUIButton(InputAction.CallbackContext callbackContext)
+    {
+        // 인벤토리 켜져있을 땐 무시
+        bool isEnable = UIManager.Instance.IsEnableUI<SettingUI>();
+
+        if (UIManager.Instance.IsEnableUI<CompositionUI>()) return;
+        if (UIManager.Instance.IsEnableUI<UIInventory>()) return;
+
+        if (callbackContext.phase == InputActionPhase.Started)
+        {
+            if (isEnable)
+            {
+                UIManager.Instance.CloseUI<SettingUI>();
+            }
+            else
+            {
+                await UIManager.Instance.ShowUI<SettingUI>();
             }
             ToggleCursor();
         }
@@ -237,7 +274,6 @@ public class PlayerController : MonoBehaviour
         }
         // 장착 무기도 없애기
         equip.UnEquip();
-        GameManager.Instance.PlayerDead();
         StartCoroutine(DeathCameraEffect(transform));
     }
 
@@ -269,7 +305,7 @@ public class PlayerController : MonoBehaviour
         cam.LookAt(player.position);
 
         yield return new WaitForSeconds(1f);
-        
-        GameManager.Instance.LoadScene(SceneManager.GetActiveScene().name);
+
+        GameManager.Instance.PlayerDead();
     }
 }

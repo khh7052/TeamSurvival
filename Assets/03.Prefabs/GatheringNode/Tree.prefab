@@ -47,16 +47,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceName: "\uB098\uBB34"
-  maxDurability: 40
+  maxDurability: 30
   kind: 0
   preferredTool: 1
   correctToolMultiplier: 1
   wrongToolMultiplier: 0
-  bareHandsMultiplier: 2
+  bareHandsMultiplier: 5
   respawn: 1
   respawnSeconds: 30
   yieldItem: {fileID: 11400000, guid: fb9a5bf0c6b46f74681aa51b42e9ef0c, type: 2}
   dropOnDeplete: 3
+  extraYieldItem: {fileID: 11400000, guid: 812c22d6ebbd2e040ac4d80393715fa0, type: 2}
+  extraDropOnDeplete: 1
+  extraDropChance: 1
   debugLog: 1
 --- !u!65 &5116774264163472003
 BoxCollider:

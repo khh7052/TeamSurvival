@@ -46,6 +46,7 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
     [SerializeField] private float patrolMaxDelay = 10f;
 
     [Header("Attack")]
+    [SerializeField] private SoundData attackSFX;
     [SerializeField] private bool attackEnabled = true;
     [SerializeField] private float attackDistance = 5f;
     [SerializeField] private float attackDelay = 1f;
@@ -96,6 +97,13 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
         entityModel.health.OnChanged += Health_OnChanged;
 
         entityModel.moveSpeed.OnChangeValue += MoveSpeed_OnChanged;
+
+        if(homePoint == null)
+        {
+            GameObject go = new GameObject("Home");
+            go.transform.position = transform.position;
+            homePoint = go.transform;
+        }
     }
 
     private void Health_OnChanged()
@@ -212,6 +220,7 @@ public class NPC : MonoBehaviour, IInteractable , IDeathBehavior
         if (nearestEnemyObject == null) return;
         if (Time.time < lastAttackTime + attackDelay) return;
 
+        AudioManager.Instance.PlaySFX(attackSFX, transform.position);
         lastAttackTime = Time.time;
         IDamageable damageable = nearestEnemyObject.GetComponentInParent<IDamageable>();
 

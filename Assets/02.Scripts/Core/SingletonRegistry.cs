@@ -25,9 +25,17 @@ public static class SingletonRegistry
         {
             if (s != null)
             {
-                Debug.Log(s.gameObject.name);
-                GameObject.Destroy(s.gameObject);
-                
+                if(s is ISingletonResetData)
+                {
+                    var singleton = s as ISingletonResetData;
+                    singleton.ResetData();
+                }
+                else
+                {
+                    Debug.Log(s.gameObject.name);
+                    GameObject.Destroy(s.gameObject);
+                }
+
             }
 
         }

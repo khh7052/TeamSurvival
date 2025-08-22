@@ -86,6 +86,62 @@ MonoBehaviour:
     dataAdress: Data_Gathering_Rock
     dataType: 5
   - ID: 50001
-    assetAdress: Prefab_Gathering_Rock
+    assetAdress: 
     dataAdress: Data_Craft_1
     dataType: 6
+  - ID: 50002
+    assetAdress: 
+    dataAdress: Data_Craft_2
+    dataType: 6
+  - ID: 24005
+    assetAdress: Prefab_Equip_WoodHammer
+    dataAdress: Data_Equip_WoodHammer
+    dataType: 4
+  - ID: 24006
+    assetAdress: Prefab_Equip_StoneHammer
+    dataAdress: Data_Equip_StoneHammer
+    dataType: 4
+  - ID: 50003
+    assetAdress: 
+    dataAdress: Data_Craft_3
+    dataType: 6
+  - ID: 50004
+    assetAdress: 
+    dataAdress: Data_Craft_4
+    dataType: 6
+  - ID: 50005
+    assetAdress: 
+    dataAdress: Data_Craft_5
+    dataType: 6
+  - ID: 50006
+    assetAdress: 
+    dataAdress: Data_Craft_6
+    dataType: 6
+  - ID: 50007
+    assetAdress: 
+    dataAdress: Data_Craft_7
+    dataType: 6
+  - ID: 50008
+    assetAdress: 
+    dataAdress: Data_Craft_8
+    dataType: 6
+  - ID: 23005
+    assetAdress: Prefab_Equip_WoodSword
+    dataAdress: Data_Equip_WoodSword
+    dataType: 4
+  - ID: 23006
+    assetAdress: Prefab_Equip_StoneSwrod
+    dataAdress: Data_Equip_StoneSword
+    dataType: 4
+  - ID: 23007
+    assetAdress: Prefab_Equip_WoodHammer
+    dataAdress: Data_Equip_WoodHeamer
+    dataType: 4
+  - ID: 23008
+    assetAdress: Prefab_Equip_StoneHammer
+    dataAdress: Data_Equip_StoneHammer
+    dataType: 4
+  - ID: 22007
+    assetAdress: Prefab_Consume_YellowFlower
+    dataAdress: Data_Consume_YellowFlower
+    dataType: 3

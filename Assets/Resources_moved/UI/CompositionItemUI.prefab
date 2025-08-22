@@ -414,6 +414,7 @@ GameObject:
   - component: {fileID: 2042923467490715978}
   - component: {fileID: 8669314848028439230}
   - component: {fileID: 567852626654132095}
+  - component: {fileID: 4777334949416316413}
   m_Layer: 5
   m_Name: CompositionItemUI
   m_TagString: Untagged
@@ -509,7 +510,22 @@ MonoBehaviour:
   - {fileID: 2730547744463482852}
   - {fileID: 278471605235137278}
   recipe: {fileID: 0}
-  isCreatable: 0
+  isCreatable: 1
+--- !u!114 &4777334949416316413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6172161956834473861}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 10, y: 10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &6595597232833543776
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,6 +23,48 @@ MonoBehaviour:
     m_SerializedLabels:
     - CompositeRecipe
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2be4aed60ac588f47a3a0343cfd19681
+    m_Address: Data_Craft_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CompositeRecipe
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4dc505b1bd64f654badd9d2989fb26aa
+    m_Address: Data_Craft_3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CompositeRecipe
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 441b0c5fdaf5d684abf1613f01255bc8
+    m_Address: Data_Craft_4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CompositeRecipe
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a1eca420c6ec831419b47b57082408b5
+    m_Address: Data_Craft_5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CompositeRecipe
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e63a40a3df0ab67458e5e29a26365ccf
+    m_Address: Data_Craft_6
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CompositeRecipe
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 87d6954b27a855e4eb3a23f6398db40d
+    m_Address: Data_Craft_7
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CompositeRecipe
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8ed3bd6938c11147bec752f8c3fb82e
+    m_Address: Data_Craft_8
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CompositeRecipe
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb96c21794b1ac84a9e87a4da460c9e7, type: 2}
   m_SchemaSet:
