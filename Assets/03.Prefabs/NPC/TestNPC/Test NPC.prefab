@@ -195,6 +195,7 @@ MonoBehaviour:
   patrolMaxDistance: 5
   patrolMinDelay: 5
   patrolMaxDelay: 10
+  attackSFX: {fileID: 0}
   attackEnabled: 1
   attackDistance: 5
   attackDelay: 1
@@ -212,7 +213,7 @@ Animator:
   m_GameObject: {fileID: 7167605842301248823}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: de13a7420582ded45a8d7d3f96889aca, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4c7fe8e1a3919c549a79a706afefd1ce, type: 2}
+  m_Controller: {fileID: 9100000, guid: b131a9e49607bd244bb6abd55065dbc1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
