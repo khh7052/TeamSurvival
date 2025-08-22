@@ -17,6 +17,7 @@ public class EquipSystem : MonoBehaviour
     private float nextUseTime = 0f;
 
     [Header("Slots")]
+    [SerializeField] private SoundData equipSFX;
     public Transform handSlot;
     public Transform EquipTransform;
 
@@ -139,6 +140,7 @@ public class EquipSystem : MonoBehaviour
 
     public void Equip(ItemData data)
     {
+        AudioManager.Instance.PlaySFX(equipSFX, transform.position);
         currentItem = data;
 
         viewSwing = null;
@@ -215,6 +217,7 @@ public class EquipSystem : MonoBehaviour
 
     public void UnEquip()
     {
+        AudioManager.Instance.PlaySFX(equipSFX, transform.position);
         currentItem = null;
 
         viewSwing = null;
