@@ -79,6 +79,6 @@ Assets/
 
 <img width="1199" height="665" alt="스크린샷 2025-08-22 101514" src="https://github.com/user-attachments/assets/46192d0b-fc4d-446a-b177-825ba40c3b04" />
 
-## 발표 관련 자료료
+## 발표 관련 자료
 
 https://www.canva.com/design/DAGwtZyP7bk/sEy5f7Ym6RWjph5YpgwURg/edit
