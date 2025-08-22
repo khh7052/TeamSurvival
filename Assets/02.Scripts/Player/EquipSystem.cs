@@ -5,7 +5,7 @@ using UnityEngine;
 public class EquipSystem : MonoBehaviour
 {
     [Header("Current")]
-    [SerializeField] private ItemData currentItem;
+    [SerializeField] public ItemData currentItem;
     [SerializeField] private GameObject currentItemInstance;
 
     public WeaponType EquippedWeaponType { get; private set; } = WeaponType.None;
@@ -212,6 +212,7 @@ public class EquipSystem : MonoBehaviour
 
     public void UnEquip()
     {
+        Debug.Log("UnEquip½ÇÇà");
         currentItem = null;
 
         if (viewInst != null) { Destroy(viewInst); viewInst = null; }

@@ -189,6 +189,7 @@ public class UIInventory : BaseUI
     public void OnDropButton()
     {
         if (selectedItem?.item == null) return;
+        Debug.Log("DropButton´©¸§");
         inventory.ThrowItemInInventory(selectedItemIndex);
         if (slots[selectedItemIndex].quantity <= 0)
         {
