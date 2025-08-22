@@ -182,7 +182,7 @@ public class UIInventory : BaseUI
 
     public void OnUseButton()
     {
-        inventory.UseItem(selectedItemIndex);
+        inventory.UseItem(selectedItemIndex);       
     }
 
 
@@ -190,6 +190,9 @@ public class UIInventory : BaseUI
     {
         if (selectedItem?.item == null) return;
         Debug.Log("DropButton´©¸§");
+
+        slots[selectedItemIndex].equipped = false;
+
         inventory.ThrowItemInInventory(selectedItemIndex);
         if (slots[selectedItemIndex].quantity <= 0)
         {

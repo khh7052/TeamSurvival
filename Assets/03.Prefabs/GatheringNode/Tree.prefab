@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceName: "\uB098\uBB34"
   maxDurability: 30
+  hitSFX: {fileID: 11400000, guid: 400b377227c262c4fb2ae8b84ce5d957, type: 2}
   kind: 0
   preferredTool: 1
   correctToolMultiplier: 1
