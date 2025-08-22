@@ -1537,6 +1537,8 @@ MonoBehaviour:
   starvationDps: 0.25
   dehydrationDps: 0.25
   mesh: {fileID: 0}
+  skinMesh: {fileID: 865381675044446465}
+  anim: {fileID: 0}
 --- !u!1 &5543172257509407119
 GameObject:
   m_ObjectHideFlags: 0

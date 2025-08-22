@@ -4665,6 +4665,7 @@ MonoBehaviour:
   starvationDps: 0.25
   dehydrationDps: 0.25
   mesh: {fileID: 0}
+  skinMesh: {fileID: 0}
   anim: {fileID: 0}
 --- !u!114 &777261130677496077
 MonoBehaviour:
@@ -4716,8 +4717,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots:
-  - item: {fileID: 0}
-    Quantity: 0
+  - item: {fileID: 11400000, guid: 4a4703d784bdf36439616e1d6835951a, type: 2}
+    Quantity: 1
   - item: {fileID: 0}
     Quantity: 0
   - item: {fileID: 0}
@@ -4807,7 +4808,7 @@ MonoBehaviour:
   currentItemInstance: {fileID: 0}
   hitMask:
     serializedVersion: 2
-    m_Bits: 21248
+    m_Bits: 23296
   handSlot: {fileID: 9210934534352783902}
   EquipTransform: {fileID: 2685170793834150853}
   spawnThirdPersonModel: 1
