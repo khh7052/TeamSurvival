@@ -4809,6 +4809,8 @@ MonoBehaviour:
   hitMask:
     serializedVersion: 2
     m_Bits: 23296
+  equipSFX: {fileID: 11400000, guid: 482468577f7cffc4d9627856b077f725, type: 2}
+  attackSFX: {fileID: 11400000, guid: d1d1d479864cc6d4e8248460ce7305d6, type: 2}
   handSlot: {fileID: 9210934534352783902}
   EquipTransform: {fileID: 2685170793834150853}
   spawnThirdPersonModel: 1

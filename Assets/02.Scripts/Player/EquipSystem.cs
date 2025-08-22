@@ -18,6 +18,7 @@ public class EquipSystem : MonoBehaviour
 
     [Header("Slots")]
     [SerializeField] private SoundData equipSFX;
+    [SerializeField] private SoundData attackSFX;
     public Transform handSlot;
     public Transform EquipTransform;
 
@@ -235,6 +236,8 @@ public class EquipSystem : MonoBehaviour
     public void Attack()
     {
         if (Time.time < nextUseTime) return;
+
+        AudioManager.Instance.PlaySFX(attackSFX, transform.position);
 
         bool hasWeapon = currentItem != null && currentItem.isWeapon;
         bool hasTool = currentItem != null && currentItem.isTool;
