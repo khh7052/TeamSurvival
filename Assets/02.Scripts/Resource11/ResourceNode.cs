@@ -10,6 +10,7 @@ public class ResourceNode : MonoBehaviour, IHarvestable
     [Header("기본")]
     public string resourceName = "Resource";
     public float maxDurability = 40f;
+    public SoundData hitSFX;
 
     [Header("종류(맨손)")]
     public ResourceKind kind = ResourceKind.Other;
@@ -137,6 +138,7 @@ public class ResourceNode : MonoBehaviour, IHarvestable
     {
         if (amount <= 0f) return;
 
+        AudioManager.Instance.PlaySFX(hitSFX, transform.position);
         durability -= amount;
         if (durability <= 0f)
         {
