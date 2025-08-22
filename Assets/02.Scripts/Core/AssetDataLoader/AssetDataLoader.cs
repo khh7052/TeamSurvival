@@ -15,6 +15,8 @@ public class AssetDataLoader : Singleton<AssetDataLoader>
     protected override void Initialize()
     {
         base.Initialize();
+        data = Resources.Load<AssetReferenceData>("Data/ItemAssetList");
+
         foreach(var d in data.data)
         {
             prefabAddressDict[d.ID] = d.assetAdress;
